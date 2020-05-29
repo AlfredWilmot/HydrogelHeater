@@ -26,5 +26,6 @@ Q | A
 Complete shopping list []\
 Setup PCB project file with Arduino Nano header footprint, upload []\
 Design a preliminary PCB, upload here []\
-CAD-model of device with PCB, Peltier device, and mounted sensors []
-
+CAD-model of device with PCB, Peltier device, and mounted sensors []\
+5A fuse in line with peltier device []\
+Max "I-arduino" fuse in line with arduino Vcc []
