@@ -1,7 +1,7 @@
 (export (version D)
   (design
     (source C:\Users\alfre\Desktop\HydrogelHeater\peltier_driver_pcb\peltier_driver_pcb.sch)
-    (date "29/05/2020 21:02:17")
+    (date "29/05/2020 22:36:38")
     (tool "Eeschema (5.1.6)-1")
     (sheet (number 1) (name /) (tstamps /)
       (title_block
