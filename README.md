@@ -22,3 +22,8 @@ Q | A
 --- | ---
 **T-Resolution?** | *See datasheet (basically linear T-dependent resistor) + use wheatstone bridge*
 
+## TODO
+Complete shopping list []\
+Make a preliminary PCB, upload here []\
+CAD-model of device with PCB, Peltier device, and mounted sensors []
+
