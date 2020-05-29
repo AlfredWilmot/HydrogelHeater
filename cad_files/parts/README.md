@@ -1,4 +1,4 @@
-#A list of references for the parts I did not model.
+# A list of references for the parts I did not model.
 [arduino nano.STEP](https://grabcad.com/library/arduino-nano--1)\
 [female_header_a-bl254-eg-g15d](https://grabcad.com/library/female-header-pitch-2-54mm-straight-single-row-2-to-40-1)\
 [female_header_a-bl254-eg-g04d](https://grabcad.com/library/female-header-pitch-2-54mm-straight-single-row-2-to-40-1)\
