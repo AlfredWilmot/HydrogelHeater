@@ -12,9 +12,13 @@ Store all the CAD and Gerber files for an adjustable hot-plate for experimenting
  PCB? Housing? | []
  [LCD display](https://www.amazon.co.uk/IZOKEE-Display-SSD1306-Raspberry-White-IIC/dp/B076PNP2VD/ref=sr_1_16?dchild=1&keywords=lcd%2Bdisplay&qid=1590750260&sr=8-16&th=1) | []
  [POT](https://uk.banggood.com/3590S-2-103L-10K-Ohm-BOURNS-Rotary-Wirewound-Precision-Potentiometer-Pot-10-Turn-p-1026632.html?rmmds=search&cur_warehouse=CN) for adjusting desired temp | []
- [Temp sensor (x2)](https://uk.rs-online.com/web/p/platinum-resistance-temperature-sensors/3629913/) | 
+ [Temp sensor (x2)](https://uk.rs-online.com/web/p/platinum-resistance-temperature-sensors/3629913/) | []
+
  
  ## Notes
  
- Two T-sensors (one for either side of the peltier module).
- - T-Resolution? T-Max? (0.01C, 40C)
+Two T-sensors (one for either side of the peltier module).
+Q | A
+--- | ---
+**T-Resolution?** | *See datasheet (basically linear T-dependent resistor) + use wheatstone bridge*
+
