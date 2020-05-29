@@ -24,6 +24,7 @@ Q | A
 
 ## TODO
 Complete shopping list []\
-Make a preliminary PCB, upload here []\
+Setup PCB project file with Arduino Nano header footprint, upload []\
+Design a preliminary PCB, upload here []\
 CAD-model of device with PCB, Peltier device, and mounted sensors []
 
