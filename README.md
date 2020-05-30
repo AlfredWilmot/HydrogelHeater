@@ -1,6 +1,9 @@
 # HydrogelHeater
 Store all the CAD and Gerber files for an adjustable hot-plate for experimenting with temperature-responsive Hydrogels.
 
+## Latest version
+![alt text](https://github.com/AlfredWilmot/HydrogelHeater/blob/i2c_lcd/pics/peltier_driver_v0.PNG)
+
 ## Parts list 
 
  **Part ID** | **Purchased?** 
