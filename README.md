@@ -14,8 +14,8 @@ Store all the CAD and Gerber files for an adjustable hot-plate for experimenting
  [60W 12V 40mm x 40mm Peltier device](https://www.banggood.com/TEC1-12706-40x40mm-Thermoelectric-Cooler-Peltier-Plate-Module-12V-60W-p-74295.html?rmmds=search&cur_warehouse=UK) | []
  PCB? Housing? | []
  [LCD display](https://www.banggood.com/5Pcs-0_91-Inch-128x32-IIC-I2C-Blue-OLED-LCD-Display-DIY-Oled-Module-SSD1306-Driver-IC-DC-3_3V-5V-p-1191376.html?rmmds=myorder&cur_warehouse=UK) | []
- [POT](https://uk.banggood.com/3590S-2-103L-10K-Ohm-BOURNS-Rotary-Wirewound-Precision-Potentiometer-Pot-10-Turn-p-1026632.html?rmmds=search&cur_warehouse=CN) for adjusting desired temp | []
- [trimpot x 2](https://www.banggood.com/10-Value-100pcs-1001M-Trimmer-Resistor-Trim-Pot-Potentiometer-Kit-p-1071345.html?rmmds=search&cur_warehouse=CN) for balancing temp-sensor wheatstone bridges ~(1K @ 0C, 800 Ohms @ -50?, 1.4K @ 100C?, 2.8K @ 500C?) | []
+ ~~[POT](https://uk.banggood.com/3590S-2-103L-10K-Ohm-BOURNS-Rotary-Wirewound-Precision-Potentiometer-Pot-10-Turn-p-1026632.html?rmmds=search&cur_warehouse=CN) for adjusting desired temp~~ | []
+ ~~[trimpot x 2](https://www.banggood.com/10-Value-100pcs-1001M-Trimmer-Resistor-Trim-Pot-Potentiometer-Kit-p-1071345.html?rmmds=search&cur_warehouse=CN) for balancing temp-sensor wheatstone bridges ~(1K @ 0C, 800 Ohms @ -50?, 1.4K @ 100C?, 2.8K @ 500C?)~~ | []
  [Temp sensor x 2 ](https://uk.rs-online.com/web/p/platinum-resistance-temperature-sensors/3629913/), and it's [datasheet](https://docs.rs-online.com/24d5/0900766b815e5304.pdf), a [conversion table for Pt1000 thermistors](https://www.sterlingsensors.co.uk/pt1000-resistance-table)| []
 
  
