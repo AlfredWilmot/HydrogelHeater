@@ -17,7 +17,7 @@ Store all the CAD and Gerber files for an adjustable hot-plate for experimenting
  ~~[POT](https://uk.banggood.com/3590S-2-103L-10K-Ohm-BOURNS-Rotary-Wirewound-Precision-Potentiometer-Pot-10-Turn-p-1026632.html?rmmds=search&cur_warehouse=CN) for adjusting desired temp~~ | []
  ~~[trimpot x 2](https://www.banggood.com/10-Value-100pcs-1001M-Trimmer-Resistor-Trim-Pot-Potentiometer-Kit-p-1071345.html?rmmds=search&cur_warehouse=CN) for balancing temp-sensor wheatstone bridges (1K @ 0C, 800 Ohms @ -50?, 1.4K @ 100C?, 2.8K @ 500C?)~~ | []
  [Temp sensor x 2 ](https://uk.rs-online.com/web/p/platinum-resistance-temperature-sensors/3629913/), and it's [datasheet](https://docs.rs-online.com/24d5/0900766b815e5304.pdf), a [conversion table for Pt1000 thermistors](https://www.sterlingsensors.co.uk/pt1000-resistance-table)| []
-
+[MCP602](https://uk.rs-online.com/web/p/op-amps/3792588/)OpAmp for 1/4 wheatstone bridge | []
  
  ## Notes
  
@@ -27,7 +27,8 @@ Q | A
 **T-Resolution?** | *See datasheet (basically linear T-dependent resistor) + use wheatstone bridge*
 [**Why RTD instead of thermocouple?**](https://www.omega.com/en-us/resources/rtd-vs-thermocouple) | RTD typically has higher resolution (o.1C), ~ linear across entire sensing range, and readings are very stable over a long period of time.
 [**Types of temperature senors**](https://www.watelectrical.com/6-different-types-of-temperature-sensors-with-their-specifications/) | 
-
+[**Some OpAmp notes**](https://www.electronics-tutorials.ws/opamp/opamp_5.html) | 
+**Notes on using RTD** [(1)](http://ww1.microchip.com/downloads/en/AppNotes/00687c.pdf), [(2)](https://docs.rs-online.com/24d5/0900766b815e5304.pdf) |
 ## TODO
 Complete shopping list []\
 Setup PCB project file with Arduino Nano header footprint, upload []\
