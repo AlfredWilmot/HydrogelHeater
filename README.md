@@ -25,7 +25,7 @@ Two T-sensors (one for either side of the peltier module).
 Q | A
 --- | ---
 **T-Resolution?** | *See datasheet (basically linear T-dependent resistor) + use wheatstone bridge*
-
+[**Why RTD instead of thermocouple?**](https://www.omega.com/en-us/resources/rtd-vs-thermocouple) | RTD typically has higher resolution (o.1C), ~ linear across entire sensing range, and readings are very stable over a long period of time.
 ## TODO
 Complete shopping list []\
 Setup PCB project file with Arduino Nano header footprint, upload []\
