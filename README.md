@@ -28,7 +28,7 @@ Q | A
 [**Why RTD instead of thermocouple?**](https://www.omega.com/en-us/resources/rtd-vs-thermocouple) | RTD typically has higher resolution (o.1C), ~ linear across entire sensing range, and readings are very stable over a long period of time.
 [**Types of temperature senors**](https://www.watelectrical.com/6-different-types-of-temperature-sensors-with-their-specifications/) | 
 [**Some OpAmp notes**](https://www.electronics-tutorials.ws/opamp/opamp_5.html) | 
-**Notes on using RTD** [(1)](http://ww1.microchip.com/downloads/en/AppNotes/00687c.pdf), [(2)](https://docs.rs-online.com/24d5/0900766b815e5304.pdf) |
+**Notes on using RTD** [(1)](http://ww1.microchip.com/downloads/en/AppNotes/00687c.pdf), [(2)](https://docs.rs-online.com/24d5/0900766b815e5304.pdf). [(3)--> GreatScott! vid](https://www.youtube.com/watch?v=1U4fep_qAeo&t=223s)|
 ## TODO
 Complete shopping list []\
 Setup PCB project file with Arduino Nano header footprint, upload []\
