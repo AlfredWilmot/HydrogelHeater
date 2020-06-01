@@ -319,7 +319,7 @@ U 1 1 5ED4FBCB
 P 4400 6600
 F 0 "C1" V 4450 6500 50  0000 C CNN
 F 1 "C_BUS" V 4500 6650 50  0000 C CNN
-F 2 "Capacitor_SMD:C_2816_7142Metric" H 4400 6600 50  0001 C CNN
+F 2 "Capacitor_SMD:C_0805_2012Metric" H 4400 6600 50  0001 C CNN
 F 3 "~" H 4400 6600 50  0001 C CNN
 	1    4400 6600
 	0    1    1    0   
@@ -534,4 +534,30 @@ Wire Wire Line
 	2800 7000 2550 7000
 Text Notes 900  6150 0    50   ~ 0
 Note don't need PuP resistors here as this I2C devices is adjacent to\nanother one on the same PCB.
+$Comp
+L Connector_Generic:Conn_01x01 J3
+U 1 1 5ED8DDBA
+P 3950 5900
+F 0 "J3" H 3900 6000 50  0000 L CNN
+F 1 "Peltier_A" H 3700 5800 50  0000 L CNN
+F 2 "Connector_Pin:Pin_D1.0mm_L10.0mm" H 3950 5900 50  0001 C CNN
+F 3 "~" H 3950 5900 50  0001 C CNN
+	1    3950 5900
+	-1   0    0    1   
+$EndComp
+$Comp
+L Connector_Generic:Conn_01x01 J4
+U 1 1 5ED8E2DB
+P 3950 6200
+F 0 "J4" H 3900 6300 50  0000 L CNN
+F 1 "Peltier_B" H 3700 6100 50  0000 L CNN
+F 2 "Connector_Pin:Pin_D1.0mm_L10.0mm" H 3950 6200 50  0001 C CNN
+F 3 "~" H 3950 6200 50  0001 C CNN
+	1    3950 6200
+	-1   0    0    1   
+$EndComp
+Text GLabel 4150 5900 2    50   Input ~ 0
+IN+
+Text GLabel 4150 6200 2    50   Input ~ 0
+IN-
 $EndSCHEMATC
