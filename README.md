@@ -29,6 +29,8 @@ Q | A
 [**Types of temperature senors**](https://www.watelectrical.com/6-different-types-of-temperature-sensors-with-their-specifications/) | 
 [**Some OpAmp notes**](https://www.electronics-tutorials.ws/opamp/opamp_5.html) | 
 **Notes on using RTD** [(1)](http://ww1.microchip.com/downloads/en/AppNotes/00687c.pdf), [(2)](https://docs.rs-online.com/24d5/0900766b815e5304.pdf). [(3)--> GreatScott! vid](https://www.youtube.com/watch?v=1U4fep_qAeo&t=223s)|
+[RTD implementation guide (TI)](http://www.ti.com/lit/an/sbaa275/sbaa275.pdf) | 
+[All-in-one IC for sensing with RTD: ADS1247IPW (overkill)](https://uk.rs-online.com/web/p/general-purpose-adcs/7091930/) |
 ## TODO
 Complete shopping list []\
 Setup PCB project file with Arduino Nano header footprint, upload []\
