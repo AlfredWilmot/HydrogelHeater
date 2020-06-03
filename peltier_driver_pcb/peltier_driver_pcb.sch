@@ -647,17 +647,6 @@ Text GLabel 5300 6500 2    50   Input ~ 0
 ALRT
 Text GLabel 9500 2700 0    50   Input ~ 0
 ALRT
-$Comp
-L Connector_Generic:Conn_02x10_Counter_Clockwise J?
-U 1 1 5EE24BC9
-P 10150 4450
-F 0 "J?" H 10200 5067 50  0000 C CNN
-F 1 "Conn_02x10_Counter_Clockwise" H 10200 4976 50  0000 C CNN
-F 2 "" H 10150 4450 50  0001 C CNN
-F 3 "~" H 10150 4450 50  0001 C CNN
-	1    10150 4450
-	1    0    0    -1  
-$EndComp
 Text GLabel 10900 2400 2    50   Input ~ 0
 D7
 Text GLabel 10900 2500 2    50   Input ~ 0
@@ -674,8 +663,6 @@ Text GLabel 10900 2700 2    50   Input ~ 0
 D10
 Text GLabel 9500 3000 0    50   Input ~ 0
 D6
-Text GLabel 9500 2600 0    50   Input ~ 0
-D2
 Text GLabel 9500 2400 0    50   Input ~ 0
 D0
 Text GLabel 9500 2500 0    50   Input ~ 0
@@ -690,8 +677,102 @@ Text GLabel 9500 1800 0    50   Input ~ 0
 A3
 Text GLabel 9500 1900 0    50   Input ~ 0
 A4
-Text GLabel 9500 2000 0    50   Input ~ 0
-A5
-Text GLabel 9500 2100 0    50   Input ~ 0
-A6
+Text GLabel 8750 2000 0    50   Input ~ 0
+POT_fine
+Wire Wire Line
+	8750 2000 9500 2000
+Text GLabel 8750 2100 0    50   Input ~ 0
+POT_coarse
+Wire Wire Line
+	8750 2100 9500 2100
+Text GLabel 8750 2600 0    50   Input ~ 0
+BTN
+Wire Wire Line
+	8750 2600 9500 2600
+Text GLabel 10400 4350 2    50   Input ~ 0
+D7
+Text GLabel 10400 4450 2    50   Input ~ 0
+D8
+Text GLabel 10400 4550 2    50   Input ~ 0
+D9
+Text GLabel 10400 4950 2    50   Input ~ 0
+D13
+Text GLabel 10400 4850 2    50   Input ~ 0
+D12
+Text GLabel 10400 4750 2    50   Input ~ 0
+D11
+Text GLabel 10400 4650 2    50   Input ~ 0
+D10
+Text GLabel 10400 4150 2    50   Input ~ 0
+D6
+Text GLabel 10400 4250 2    50   Input ~ 0
+D0
+Text GLabel 9900 4350 0    50   Input ~ 0
+D1
+$Comp
+L power:+3.3V #PWR012
+U 1 1 5EE310C5
+P 9450 4050
+F 0 "#PWR012" H 9450 3900 50  0001 C CNN
+F 1 "+3.3V" H 9465 4223 50  0000 C CNN
+F 2 "" H 9450 4050 50  0001 C CNN
+F 3 "" H 9450 4050 50  0001 C CNN
+	1    9450 4050
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:GND #PWR017
+U 1 1 5EE32E23
+P 9600 4350
+F 0 "#PWR017" H 9600 4100 50  0001 C CNN
+F 1 "GND" H 9605 4177 50  0000 C CNN
+F 2 "" H 9600 4350 50  0001 C CNN
+F 3 "" H 9600 4350 50  0001 C CNN
+	1    9600 4350
+	1    0    0    -1  
+$EndComp
+$Comp
+L Connector_Generic:Conn_02x09_Counter_Clockwise J7
+U 1 1 5EE3C42F
+P 10100 4550
+F 0 "J7" H 10150 5167 50  0000 C CNN
+F 1 "Arduino_breakout" H 10150 5076 50  0000 C CNN
+F 2 "Connector_PinHeader_2.54mm:PinHeader_2x09_P2.54mm_Vertical" H 10100 4550 50  0001 C CNN
+F 3 "~" H 10100 4550 50  0001 C CNN
+	1    10100 4550
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	9600 4350 9600 4250
+Wire Wire Line
+	9600 4250 9900 4250
+$Comp
+L power:+5V #PWR018
+U 1 1 5EE4F7FF
+P 9700 3900
+F 0 "#PWR018" H 9700 3750 50  0001 C CNN
+F 1 "+5V" H 9715 4073 50  0000 C CNN
+F 2 "" H 9700 3900 50  0001 C CNN
+F 3 "" H 9700 3900 50  0001 C CNN
+	1    9700 3900
+	1    0    0    -1  
+$EndComp
+Text GLabel 9900 4950 0    50   Input ~ 0
+A0
+Text GLabel 9900 4850 0    50   Input ~ 0
+A1
+Text GLabel 9900 4750 0    50   Input ~ 0
+A2
+Text GLabel 9900 4650 0    50   Input ~ 0
+A3
+Text GLabel 9900 4550 0    50   Input ~ 0
+A4
+Wire Wire Line
+	9900 4150 9450 4150
+Wire Wire Line
+	9450 4150 9450 4050
+Wire Wire Line
+	9700 3900 9700 4450
+Wire Wire Line
+	9700 4450 9900 4450
 $EndSCHEMATC
