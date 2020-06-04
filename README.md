@@ -18,6 +18,8 @@ Store all the CAD and Gerber files for an adjustable hot-plate for experimenting
  ~~[trimpot x 2](https://www.banggood.com/10-Value-100pcs-1001M-Trimmer-Resistor-Trim-Pot-Potentiometer-Kit-p-1071345.html?rmmds=search&cur_warehouse=CN) for balancing temp-sensor wheatstone bridges (1K @ 0C, 800 Ohms @ -50?, 1.4K @ 100C?, 2.8K @ 500C?)~~ | []
  [Temp sensor x 2 ](https://uk.rs-online.com/web/p/platinum-resistance-temperature-sensors/3629913/), and it's [datasheet](https://docs.rs-online.com/24d5/0900766b815e5304.pdf), a [conversion table for Pt1000 thermistors](https://www.sterlingsensors.co.uk/pt1000-resistance-table)| []
 [MCP602](https://uk.rs-online.com/web/p/op-amps/3792588/)OpAmp for 1/4 wheatstone bridge | []
+[EC11 Incremental encoder switch](https://tech.alpsalpine.com/prod/e/html/encoder/incremental/ec11/ec11b15242b1.html), purhcase from [here](https://www.amazon.co.uk/gp/product/B07FYHG2QZ/ref=ox_sc_act_title_1?smid=A2U6J8JDFFB524&psc=1)| []
+
  
  ## Notes
  
