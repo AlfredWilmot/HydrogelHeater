@@ -92,21 +92,6 @@ rt_tbl_R = tmp_R
 
 
 
-
-
-
-## Plotting table data
-fig = plt.figure(constrained_layout=True)
-gs = gridspec.GridSpec(2, 1, figure=fig)
-ax = fig.add_subplot(gs[0, :])
-
-#lin_2 = ax.plot(T, R_T, label='Exponential$ Beta conversion')
-lin_1 = ax.plot(rt_tbl_T, rt_tbl_R, label="Datasheet look-up table")
-
-ax.set(ylabel='R $(\Omega)$', xlabel='T $(^{o}C)$',
-        title='GA10K4A1A NTC: T vs R')
-
-
 # To get error vals:
 # 1) get indices from T vals that are closest to the nearest degree (and match corresponding R_T vals)
 
@@ -139,8 +124,24 @@ for i,v in enumerate(T):
             T_cnt += 1
             delta_prev = 1
 
+
+
+
+
+## Plotting table data
+fig = plt.figure(constrained_layout=True)
+gs = gridspec.GridSpec(2, 1, figure=fig)
+ax = fig.add_subplot(gs[0, :])
+
+#lin_2 = ax.plot(T, R_T, label='Exponential$ Beta conversion')
+lin_1 = ax.plot(rt_tbl_T, rt_tbl_R, label="Datasheet look-up table")
+
+ax.set(ylabel='R $(\Omega)$', xlabel='T $(^{o}C)$',
+        title='GA10K4A1A NTC: T vs R')
+
+
 # plot the data from the Beta model
-ax.plot(T_new, R_new, label='Exponential$ Beta conversion')     
+ax.plot(T_new, R_new, label='Exponential Beta conversion')     
     
 #Only show data of intereset
 ax.set_xlim([0,100])
