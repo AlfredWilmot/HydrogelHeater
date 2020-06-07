@@ -7,6 +7,7 @@ Script for exploring circuit implementation of GA10K4A1 NTC
 
     Thermistor calculator:      https://www.daycounter.com/Calculators/Steinhart-Hart-Thermistor-Calculator.phtml
     Thermistor Guide:           https://www.electronics-tutorials.ws/io/thermistors.html
+    Thermistor selection guide: https://www.vishay.com/docs/33001/seltherm.pdf
     
 """
 
