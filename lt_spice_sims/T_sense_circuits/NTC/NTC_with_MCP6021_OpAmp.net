@@ -11,7 +11,7 @@ XU1 N001 N002 Vcc 0 Vout MCP6021
 .param B=3694
 .param R25=10k
 .param RT=R25*exp(B*(1/(TEMP1+TK)-1/(T25+TK)))
-.step param TEMP1 1 50 0.1
+.step param TEMP1 1 50 1
 .op
 .lib C:\Users\alfre\Desktop\HydrogelHeater\lt_spice_sims\3D_party_spice_models\opamp\MCP6021_MM_B\MCP6021.txt
 .backanno
