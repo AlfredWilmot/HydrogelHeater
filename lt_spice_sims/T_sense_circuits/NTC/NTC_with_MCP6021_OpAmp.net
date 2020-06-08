@@ -1,0 +1,18 @@
+* C:\Users\alfre\Desktop\HydrogelHeater\lt_spice_sims\T_sense_circuits\NTC\NTC_with_MCP6021_OpAmp.asc
+R2 0 N002 30K
+R3 N002 Vout 30K
+V1 Vcc 0 5
+R4 Vcc N001 30k
+R1 N001 0 {RT}
+XU1 N001 N002 Vcc 0 Vout MCP6021
+* NTC code from here: \nhttps://ez.analog.com/design-tools-and-calculators/f/q-a/103552/lt-spice-thermistor-model
+.param TK=273.15
+.param T25=25
+.param B=3694
+.param R25=10k
+.param RT=R25*exp(B*(1/(TEMP1+TK)-1/(T25+TK)))
+.step param TEMP1 1 50 0.1
+.op
+.lib C:\Users\alfre\Desktop\HydrogelHeater\lt_spice_sims\3D_party_spice_models\opamp\MCP6021_MM_B\MCP6021.txt
+.backanno
+.end
