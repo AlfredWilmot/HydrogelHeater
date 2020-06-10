@@ -1,4 +1,4 @@
-update=01/06/2020 19:52:40
+update=10/06/2020 02:08:13
 version=1
 last_client=pcbnew
 [general]
@@ -39,7 +39,10 @@ MinMicroViaDiameter=0.2
 MinMicroViaDrill=0.09999999999999999
 MinHoleToHole=0.25
 TrackWidth1=0.25
-TrackWidth2=2
+TrackWidth2=0.25
+TrackWidth3=0.5
+TrackWidth4=2
+TrackWidth5=4
 ViaDiameter1=0.8
 ViaDrill1=0.4
 dPairWidth1=0.2
@@ -248,6 +251,17 @@ dPairWidth=0.2
 dPairGap=0.25
 dPairViaGap=0.25
 [pcbnew/Netclasses/1]
+Name=Gnd
+Clearance=0.2
+TrackWidth=0.5
+ViaDiameter=0.8
+ViaDrill=0.4
+uViaDiameter=0.3
+uViaDrill=0.1
+dPairWidth=0.2
+dPairGap=0.25
+dPairViaGap=0.25
+[pcbnew/Netclasses/2]
 Name=Vcc
 Clearance=0.2
 TrackWidth=0.5

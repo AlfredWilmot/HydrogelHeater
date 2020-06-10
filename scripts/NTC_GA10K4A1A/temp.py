@@ -130,8 +130,8 @@ for i,v in enumerate(T):
 
 ## Plotting table data
 fig = plt.figure(constrained_layout=True)
-gs = gridspec.GridSpec(2, 1, figure=fig)
-ax = fig.add_subplot(gs[0, :])
+gs = gridspec.GridSpec(5, 1, figure=fig)
+ax = fig.add_subplot(gs[0:3, :])
 
 #lin_2 = ax.plot(T, R_T, label='Exponential$ Beta conversion')
 lin_1 = ax.plot(rt_tbl_T, rt_tbl_R, label="Datasheet look-up table")
@@ -141,7 +141,7 @@ ax.set(ylabel='R $(\Omega)$', xlabel='T $(^{o}C)$',
 
 
 # plot the data from the Beta model
-ax.plot(T_new, R_new, label='Exponential Beta conversion')     
+ax.plot(T_new, R_new, label='Beta model conversion')     
     
 #Only show data of intereset
 ax.set_xlim([0,100])
@@ -150,7 +150,7 @@ ax.grid()
 ax.legend()
 
 # plot the error between the beta model and the table data to see how it changes with temperature
-ax_err = fig.add_subplot(gs[1, :])
+ax_err = fig.add_subplot(gs[3:, :])
 R_err=[]
 
 for i,v in enumerate(R_new):
@@ -161,6 +161,7 @@ ax_err.plot(T_new, R_err, label='R_T error')
 ax_err.legend()
 ax_err.set(ylabel='%R $(\Omega)$', xlabel='T $(^{o}C)$',
         title='GA10K4A1A NTC: R error vs T')
+ax_err.grid()
 
 plt.show()
         
