@@ -827,4 +827,75 @@ Wire Wire Line
 	1950 6400 1950 6950
 Wire Wire Line
 	3000 7150 3450 7150
+$Comp
+L Connector_Generic:Conn_02x10_Top_Bottom J6
+U 1 1 5F649382
+P 4400 6850
+F 0 "J6" H 4450 7467 50  0000 C CNN
+F 1 "Conn_02x10_Top_Bottom" H 4450 7376 50  0000 C CNN
+F 2 "Connector_PinHeader_2.54mm:PinHeader_2x10_P2.54mm_Vertical" H 4400 6850 50  0001 C CNN
+F 3 "~" H 4400 6850 50  0001 C CNN
+	1    4400 6850
+	1    0    0    -1  
+$EndComp
+NoConn ~ 4700 6450
+NoConn ~ 4700 6550
+NoConn ~ 4700 6650
+NoConn ~ 4700 6750
+NoConn ~ 4700 6850
+NoConn ~ 4700 6950
+NoConn ~ 4700 7050
+NoConn ~ 4700 7150
+NoConn ~ 4700 7250
+NoConn ~ 4700 7350
+NoConn ~ 4200 7350
+NoConn ~ 4200 7250
+NoConn ~ 4200 7150
+NoConn ~ 4200 7050
+NoConn ~ 4200 6950
+NoConn ~ 4200 6850
+NoConn ~ 4200 6750
+NoConn ~ 4200 6650
+NoConn ~ 4200 6550
+NoConn ~ 4200 6450
+$Comp
+L Device:LED D1
+U 1 1 5F67BD7D
+P 3450 7300
+F 0 "D1" V 3489 7182 50  0000 R CNN
+F 1 "LED" V 3398 7182 50  0000 R CNN
+F 2 "LED_THT:LED_D3.0mm" H 3450 7300 50  0001 C CNN
+F 3 "~" H 3450 7300 50  0001 C CNN
+	1    3450 7300
+	0    -1   -1   0   
+$EndComp
+$Comp
+L Device:R R10
+U 1 1 5F67EA00
+P 3600 7600
+F 0 "R10" V 3700 7700 50  0000 C CNN
+F 1 "180" V 3600 7600 50  0000 C CNN
+F 2 "Resistor_THT:R_Axial_DIN0204_L3.6mm_D1.6mm_P2.54mm_Vertical" V 3530 7600 50  0001 C CNN
+F 3 "~" H 3600 7600 50  0001 C CNN
+	1    3600 7600
+	0    1    1    0   
+$EndComp
+Wire Wire Line
+	3450 7450 3450 7600
+$Comp
+L power:GND #PWR0104
+U 1 1 5F6841AE
+P 3900 7600
+F 0 "#PWR0104" H 3900 7350 50  0001 C CNN
+F 1 "GND" H 3905 7427 50  0000 C CNN
+F 2 "" H 3900 7600 50  0001 C CNN
+F 3 "" H 3900 7600 50  0001 C CNN
+	1    3900 7600
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	3750 7600 3900 7600
+Connection ~ 3450 7150
+Text Notes 4000 7700 0    50   ~ 10
+R_let = (5V - V_LED)/(15mA)
 $EndSCHEMATC
