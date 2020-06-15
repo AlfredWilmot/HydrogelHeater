@@ -1,0 +1,76 @@
+
+**** 01/09/20 10:42:37 ***** PSpice 16.6.0 (October 2012) ***** ID# 0 ********
+
+ ** Profile: "SCHEMATIC1-DC_Sweep"  [ C:\Users\a0282827\Downloads\PSpice Library\INA283\INA283_PSpice\ina283 test circuit-pspicefiles
+
+
+ ****     CIRCUIT DESCRIPTION
+
+
+******************************************************************************
+
+
+
+
+** Creating circuit file "DC_Sweep.cir" 
+** WARNING: THIS AUTOMATICALLY GENERATED FILE MAY BE OVERWRITTEN BY SUBSEQUENT SIMULATIONS
+
+*Libraries: 
+* Profile Libraries :
+* Local Libraries :
+.LIB "../../../ina283.lib" 
+* From [PSPICE NETLIST] section of C:\Users\a0282827\AppData\Roaming\SPB_Data\cdssetup\OrCAD_PSpice/16.6.0/PSpice.ini file:
+.lib "nom.lib" 
+
+*Analysis directives: 
+.DC LIN V_Vin -14 25 1 
+.OPTIONS ADVCONV
+.AUTOCONVERGE ITL1=1000 ITL2=1000 ITL4=1000 RELTOL=0.05 ABSTOL=1.0E-6 VNTOL=.001 PIVTOL=1.0E-10 
+.PROBE64 V(*) I(*) W(alias(*)) D(alias(*)) NOISE(alias(*)) 
+.INC "..\SCHEMATIC1.net" 
+
+
+
+**** INCLUDING SCHEMATIC1.net ****
+* source INA283 TEST CIRCUIT
+V_Vin         IN 0 DC 2.5 AC 0.1 PULSE(-20 20 0 100p 100p 80u 160u)
+V_V2         N14290888 0 5Vdc
+R_Rshunt         IN LOAD  10e-3 TC=0,0 
+R_Rload         0 LOAD  5 TC=0,0 
+R_R3         0 OUT  10k TC=0,0 
+X_U1         IN LOAD N14290888 0 OUT N14290888 0 INA283 PARAMS: TR_MODE=0
+
+**** RESUMING DC_Sweep.cir ****
+.END
+
+INFO(ORPSIM-15423): Unable to find index file ina283.ind for library file ina283.lib.
+
+INFO(ORPSIM-15422): Making new index file ina283.ind for library file ina283.lib.
+
+Index has 93 entries from 1 file(s).
+
+
+**** EXPANSION OF SUBCIRCUIT X_U1.XU1.XControl.XClkF1 ****
+.PARAM TR_TM { IF (TR_MODE > 0.5, 1, 1000000 ) }
+X_U1.XU1.XControl.XClkF1.VCLKF1 X_U1.XU1.XControl.46
++ X_U1.XU1.XControl.XClkF1.3 DC 0 AC 0 0 PWL 0 0 100N 0 REPEAT
++ FOREVER 0 0 1N -1 {2.015U*TR_TM}
+--------------------$
+ERROR(ORPSIM-16352): Time value must not be an expression
+
+
+**** EXPANSION OF SUBCIRCUIT X_U1.XU1.XControl.XClkF32 ****
+.PARAM TR_TM { IF (TR_MODE > 0.5, 1, 1000000 ) }
+X_U1.XU1.XControl.XClkF32.VCLKF32 X_U1.XU1.XControl.ClkF3
++ X_U1.XU1.Startup DC 0 AC 0 0 PWL 0 0 125N 0 REPEAT FOREVER 0 0 1N 1 {50N*TR_TM}
+----------------------------------------------------------------------$
+ERROR(ORPSIM-16352): Time value must not be an expression
+
+
+**** EXPANSION OF SUBCIRCUIT X_U1.XU1.XControl.XClkF2 ****
+.PARAM TR_TM { IF (TR_MODE > 0.5, 1, 1000000 ) }
+X_U1.XU1.XControl.XClkF2.VCLKF2 X_U1.XU1.XControl.48 0 DC 0 AC 0 0
++ PWL 0 0 125N 0 REPEAT FOREVER 0 0 1N 1 {1.965U*TR_TM}
+-----------------------------------------$
+ERROR(ORPSIM-16352): Time value must not be an expression
+

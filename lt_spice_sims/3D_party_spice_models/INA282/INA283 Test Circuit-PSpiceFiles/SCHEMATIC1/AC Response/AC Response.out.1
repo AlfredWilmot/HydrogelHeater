@@ -1,0 +1,2229 @@
+
+**** 09/23/11 11:16:16 ******* PSpice 16.2.0 (Oct 2008) ******* ID# 0 ********
+
+ ** Profile: "SCHEMATIC1-AC Response"  [ C:\Users\a0867324\Desktop\Apps_Support\INA282 - Forum(Eaton) - 082511\ina282_pspice_model\IN
+
+
+ ****     CIRCUIT DESCRIPTION
+
+
+******************************************************************************
+
+
+
+
+** Creating circuit file "AC Response.cir" 
+** WARNING: THIS AUTOMATICALLY GENERATED FILE MAY BE OVERWRITTEN BY SUBSEQUENT SIMULATIONS
+
+*Libraries: 
+* Profile Libraries :
+* Local Libraries :
+.LIB "../../../ina282.lib" 
+* From [PSPICE NETLIST] section of C:\Cadence\SPB_16.2\tools\PSpice\PSpice.ini file:
+.lib "nom.lib" 
+
+*Analysis directives: 
+.AC DEC 20 10 1e6
+.PROBE V(*) I(*) W(alias(*)) D(alias(*)) NOISE(alias(*)) 
+.INC "..\SCHEMATIC1.net" 
+
+
+
+**** INCLUDING SCHEMATIC1.net ****
+* source INA282
+R_Rload         0 LOAD  5 TC=0,0 
+R_R3         0 OUT  10k TC=0,0 
+X_U1         IN LOAD N14290888 0 OUT N14290888 0 INA282 PARAMS:  TR_MODE=0
+V_Vin         IN 0 DC 0 AC 1 
+V_V2         N14290888 0 5Vdc
+R_Rshunt         IN LOAD  10e-3 TC=0,0 
+
+**** RESUMING "AC Response.cir" ****
+.END
+
+**** 09/23/11 11:16:16 ******* PSpice 16.2.0 (Oct 2008) ******* ID# 0 ********
+
+ ** Profile: "SCHEMATIC1-AC Response"  [ C:\Users\a0867324\Desktop\Apps_Support\INA282 - Forum(Eaton) - 082511\ina282_pspice_model\IN
+
+
+ ****     Diode MODEL PARAMETERS
+
+
+******************************************************************************
+
+
+
+
+               D2              DZ_14V          DZ_80V          
+          IS    1.000000E-12    1.000000E-12    1.000000E-12 
+          BV                   14              80            
+         IBV                    5.000000E-03    5.000000E-03 
+          RS   10              10              10            
+         XTI    0               0               0            
+
+
+               X_U1.XU1.XControl.XD4.DD 
+          IS   10.000000E-15 
+           N    1.5          
+          RS    1            
+          EG     .888        
+
+
+               X_U1.XU1.XControl.XDZb1.D_4_9V 
+          IS    1.000000E-15 
+           N    3            
+          BV    5.9          
+         IBV    1.000000E-06 
+
+
+               X_U1.XU1.XBias.XD7.DD 
+          IS   10.000000E-15 
+           N    1.25         
+          RS    1            
+         XTI    0            
+
+
+               X_U1.XU1.XBias.XD4.DD 
+          IS   10.000000E-15 
+          RS   20.000000E+03 
+         XTI    0            
+
+
+               X_U1.XU1.XBias.XD2.DD 
+          IS   10.000000E-15 
+           N    2            
+          RS    1.000000E+03 
+         XTI    0            
+
+
+               X_U1.XU1.XBias.XD1.DD           D_LIM1          D_LIM2          
+          IS    1.000000E-12                   10.000000E-15   10.000000E-15 
+           N     .5                                              .5          
+          RS   20.000000E+03                    1.000000E+03    1            
+          EG     .555                                            .555        
+         XTI    0                               0               0            
+          AF     .1              .1          
+
+
+               D_LIM4          
+          IS   10.000000E-15 
+          RS    1.000000E-03 
+         XTI    0            
+          AF     .1          
+
+
+**** 09/23/11 11:16:16 ******* PSpice 16.2.0 (Oct 2008) ******* ID# 0 ********
+
+ ** Profile: "SCHEMATIC1-AC Response"  [ C:\Users\a0867324\Desktop\Apps_Support\INA282 - Forum(Eaton) - 082511\ina282_pspice_model\IN
+
+
+ ****     MOSFET MODEL PARAMETERS
+
+
+******************************************************************************
+
+
+
+
+               Q_PMOS          Q_PMOS_OUT_L1   Q_PMOS_OUT      Q_NMOS_OUT      
+               PMOS            PMOS            PMOS            NMOS            
+       LEVEL    1               1               3               3            
+           L    2.000000E-06   10.000000E-06   10.000000E-06   10.000000E-06 
+           W   10.000000E-06  100.000000E-06  100.000000E-06  100.000000E-06 
+          LD                   90.000000E-09   90.000000E-09   90.000000E-09 
+         VTO    -.75            -.75            -.75             .75         
+          KP   64.746450E-06   64.746450E-06   64.746450E-06  194.239300E-06 
+       GAMMA    0               0               0               0            
+         PHI     .6              .6              .6              .6          
+      LAMBDA    0                .01            0               0            
+         RDS                   10.000000E+06   10.000000E+06   10.000000E+06 
+         RSH                    4               4               4            
+          IS   10.000000E-15   10.000000E-15   10.000000E-15   10.000000E-15 
+          JS    0               0               0               0            
+          PB     .8              .7              .7              .7          
+        PBSW     .8              .7              .7              .7          
+          CJ    0             400.000000E-06  400.000000E-06  200.000000E-06 
+        CJSW    0               2.400000E-09    2.400000E-09    1.200000E-09 
+        CGSO    0             466.174400E-12  466.174400E-12  388.478700E-12 
+        CGDO    0             466.174400E-12  466.174400E-12  388.478700E-12 
+        CGBO    0               0               0               0            
+         TOX    0               0               8.000000E-09    8.000000E-09 
+          XJ    0               0             180.000000E-09  150.000000E-09 
+       UCRIT   10.000000E+03   10.000000E+03   10.000000E+03   10.000000E+03 
+       THETA                                     .23             .23         
+         ETA                                    3               3            
+       KAPPA                                    1               1            
+          AF     .1                                                          
+      DIOMOD    1               1               1               1            
+         VFB    0               0               0               0            
+        LETA    0               0               0               0            
+        WETA    0               0               0               0            
+          U0    0               0               0               0            
+        TEMP    0               0               0               0            
+         VDD    5               5               5               5            
+       XPART    0               0               0               0            
+
+
+               Q_NMOS_OUT_L1   
+               NMOS            
+       LEVEL    1            
+           L   10.000000E-06 
+           W  100.000000E-06 
+          LD   90.000000E-09 
+         VTO     .75         
+          KP  194.239300E-06 
+       GAMMA    0            
+         PHI     .6          
+      LAMBDA     .01         
+         RDS   10.000000E+06 
+         RSH    4            
+          IS   10.000000E-15 
+          JS    0            
+          PB     .7          
+        PBSW     .7          
+          CJ  200.000000E-06 
+        CJSW    1.200000E-09 
+        CGSO  388.478700E-12 
+        CGDO  388.478700E-12 
+        CGBO    0            
+         TOX    0            
+          XJ    0            
+       UCRIT   10.000000E+03 
+      DIOMOD    1            
+         VFB    0            
+        LETA    0            
+        WETA    0            
+          U0    0            
+        TEMP    0            
+         VDD    5            
+       XPART    0            
+
+
+**** 09/23/11 11:16:16 ******* PSpice 16.2.0 (Oct 2008) ******* ID# 0 ********
+
+ ** Profile: "SCHEMATIC1-AC Response"  [ C:\Users\a0867324\Desktop\Apps_Support\INA282 - Forum(Eaton) - 082511\ina282_pspice_model\IN
+
+
+ ****     Resistor MODEL PARAMETERS
+
+
+******************************************************************************
+
+
+
+
+               X_U1.XU1.XU3.RMOD2 
+           R    1            
+         TC1     .014563     
+
+
+**** 09/23/11 11:16:16 ******* PSpice 16.2.0 (Oct 2008) ******* ID# 0 ********
+
+ ** Profile: "SCHEMATIC1-AC Response"  [ C:\Users\a0867324\Desktop\Apps_Support\INA282 - Forum(Eaton) - 082511\ina282_pspice_model\IN
+
+
+ ****     Voltage Controlled Switch MODEL PARAMETERS
+
+
+******************************************************************************
+
+
+
+
+               X_U1.XU1.S_VSWITCH_1 
+         RON    2            
+        ROFF   31.99         
+         VON    0            
+        VOFF    1            
+
+
+               X_U1.XU1.S_VSWITCH_2 
+         RON    2            
+        ROFF   31.99         
+         VON    0            
+        VOFF    1            
+
+
+               X_U1.XU1.XControl.S_VSWITCH_1 
+         RON    1            
+        ROFF    1.000000E+09 
+         VON     .9          
+        VOFF     .1          
+
+
+               X_U1.XU1.XControl.S_VSWITCH_2   SW1             SW2             
+         RON    1                               1.300000E+03    1.300000E+03 
+        ROFF    1.000000E+09                   10.000000E+09   10.000000E+09 
+         VON     .9                              .6              .6          
+        VOFF     .1                              .4              .4          
+
+
+ERROR -- Convergence problem in bias point calculation
+
+
+  Last node voltages tried were:
+
+ NODE   VOLTAGE     NODE   VOLTAGE     NODE   VOLTAGE     NODE   VOLTAGE
+
+
+(   IN)    0.0000  (  OUT) 213.3E-09  ( LOAD) 29.76E-21  (N14290888) 50.78E-06  
+
+(X_U1.XU1.20) 12.30E-15               (X_U1.XU1.24) 886.6E-21                   
+
+(X_U1.XU1.25) 778.8E-21               (X_U1.XU1.27) 19.47E-09                   
+
+(X_U1.XU1.28) 2.316E-06               (X_U1.XU1.30) 761.6E-21                   
+
+(X_U1.XU1.31) 761.6E-21               (X_U1.XU1.40) 17.74E-06                   
+
+(X_U1.XU1.VM) 761.6E-21               (X_U1.XU1.ACm) 10.16E-06                  
+
+(X_U1.XU1.Bias) 228.9E-18             (X_U1.XU1.IGND)    0.0000                 
+
+(X_U1.XU1.nACm)-103.2E-12             (X_U1.XU1.NOut) 1.689E-15                 
+
+(X_U1.XU1.POut) 1.689E-15             (X_U1.XU1.UkAC) 14.88E-21                 
+
+(X_U1.XU1.Vreg) 68.17E-15             (X_U1.XU1.AVDDM) 257.9E-12                
+
+(X_U1.XU1.ClkF1) 10.16E-06            (X_U1.XU1.ClkF2) 50.83E-12                
+
+(X_U1.XU1.IAVDD) 150.0E-15            (X_U1.XU1.Vsw1+) 3.082E-15                
+
+(X_U1.XU1.Vsw1-) 3.082E-15            (X_U1.XU1.XU5.2) 886.6E-21                
+
+(X_U1.XU1.XU6.2) 778.8E-21            (X_U1.XU1.ClkF1_)    0.0000               
+
+(X_U1.XU1.ClkF2_)    0.0000           (X_U1.XU1.Neg_26) 19.47E-09               
+
+(X_U1.XU1.Neg_33) 4.475E-15           (X_U1.XU1.VInsw+) 14.88E-21               
+
+(X_U1.XU1.VInsw-) 14.88E-21           (X_U1.XU1.XU3.40)-1.045E-09               
+
+(X_U1.XU1.NLContr) 2.059E-09          (X_U1.XU1.Plus_29) 2.317E-06              
+
+(X_U1.XU1.Plus_32) 4.475E-15          (X_U1.XU1.Startup) 10.16E-06              
+
+(X_U1.XU1.XBias.60) 7.109E-06         (X_U1.XU1.XBias.63)-3.047E-06             
+
+(X_U1.XU1.XBias.65)-71.02E-15         (X_U1.XU1.XBias.67)    0.0000             
+
+(X_U1.XU1.XBias.68) 68.17E-15         (X_U1.XU1.XBias.VB1) 7.095E-06            
+
+(X_U1.XU1.XBias.VB2)-3.047E-06        (X_U1.XU1.XBias.VB3) 8.769E-15            
+
+(X_U1.XU1.XDA1.A1A2) 14.88E-21        (X_U1.XU1.XDA2.A1A2)    0.0000            
+
+(X_U1.XU1.XBias.BVS1)-3.047E-06       (X_U1.XU1.XBias.CM_R)-383.0E-15           
+
+(X_U1.XU1.XControl.45) 6.739E-09      (X_U1.XU1.XControl.46) 10.16E-06          
+
+(X_U1.XU1.XControl.48)    0.0000      (X_U1.XU1.XControl.50)-14.69E-15          
+
+(X_U1.XU1.XControl.51) 50.79E-06      (X_U1.XU1.XControl.52) 10.16E-06          
+
+(X_U1.XU1.XControl.Vcc) 10.16E-06     (X_U1.XU1.XControl.VF4) 50.79E-06         
+
+(X_U1.XU1.XControl.VZ1) 6.713E-09     (X_U1.XU1.XControl.ClkF3) 10.16E-06       
+
+(X_U1.XU1.XControl.VBias) 24.67E-12   (X_U1.XU1.XControl.VF2_53)-14.69E-15      
+
+(X_U1.XU1.XControl.XACm.3) 10.16E-06  (X_U1.XU1.XControl.XSW1.1) 17.77E-06      
+
+(X_U1.XU1.XControl.XSW1.CN) 17.77E-06 (X_U1.XU1.XControl.XU1.THR) 26.41E-06     
+
+(X_U1.XU1.XControl.ClkStart) 10.16E-06                                          
+
+(X_U1.XU1.XControl.XClkF1.3) 10.16E-06                                          
+
+(X_U1.XU1.XINA28X_diff_ioa.Neg_74) 761.6E-21                                    
+
+(X_U1.XU1.XINA28X_diff_ioa.Plus_75) 761.6E-21                                   
+
+(X_U1.XU1.XINA28X_diff_ioa.N_Out_72) 761.7E-21                                  
+
+(X_U1.XU1.XINA28X_diff_ioa.P_Out_73) 761.7E-21                                  
+
+(X_U1.XU1.XINA28X_diff_in_se_o.Neg_94) 726.7E-21                                
+
+(X_U1.XU1.XINA28X_diff_ioa.XInput1.83) 8.295E-06                                
+
+(X_U1.XU1.XINA28X_diff_ioa.XInput1.84)-8.295E-06                                
+
+(X_U1.XU1.XINA28X_diff_ioa.XInput1.85) 8.295E-06                                
+
+(X_U1.XU1.XINA28X_diff_ioa.XInput1.86)-8.295E-06                                
+
+(X_U1.XU1.XINA28X_diff_ioa.XInput1.88)-5.215E-09                                
+
+(X_U1.XU1.XINA28X_diff_ioa.XInput1.89) 761.6E-21                                
+
+(X_U1.XU1.XINA28X_diff_in_se_o.Plus_95) 796.6E-21                               
+
+(X_U1.XU1.XINA28X_diff_ioa.XInput1.VA-) 2.075E-12                               
+
+(X_U1.XU1.XINA28X_diff_ioa.XInput1.VCM) 4.475E-15                               
+
+(X_U1.XU1.XINA28X_diff_ioa.XInput1.VF1) 50.78E-06                               
+
+(X_U1.XU1.XINA28X_diff_ioa.XOutput1.92) 11.37E-06                               
+
+(X_U1.XU1.XINA28X_diff_ioa.XOutput1.93)-11.37E-06                               
+
+(X_U1.XU1.XINA28X_diff_ioa.XOutput1.VB) 761.7E-21                               
+
+(X_U1.XU1.XINA28X_diff_in_se_o.N_Out_97) 24.39E-21                              
+
+(X_U1.XU1.XINA28X_diff_in_se_o.P_Out_96) 1.499E-18                              
+
+(X_U1.XU1.XINA28X_diff_ioa.XInput1.Vecm) 762.6E-21                              
+
+(X_U1.XU1.XINA28X_diff_ioa.XInput1.CMref) 121.9E-06                             
+
+(X_U1.XU1.XINA28X_diff_ioa.XInput1.VA+_78) 2.075E-12                            
+
+(X_U1.XU1.XINA28X_diff_ioa.XInput1.VF2_81) 2.075E-12                            
+
+(X_U1.XU1.XINA28X_diff_in_se_o.XInput2.119) 50.78E-06                           
+
+(X_U1.XU1.XINA28X_diff_in_se_o.XInput2.120) 761.6E-21                           
+
+(X_U1.XU1.XINA28X_diff_in_se_o.XInput2.121) 8.295E-06                           
+
+(X_U1.XU1.XINA28X_diff_in_se_o.XInput2.122)-8.295E-06                           
+
+(X_U1.XU1.XINA28X_diff_in_se_o.XInput2.123) 8.295E-06                           
+
+(X_U1.XU1.XINA28X_diff_in_se_o.XInput2.124)-8.295E-06                           
+
+(X_U1.XU1.XINA28X_diff_in_se_o.XOutput2.VG) 206.3E-12                           
+
+(X_U1.XU1.XINA28X_diff_in_se_o.XOutput2.VV) 761.6E-21                           
+
+(X_U1.XU1.XINA28X_diff_ioa.XInput1.Venoise)    0.0000                           
+
+(X_U1.XU1.XINA28X_diff_in_se_o.XInput2.Veps) 761.6E-21                          
+
+(X_U1.XU1.XINA28X_diff_in_se_o.XOutput2.101) 20.31E-06                          
+
+(X_U1.XU1.XINA28X_diff_in_se_o.XOutput2.102) 206.3E-12                          
+
+(X_U1.XU1.XINA28X_diff_in_se_o.XOutput2.103) 50.78E-06                          
+
+(X_U1.XU1.XINA28X_diff_in_se_o.XOutput2.104) 25.50E-06                          
+
+(X_U1.XU1.XINA28X_diff_in_se_o.XOutput2.106) 50.78E-06                          
+
+(X_U1.XU1.XINA28X_diff_in_se_o.XOutput2.107) 515.7E-12                          
+
+(X_U1.XU1.XINA28X_diff_in_se_o.XOutput2.108) 213.3E-09                          
+
+(X_U1.XU1.XINA28X_diff_in_se_o.XOutput2.109) 71.10E-09                          
+
+(X_U1.XU1.XINA28X_diff_in_se_o.XOutput2.110) 49.54E-06                          
+
+(X_U1.XU1.XINA28X_diff_in_se_o.XOutput2.112) 18.21E-06                          
+
+(X_U1.XU1.XINA28X_diff_in_se_o.XOutput2.113)-18.21E-06                          
+
+(X_U1.XU1.XINA28X_diff_in_se_o.XOutput2.114) 761.6E-21                          
+
+(X_U1.XU1.XINA28X_diff_in_se_o.XOutput2.115) 50.78E-06                          
+
+(X_U1.XU1.XINA28X_diff_in_se_o.XOutput2.116) 206.3E-12                          
+
+(X_U1.XU1.XINA28X_diff_in_se_o.XOutput2.VGP) 50.78E-06                          
+
+(X_U1.XU1.XINA28X_diff_in_se_o.XOutput2.Vt0) 20.31E-06                          
+
+(X_U1.XU1.XINA28X_diff_in_se_o.XInput2.VA+_118) 23.33E-12                   
+
+
+  These voltages failed to converge:
+
+    V(X_U1.XU1.NLContr)       =   203.83uV  \    2.059nV
+    V(X_U1.XU1.XControl.VBias) =    2.523uV  \    24.67pV
+    V(X_U1.XU1.XControl.ClkStart) =    40.50nV  \    10.16uV
+    V(X_U1.XU1.XBias.BVS1)    =  -300.00mV  \   -3.047uV
+    V(X_U1.XU1.XBias.63)      =  -300.00mV  \   -3.047uV
+    V(X_U1.XU1.XBias.VB2)     =  -300.00mV  \   -3.047uV
+    V(X_U1.XU1.Startup)       =     1.000V  \    10.16uV
+    V(X_U1.XU1.XControl.ClkF3) =     1.000V  \    10.16uV
+    V(X_U1.XU1.XControl.XSW1.CN) =     1.750V  \    17.77uV
+    V(X_U1.XU1.XControl.XSW1.1) =     1.750V  \    17.77uV
+    V(X_U1.XU1.XControl.XU1.THR) =     2.600V  \    26.41uV
+    V(X_U1.XU1.XINA28X_diff_ioa.XInput1.88) =  -513.49uV  \   -5.215nV
+    V(X_U1.XU1.XINA28X_diff_in_se_o.XOutput2.103) = 2.331e-21V  \    50.78uV
+    V(X_U1.XU1.XINA28X_diff_in_se_o.XOutput2.107) =    50.78uV  \   515.75pV
+    V(X_U1.XU1.XINA28X_diff_in_se_o.XInput2.VA+_118) =    2.305uV  \    23.34pV
+
+  These supply currents failed to converge:
+
+    I(X_U1.XU1.XControl.XU1.EOUT) =   -1.000nA  \   -10.16fA
+    I(X_U1.XU1.XControl.VS1)  =   -50.79fA  \   -2.580pA
+    I(X_U1.XU1.XControl.XClkF32.VCLKF32) =   -1.000nA  \   -10.16fA
+
+  These devices failed to converge:
+    X_U1.XU1.XControl.XU1.ETHR X_U1.XU1.XControl.XU1.EOUT 
+
+**** Interrupt ****
+**** Param: RELTOL = 0.001
+**** Param: ABSTOL = 1e-012
+**** Param: VNTOL = 1e-006
+**** Param: GMIN = 1e-012
+**** Param: TSTOP = 1e-009
+**** Param: TMAX = 0
+**** Param: ITL1 = 150
+**** Param: ITL2 = 20
+**** Param: ITL4 = 10
+
+ **** Published Runtime Parameters *****************************
+                                                               
+                                       ABSTOL =      1.0000E-12
+                                          ETA =      3.0000E+00
+                                        GAMMA =      0.0000E+00
+                                         GMIN =      1.0000E-12
+                                         ITL1 =      1.5000E+02
+                                         ITL2 =      2.0000E+01
+                                         ITL4 =      1.0000E+01
+                                        KAPPA =      1.0000E+00
+                                       LAMBDA =      1.0000E-02
+                                          LDN =      9.0000E-08
+                                          LDP =      9.0000E-08
+                                           LS =      1.0000E-06
+                                          PBN =      7.0000E-01
+                                          PBP =      7.0000E-01
+                                     R_R3.tc1 =      0.0000E+00
+                                     R_R3.tc2 =      0.0000E+00
+                                   R_R3.value =      1.0000E+04
+                                  R_Rload.tc1 =      0.0000E+00
+                                  R_Rload.tc2 =      0.0000E+00
+                                R_Rload.value =      5.0000E+00
+                                 R_Rshunt.tc1 =      0.0000E+00
+                                 R_Rshunt.tc2 =      0.0000E+00
+                               R_Rshunt.value =      1.0000E-02
+                                          RDS =      1.0000E+07
+                                       RELTOL =      1.0000E-03
+                                       RUNFOR =      0.0000E+00
+                                        THETA =      2.3000E-01
+                                         TMAX =      0.0000E+00
+                                          TOX =      8.0000E-09
+                                        TSTOP =      1.0000E-09
+                                          UON =      4.5000E+02
+                                          UOP =      1.5000E+02
+                                      V_V2.ac =      0.0000E+00
+                                 V_V2.acphase =      0.0000E+00
+                                      V_V2.dc =      5.0000E+00
+                                     V_Vin.ac =      1.0000E+00
+                                V_Vin.acphase =      0.0000E+00
+                                     V_Vin.dc =      0.0000E+00
+                                        VNTOL =      1.0000E-06
+                                        VTOHN =      7.5000E-01
+                                        VTOHP =      7.5000E-01
+                                       X_U1.G =      5.0000E+01
+                                 X_U1.TR_MODE =      0.0000E+00
+                              X_U1.XU1.Cc1.ic =      0.0000E+00
+                           X_U1.XU1.Cc1.value =      1.0000E-13
+                              X_U1.XU1.Cc2.ic =      0.0000E+00
+                           X_U1.XU1.Cc2.value =      1.0000E-13
+                             X_U1.XU1.Csw1.ic =      0.0000E+00
+                          X_U1.XU1.Csw1.value =      1.0000E-11
+                             X_U1.XU1.Csw2.ic =      0.0000E+00
+                          X_U1.XU1.Csw2.value =      1.0000E-11
+                             X_U1.XU1.Csw3.ic =      0.0000E+00
+                          X_U1.XU1.Csw3.value =      4.0000E-12
+                             X_U1.XU1.Csw4.ic =      0.0000E+00
+                          X_U1.XU1.Csw4.value =      4.0000E-12
+                          X_U1.XU1.EAVDD.gain =      5.0000E-01
+                          X_U1.XU1.EVCS2.gain =      1.0000E+00
+                          X_U1.XU1.EVCS4.gain =      1.0000E+00
+                                  X_U1.XU1.G1 =      5.0000E+00
+                                X_U1.XU1.hRrg =      2.0000E-03
+                             X_U1.XU1.RG1.tc2 =     -1.0000E-09
+                           X_U1.XU1.RG1.value =      4.9900E+04
+                             X_U1.XU1.RG2.tc2 =     -1.0000E-09
+                           X_U1.XU1.RG2.value =      3.3317E+04
+                             X_U1.XU1.RG3.tc2 =      1.0000E-09
+                           X_U1.XU1.RG3.value =      5.0080E+03
+                             X_U1.XU1.RG4.tc2 =      1.0000E-09
+                           X_U1.XU1.RG4.value =      5.0030E+03
+                              X_U1.XU1.RONSnl =      2.0000E+00
+                             X_U1.XU1.Rr1.tc2 =     -1.0000E-09
+                           X_U1.XU1.Rr1.value =      3.3200E+04
+                             X_U1.XU1.Rr2.tc2 =     -1.0000E-09
+                           X_U1.XU1.Rr2.value =      3.3333E+04
+                                X_U1.XU1.TC12 =      4.0211E-06
+                        X_U1.XU1.XBias.Ci5.ic =      0.0000E+00
+                     X_U1.XU1.XBias.Ci5.value =      1.0000E-12
+                        X_U1.XU1.XBias.Ci6.ic =      0.0000E+00
+                     X_U1.XU1.XBias.Ci6.value =      1.0000E-12
+                    X_U1.XU1.XBias.FBCS2.gain =      1.0000E+00
+                     X_U1.XU1.XBias.FCq1.gain =      1.0000E+00
+                   X_U1.XU1.XBias.FISb3s.gain =     -1.0000E+00
+                    X_U1.XU1.XBias.GISb2.gain =      3.6000E-05
+                       X_U1.XU1.XBias.ISb1.ac =      0.0000E+00
+                  X_U1.XU1.XBias.ISb1.acphase =      0.0000E+00
+                       X_U1.XU1.XBias.ISb1.dc =      1.4000E-05
+                        X_U1.XU1.XBias.R1.tc1 =      0.0000E+00
+                        X_U1.XU1.XBias.R1.tc2 =      0.0000E+00
+                      X_U1.XU1.XBias.R1.value =      1.0000E+09
+                        X_U1.XU1.XBias.R2.tc1 =     -1.1000E-03
+                        X_U1.XU1.XBias.R2.tc2 =      1.0000E-06
+                      X_U1.XU1.XBias.R2.value =      2.0000E+04
+                       X_U1.XU1.XBias.Rb2.tc1 =      0.0000E+00
+                       X_U1.XU1.XBias.Rb2.tc2 =      0.0000E+00
+                     X_U1.XU1.XBias.Rb2.value =      2.0000E+06
+                     X_U1.XU1.XBias.Rbus1.tc1 =      0.0000E+00
+                     X_U1.XU1.XBias.Rbus1.tc2 =      0.0000E+00
+                   X_U1.XU1.XBias.Rbus1.value =      3.0600E+03
+                     X_U1.XU1.XBias.Rbus2.tc1 =      0.0000E+00
+                     X_U1.XU1.XBias.Rbus2.tc2 =      0.0000E+00
+                   X_U1.XU1.XBias.Rbus2.value =      2.9400E+03
+                       X_U1.XU1.XBias.Rp2.tc1 =      0.0000E+00
+                       X_U1.XU1.XBias.Rp2.tc2 =      0.0000E+00
+                     X_U1.XU1.XBias.Rp2.value =      2.0000E+08
+                      X_U1.XU1.XBias.RSb3.tc1 =     -1.1000E-03
+                      X_U1.XU1.XBias.RSb3.tc2 =      1.0000E-06
+                    X_U1.XU1.XBias.RSb3.value =      1.0000E+05
+                      X_U1.XU1.XBias.VBVS3.ac =      0.0000E+00
+                 X_U1.XU1.XBias.VBVS3.acphase =      0.0000E+00
+                      X_U1.XU1.XBias.VBVS3.dc =      7.0000E-01
+                    X_U1.XU1.XBias.VCq1_in.ac =      0.0000E+00
+               X_U1.XU1.XBias.VCq1_in.acphase =      0.0000E+00
+                    X_U1.XU1.XBias.VCq1_in.dc =      0.0000E+00
+                     X_U1.XU1.XBias.VIBVS1.ac =      0.0000E+00
+                X_U1.XU1.XBias.VIBVS1.acphase =      0.0000E+00
+                     X_U1.XU1.XBias.VIBVS1.dc =      0.0000E+00
+                  X_U1.XU1.XBias.VISb3s_in.ac =      0.0000E+00
+             X_U1.XU1.XBias.VISb3s_in.acphase =      0.0000E+00
+                  X_U1.XU1.XBias.VISb3s_in.dc =      0.0000E+00
+                   X_U1.XU1.XBias.XD1.D1.area =      1.0000E+00
+                     X_U1.XU1.XBias.XD1.D1.ic =      0.0000E+00
+                   X_U1.XU1.XBias.XD2.D1.area =      1.0000E+00
+                     X_U1.XU1.XBias.XD2.D1.ic =      0.0000E+00
+                   X_U1.XU1.XBias.XD3.D1.area =      1.0000E+00
+                     X_U1.XU1.XBias.XD3.D1.ic =      0.0000E+00
+                   X_U1.XU1.XBias.XD4.D1.area =      1.0000E+00
+                     X_U1.XU1.XBias.XD4.D1.ic =      0.0000E+00
+                   X_U1.XU1.XBias.XD5.D1.area =      1.0000E+00
+                     X_U1.XU1.XBias.XD5.D1.ic =      0.0000E+00
+                   X_U1.XU1.XBias.XD6.D1.area =      1.0000E+00
+                     X_U1.XU1.XBias.XD6.D1.ic =      0.0000E+00
+                   X_U1.XU1.XBias.XD7.D1.area =      1.0000E+00
+                     X_U1.XU1.XBias.XD7.D1.ic =      0.0000E+00
+                     X_U1.XU1.XControl.Cc1.ic =      0.0000E+00
+                  X_U1.XU1.XControl.Cc1.value =      5.0000E-12
+                  X_U1.XU1.XControl.EGND.gain =      1.0000E+00
+                X_U1.XU1.XControl.EVCVS1.gain =     -1.0000E+00
+                  X_U1.XU1.XControl.GCS1.gain =      1.0000E+00
+               X_U1.XU1.XControl.HCCVSB1.gain =      2.5000E+05
+                     X_U1.XU1.XControl.IS3.ac =      0.0000E+00
+                X_U1.XU1.XControl.IS3.acphase =      0.0000E+00
+                     X_U1.XU1.XControl.IS3.dc =      5.1000E-06
+                     X_U1.XU1.XControl.R1.tc1 =      0.0000E+00
+                     X_U1.XU1.XControl.R1.tc2 =      0.0000E+00
+                   X_U1.XU1.XControl.R1.value =      4.0000E+06
+                     X_U1.XU1.XControl.R2.tc1 =      0.0000E+00
+                     X_U1.XU1.XControl.R2.tc2 =      0.0000E+00
+                   X_U1.XU1.XControl.R2.value =      1.0000E+03
+                   X_U1.XU1.XControl.R2_2.tc1 =      0.0000E+00
+                   X_U1.XU1.XControl.R2_2.tc2 =      0.0000E+00
+                 X_U1.XU1.XControl.R2_2.value =      1.0000E+03
+                     X_U1.XU1.XControl.R3.tc1 =      0.0000E+00
+                     X_U1.XU1.XControl.R3.tc2 =      0.0000E+00
+                   X_U1.XU1.XControl.R3.value =      1.0000E+03
+                     X_U1.XU1.XControl.R4.tc1 =      0.0000E+00
+                     X_U1.XU1.XControl.R4.tc2 =      0.0000E+00
+                   X_U1.XU1.XControl.R4.value =      5.0000E+07
+                    X_U1.XU1.XControl.Rb3.tc1 =      1.8700E-03
+                    X_U1.XU1.XControl.Rb3.tc2 =     -3.7700E-06
+                  X_U1.XU1.XControl.Rb3.value =      4.0000E+00
+                  X_U1.XU1.XControl.Rclk1.tc1 =      0.0000E+00
+                  X_U1.XU1.XControl.Rclk1.tc2 =      0.0000E+00
+                X_U1.XU1.XControl.Rclk1.value =      1.0000E-02
+                 X_U1.XU1.XControl.Rclk1a.tc1 =      0.0000E+00
+                 X_U1.XU1.XControl.Rclk1a.tc2 =      0.0000E+00
+               X_U1.XU1.XControl.Rclk1a.value =      1.0000E-02
+                  X_U1.XU1.XControl.Rclk2.tc1 =      0.0000E+00
+                  X_U1.XU1.XControl.Rclk2.tc2 =      0.0000E+00
+                X_U1.XU1.XControl.Rclk2.value =      1.0000E-02
+                 X_U1.XU1.XControl.Rclk2a.tc1 =      0.0000E+00
+                 X_U1.XU1.XControl.Rclk2a.tc2 =      0.0000E+00
+               X_U1.XU1.XControl.Rclk2a.value =      1.0000E-02
+                    X_U1.XU1.XControl.Rs4.tc1 =      0.0000E+00
+                    X_U1.XU1.XControl.Rs4.tc2 =      0.0000E+00
+                  X_U1.XU1.XControl.Rs4.value =      2.0000E+05
+              X_U1.XU1.XControl.VCCVSB1_in.ac =      0.0000E+00
+         X_U1.XU1.XControl.VCCVSB1_in.acphase =      0.0000E+00
+              X_U1.XU1.XControl.VCCVSB1_in.dc =      0.0000E+00
+                     X_U1.XU1.XControl.VS1.ac =      0.0000E+00
+                X_U1.XU1.XControl.VS1.acphase =      0.0000E+00
+                     X_U1.XU1.XControl.VS1.dc =      1.0000E+00
+                     X_U1.XU1.XControl.VS3.ac =      0.0000E+00
+                X_U1.XU1.XControl.VS3.acphase =      0.0000E+00
+                     X_U1.XU1.XControl.VS3.dc =      1.0000E+00
+               X_U1.XU1.XControl.XACm.VACM.ac =      1.0000E+00
+          X_U1.XU1.XControl.XACm.VACM.acphase =      0.0000E+00
+               X_U1.XU1.XControl.XACm.VACM.dc =      0.0000E+00
+            X_U1.XU1.XControl.XACm.VACM_DC.ac =      0.0000E+00
+       X_U1.XU1.XControl.XACm.VACM_DC.acphase =      0.0000E+00
+            X_U1.XU1.XControl.XACm.VACM_DC.dc =      1.0000E+00
+           X_U1.XU1.XControl.XClkF1.VCLKF1.ac =      0.0000E+00
+      X_U1.XU1.XControl.XClkF1.VCLKF1.acphase =      0.0000E+00
+           X_U1.XU1.XControl.XClkF1.VCLKF1.dc =      0.0000E+00
+        X_U1.XU1.XControl.XClkF1.VCLKF1_DC.ac =      0.0000E+00
+   X_U1.XU1.XControl.XClkF1.VCLKF1_DC.acphase =      0.0000E+00
+        X_U1.XU1.XControl.XClkF1.VCLKF1_DC.dc =      1.0000E+00
+           X_U1.XU1.XControl.XClkF2.VCLKF2.ac =      0.0000E+00
+      X_U1.XU1.XControl.XClkF2.VCLKF2.acphase =      0.0000E+00
+           X_U1.XU1.XControl.XClkF2.VCLKF2.dc =      0.0000E+00
+         X_U1.XU1.XControl.XClkF32.VCLKF32.ac =      0.0000E+00
+    X_U1.XU1.XControl.XClkF32.VCLKF32.acphase =      0.0000E+00
+         X_U1.XU1.XControl.XClkF32.VCLKF32.dc =      0.0000E+00
+                X_U1.XU1.XControl.XD1.D1.area =      1.0000E+00
+                  X_U1.XU1.XControl.XD1.D1.ic =      0.0000E+00
+                X_U1.XU1.XControl.XD2.D1.area =      1.0000E+00
+                  X_U1.XU1.XControl.XD2.D1.ic =      0.0000E+00
+                X_U1.XU1.XControl.XD3.D1.area =      1.0000E+00
+                  X_U1.XU1.XControl.XD3.D1.ic =      0.0000E+00
+                X_U1.XU1.XControl.XD4.D1.area =      1.0000E+00
+                  X_U1.XU1.XControl.XD4.D1.ic =      0.0000E+00
+                X_U1.XU1.XControl.XD5.D1.area =      1.0000E+00
+                  X_U1.XU1.XControl.XD5.D1.ic =      0.0000E+00
+                X_U1.XU1.XControl.XDZb1.CD.ic =      0.0000E+00
+             X_U1.XU1.XControl.XDZb1.CD.value =      1.0000E-12
+              X_U1.XU1.XControl.XDZb1.D1.area =      1.0000E+00
+                X_U1.XU1.XControl.XDZb1.D1.ic =      0.0000E+00
+                 X_U1.XU1.XControl.XSW1.C1.ic =      0.0000E+00
+              X_U1.XU1.XControl.XSW1.C1.value =      1.4430E-08
+                X_U1.XU1.XControl.XSW1.R1.tc1 =      0.0000E+00
+                X_U1.XU1.XControl.XSW1.R1.tc2 =      0.0000E+00
+              X_U1.XU1.XControl.XSW1.R1.value =      1.0000E+00
+                X_U1.XU1.XControl.XSW1.R2.tc1 =      0.0000E+00
+                X_U1.XU1.XControl.XSW1.R2.tc2 =      0.0000E+00
+              X_U1.XU1.XControl.XSW1.R2.value =      1.0000E+09
+                X_U1.XU1.XControl.XSW1.R3.tc1 =      0.0000E+00
+                X_U1.XU1.XControl.XSW1.R3.tc2 =      0.0000E+00
+              X_U1.XU1.XControl.XSW1.R3.value =      1.0000E+09
+                X_U1.XU1.XControl.XSW1.R4.tc1 =      0.0000E+00
+                X_U1.XU1.XControl.XSW1.R4.tc2 =      0.0000E+00
+              X_U1.XU1.XControl.XSW1.R4.value =      1.0000E+09
+                    X_U1.XU1.XControl.XSW1.RD =      1.0000E+00
+                  X_U1.XU1.XControl.XSW1.ROFF =      1.0000E+09
+                   X_U1.XU1.XControl.XSW1.RON =      1.0000E+00
+                  X_U1.XU1.XControl.XSW1.TDEL =      1.0000E-08
+                    X_U1.XU1.XControl.XSW1.VH =      7.5000E-01
+                    X_U1.XU1.XControl.XSW1.VT =      1.0000E+00
+                X_U1.XU1.XControl.XU1.COUT.ic =      0.0000E+00
+             X_U1.XU1.XControl.XU1.COUT.value =      1.4430E-11
+                   X_U1.XU1.XControl.XU1.ROUT =      1.0000E+02
+                   X_U1.XU1.XControl.XU1.TDEL =      1.0000E-09
+                  X_U1.XU1.XControl.XU1.VHYST =      5.0000E-02
+                  X_U1.XU1.XControl.XU1.VOUTH =      1.0000E+00
+                  X_U1.XU1.XControl.XU1.VOUTL =      0.0000E+00
+                 X_U1.XU1.XControl.XU1.VTHRES =      2.5500E+00
+                         X_U1.XU1.XD1.D1.area =      1.0000E+00
+                           X_U1.XU1.XD1.D1.ic =      0.0000E+00
+                         X_U1.XU1.XD2.D1.area =      1.0000E+00
+                           X_U1.XU1.XD2.D1.ic =      0.0000E+00
+                         X_U1.XU1.XD4.D1.area =      1.0000E+00
+                           X_U1.XU1.XD4.D1.ic =      0.0000E+00
+                         X_U1.XU1.XD5.D1.area =      1.0000E+00
+                           X_U1.XU1.XD5.D1.ic =      0.0000E+00
+                         X_U1.XU1.XD6.D1.area =      1.0000E+00
+                           X_U1.XU1.XD6.D1.ic =      0.0000E+00
+                         X_U1.XU1.XD7.D1.area =      1.0000E+00
+                           X_U1.XU1.XD7.D1.ic =      0.0000E+00
+                        X_U1.XU1.XDA1.D1.area =      1.0000E+00
+                          X_U1.XU1.XDA1.D1.ic =      0.0000E+00
+                        X_U1.XU1.XDA1.D2.area =      1.0000E+00
+                          X_U1.XU1.XDA1.D2.ic =      0.0000E+00
+                        X_U1.XU1.XDA2.D1.area =      1.0000E+00
+                          X_U1.XU1.XDA2.D1.ic =      0.0000E+00
+                        X_U1.XU1.XDA2.D2.area =      1.0000E+00
+                          X_U1.XU1.XDA2.D2.ic =      0.0000E+00
+         X_U1.XU1.XINA28X_diff_in_se_o.C36.ic =      0.0000E+00
+      X_U1.XU1.XINA28X_diff_in_se_o.C36.value =      6.0000E-12
+         X_U1.XU1.XINA28X_diff_in_se_o.C38.ic =      0.0000E+00
+      X_U1.XU1.XINA28X_diff_in_se_o.C38.value =      6.0000E-12
+X_U1.XU1.XINA28X_diff_in_se_o.XInput2.Ci21.ic =      0.0000E+00
+X_U1.XU1.XINA28X_diff_in_se_o.XInput2.Ci21.value =      1.0000E-13
+X_U1.XU1.XINA28X_diff_in_se_o.XInput2.Ci22.ic =      0.0000E+00
+X_U1.XU1.XINA28X_diff_in_se_o.XInput2.Ci22.value =      1.0000E-13
+X_U1.XU1.XINA28X_diff_in_se_o.XInput2.Ci23.ic =      0.0000E+00
+X_U1.XU1.XINA28X_diff_in_se_o.XInput2.Ci23.value =      1.0000E-13
+X_U1.XU1.XINA28X_diff_in_se_o.XInput2.Ci27.ic =      0.0000E+00
+X_U1.XU1.XINA28X_diff_in_se_o.XInput2.Ci27.value =      1.2521E-14
+X_U1.XU1.XINA28X_diff_in_se_o.XInput2.Ci28.ic =      0.0000E+00
+X_U1.XU1.XINA28X_diff_in_se_o.XInput2.Ci28.value =      1.2521E-14
+X_U1.XU1.XINA28X_diff_in_se_o.XInput2.G8ps.gain =      1.4197E-02
+X_U1.XU1.XINA28X_diff_in_se_o.XInput2.Gi21.gain =      3.0159E-05
+X_U1.XU1.XINA28X_diff_in_se_o.XInput2.Gi22.gain =      3.0159E-05
+X_U1.XU1.XINA28X_diff_in_se_o.XInput2.L191.ic =      0.0000E+00
+X_U1.XU1.XINA28X_diff_in_se_o.XInput2.L191.lgap.ic =      0.0000E+00
+X_U1.XU1.XINA28X_diff_in_se_o.XInput2.L191.lgap.value =      0.0000E+00
+X_U1.XU1.XINA28X_diff_in_se_o.XInput2.L191.value =      1.5915E-07
+X_U1.XU1.XINA28X_diff_in_se_o.XInput2.R191.tc1 =      0.0000E+00
+X_U1.XU1.XINA28X_diff_in_se_o.XInput2.R191.tc2 =      0.0000E+00
+X_U1.XU1.XINA28X_diff_in_se_o.XInput2.R191.value =      1.0000E-03
+X_U1.XU1.XINA28X_diff_in_se_o.XInput2.R201.tc1 =      0.0000E+00
+X_U1.XU1.XINA28X_diff_in_se_o.XInput2.R201.tc2 =      0.0000E+00
+X_U1.XU1.XINA28X_diff_in_se_o.XInput2.R201.value =      1.9999E+01
+X_U1.XU1.XINA28X_diff_in_se_o.XInput2.Ri21.tc1 =      0.0000E+00
+X_U1.XU1.XINA28X_diff_in_se_o.XInput2.Ri21.tc2 =      0.0000E+00
+X_U1.XU1.XINA28X_diff_in_se_o.XInput2.Ri21.value =      1.0000E+09
+X_U1.XU1.XINA28X_diff_in_se_o.XInput2.Ri22.tc1 =      0.0000E+00
+X_U1.XU1.XINA28X_diff_in_se_o.XInput2.Ri22.tc2 =      0.0000E+00
+X_U1.XU1.XINA28X_diff_in_se_o.XInput2.Ri22.value =      1.0000E+11
+X_U1.XU1.XINA28X_diff_in_se_o.XInput2.Ri23.tc1 =      0.0000E+00
+X_U1.XU1.XINA28X_diff_in_se_o.XInput2.Ri23.tc2 =      0.0000E+00
+X_U1.XU1.XINA28X_diff_in_se_o.XInput2.Ri23.value =      1.0000E+11
+X_U1.XU1.XINA28X_diff_in_se_o.XInput2.Ri27.tc1 =      0.0000E+00
+X_U1.XU1.XINA28X_diff_in_se_o.XInput2.Ri27.tc2 =      0.0000E+00
+X_U1.XU1.XINA28X_diff_in_se_o.XInput2.Ri27.value =      6.3554E+07
+X_U1.XU1.XINA28X_diff_in_se_o.XInput2.Ri28.tc1 =      0.0000E+00
+X_U1.XU1.XINA28X_diff_in_se_o.XInput2.Ri28.tc2 =      0.0000E+00
+X_U1.XU1.XINA28X_diff_in_se_o.XInput2.Ri28.value =      6.3554E+07
+X_U1.XU1.XINA28X_diff_in_se_o.XInput2.Vi2drop1.ac =      0.0000E+00
+X_U1.XU1.XINA28X_diff_in_se_o.XInput2.Vi2drop1.acphase =      0.0000E+00
+X_U1.XU1.XINA28X_diff_in_se_o.XInput2.Vi2drop1.dc =      8.1672E-01
+X_U1.XU1.XINA28X_diff_in_se_o.XInput2.Vi2drop11.ac =      0.0000E+00
+X_U1.XU1.XINA28X_diff_in_se_o.XInput2.Vi2drop11.acphase =      0.0000E+00
+X_U1.XU1.XINA28X_diff_in_se_o.XInput2.Vi2drop11.dc =      8.1672E-01
+X_U1.XU1.XINA28X_diff_in_se_o.XInput2.Vi2drop2.ac =      0.0000E+00
+X_U1.XU1.XINA28X_diff_in_se_o.XInput2.Vi2drop2.acphase =      0.0000E+00
+X_U1.XU1.XINA28X_diff_in_se_o.XInput2.Vi2drop2.dc =      8.1672E-01
+X_U1.XU1.XINA28X_diff_in_se_o.XInput2.Vi2drop21.ac =      0.0000E+00
+X_U1.XU1.XINA28X_diff_in_se_o.XInput2.Vi2drop21.acphase =      0.0000E+00
+X_U1.XU1.XINA28X_diff_in_se_o.XInput2.Vi2drop21.dc =      8.1672E-01
+X_U1.XU1.XINA28X_diff_in_se_o.XInput2.VPSref.ac =      0.0000E+00
+X_U1.XU1.XINA28X_diff_in_se_o.XInput2.VPSref.acphase =      0.0000E+00
+X_U1.XU1.XINA28X_diff_in_se_o.XInput2.VPSref.dc =      5.0000E+00
+X_U1.XU1.XINA28X_diff_in_se_o.XInput2.XD1.D1.area =      1.0000E+00
+X_U1.XU1.XINA28X_diff_in_se_o.XInput2.XD1.D1.ic =      0.0000E+00
+X_U1.XU1.XINA28X_diff_in_se_o.XInput2.XD2.D1.area =      1.0000E+00
+X_U1.XU1.XINA28X_diff_in_se_o.XInput2.XD2.D1.ic =      0.0000E+00
+X_U1.XU1.XINA28X_diff_in_se_o.XInput2.XD3.D1.area =      1.0000E+00
+X_U1.XU1.XINA28X_diff_in_se_o.XInput2.XD3.D1.ic =      0.0000E+00
+X_U1.XU1.XINA28X_diff_in_se_o.XInput2.XD4.D1.area =      1.0000E+00
+X_U1.XU1.XINA28X_diff_in_se_o.XInput2.XD4.D1.ic =      0.0000E+00
+ X_U1.XU1.XINA28X_diff_in_se_o.XOutput2.C4.ic =      0.0000E+00
+X_U1.XU1.XINA28X_diff_in_se_o.XOutput2.C4.value =      8.0000E-12
+ X_U1.XU1.XINA28X_diff_in_se_o.XOutput2.C5.ic =      0.0000E+00
+X_U1.XU1.XINA28X_diff_in_se_o.XOutput2.C5.value =      8.0000E-12
+X_U1.XU1.XINA28X_diff_in_se_o.XOutput2.Co21.ic =      0.0000E+00
+X_U1.XU1.XINA28X_diff_in_se_o.XOutput2.Co21.value =      1.0000E-14
+X_U1.XU1.XINA28X_diff_in_se_o.XOutput2.Co22.ic =      0.0000E+00
+X_U1.XU1.XINA28X_diff_in_se_o.XOutput2.Co22.value =      1.0000E-14
+X_U1.XU1.XINA28X_diff_in_se_o.XOutput2.Co23.ic =      0.0000E+00
+X_U1.XU1.XINA28X_diff_in_se_o.XOutput2.Co23.value =      1.0000E-14
+X_U1.XU1.XINA28X_diff_in_se_o.XOutput2.Co25.ic =      0.0000E+00
+X_U1.XU1.XINA28X_diff_in_se_o.XOutput2.Co25.value =      1.0000E-12
+X_U1.XU1.XINA28X_diff_in_se_o.XOutput2.EBMG.gain =      1.0000E+00
+X_U1.XU1.XINA28X_diff_in_se_o.XOutput2.EVMN1.gain =      1.0000E+00
+X_U1.XU1.XINA28X_diff_in_se_o.XOutput2.EVMP1.gain =      1.0000E+00
+X_U1.XU1.XINA28X_diff_in_se_o.XOutput2.G23.gain =      1.0000E+00
+X_U1.XU1.XINA28X_diff_in_se_o.XOutput2.Gdn1.gain =      5.0477E-05
+X_U1.XU1.XINA28X_diff_in_se_o.XOutput2.Gdn2.gain =      5.0477E-05
+X_U1.XU1.XINA28X_diff_in_se_o.XOutput2.GVCCS1.gain =      5.0000E-06
+ X_U1.XU1.XINA28X_diff_in_se_o.XOutput2.L9.ic =      0.0000E+00
+X_U1.XU1.XINA28X_diff_in_se_o.XOutput2.L9.lgap.ic =      0.0000E+00
+X_U1.XU1.XINA28X_diff_in_se_o.XOutput2.L9.lgap.value =      0.0000E+00
+X_U1.XU1.XINA28X_diff_in_se_o.XOutput2.L9.value =      1.4324E-07
+X_U1.XU1.XINA28X_diff_in_se_o.XOutput2.R0.tc1 =      0.0000E+00
+X_U1.XU1.XINA28X_diff_in_se_o.XOutput2.R0.tc2 =      0.0000E+00
+X_U1.XU1.XINA28X_diff_in_se_o.XOutput2.R0.value =      6.0000E+01
+X_U1.XU1.XINA28X_diff_in_se_o.XOutput2.R5.tc1 =      0.0000E+00
+X_U1.XU1.XINA28X_diff_in_se_o.XOutput2.R5.tc2 =      0.0000E+00
+X_U1.XU1.XINA28X_diff_in_se_o.XOutput2.R5.value =      6.0000E+01
+X_U1.XU1.XINA28X_diff_in_se_o.XOutput2.R83.tc1 =      0.0000E+00
+X_U1.XU1.XINA28X_diff_in_se_o.XOutput2.R83.tc2 =      0.0000E+00
+X_U1.XU1.XINA28X_diff_in_se_o.XOutput2.R83.value =      1.0000E+00
+X_U1.XU1.XINA28X_diff_in_se_o.XOutput2.R91.tc1 =      0.0000E+00
+X_U1.XU1.XINA28X_diff_in_se_o.XOutput2.R91.tc2 =      0.0000E+00
+X_U1.XU1.XINA28X_diff_in_se_o.XOutput2.R91.value =      9.0000E+00
+X_U1.XU1.XINA28X_diff_in_se_o.XOutput2.Rdn1.tc1 =      0.0000E+00
+X_U1.XU1.XINA28X_diff_in_se_o.XOutput2.Rdn1.tc2 =      0.0000E+00
+X_U1.XU1.XINA28X_diff_in_se_o.XOutput2.Rdn1.value =      2.9494E+07
+X_U1.XU1.XINA28X_diff_in_se_o.XOutput2.Rdn2.tc1 =      0.0000E+00
+X_U1.XU1.XINA28X_diff_in_se_o.XOutput2.Rdn2.tc2 =      0.0000E+00
+X_U1.XU1.XINA28X_diff_in_se_o.XOutput2.Rdn2.value =      2.9494E+07
+X_U1.XU1.XINA28X_diff_in_se_o.XOutput2.Ro21.tc1 =      0.0000E+00
+X_U1.XU1.XINA28X_diff_in_se_o.XOutput2.Ro21.tc2 =      0.0000E+00
+X_U1.XU1.XINA28X_diff_in_se_o.XOutput2.Ro21.value =      1.0000E+09
+X_U1.XU1.XINA28X_diff_in_se_o.XOutput2.Ro22.tc1 =      0.0000E+00
+X_U1.XU1.XINA28X_diff_in_se_o.XOutput2.Ro22.tc2 =      0.0000E+00
+X_U1.XU1.XINA28X_diff_in_se_o.XOutput2.Ro22.value =      1.0000E+11
+X_U1.XU1.XINA28X_diff_in_se_o.XOutput2.Ro23.tc1 =      0.0000E+00
+X_U1.XU1.XINA28X_diff_in_se_o.XOutput2.Ro23.tc2 =      0.0000E+00
+X_U1.XU1.XINA28X_diff_in_se_o.XOutput2.Ro23.value =      1.0000E+11
+X_U1.XU1.XINA28X_diff_in_se_o.XOutput2.Rpsrr1.tc1 =      0.0000E+00
+X_U1.XU1.XINA28X_diff_in_se_o.XOutput2.Rpsrr1.tc2 =      0.0000E+00
+X_U1.XU1.XINA28X_diff_in_se_o.XOutput2.Rpsrr1.value =      1.0000E+12
+X_U1.XU1.XINA28X_diff_in_se_o.XOutput2.Rsp1.tc1 =      0.0000E+00
+X_U1.XU1.XINA28X_diff_in_se_o.XOutput2.Rsp1.tc2 =      0.0000E+00
+X_U1.XU1.XINA28X_diff_in_se_o.XOutput2.Rsp1.value =      5.2000E+03
+X_U1.XU1.XINA28X_diff_in_se_o.XOutput2.Vo21.ac =      0.0000E+00
+X_U1.XU1.XINA28X_diff_in_se_o.XOutput2.Vo21.acphase =      0.0000E+00
+X_U1.XU1.XINA28X_diff_in_se_o.XOutput2.Vo21.dc =      1.7928E+00
+X_U1.XU1.XINA28X_diff_in_se_o.XOutput2.Vo22.ac =      0.0000E+00
+X_U1.XU1.XINA28X_diff_in_se_o.XOutput2.Vo22.acphase =      0.0000E+00
+X_U1.XU1.XINA28X_diff_in_se_o.XOutput2.Vo22.dc =      1.7928E+00
+X_U1.XU1.XINA28X_diff_in_se_o.XOutput2.XD1.D1.area =      1.0000E+00
+X_U1.XU1.XINA28X_diff_in_se_o.XOutput2.XD1.D1.ic =      0.0000E+00
+X_U1.XU1.XINA28X_diff_in_se_o.XOutput2.XD2.D1.area =      1.0000E+00
+X_U1.XU1.XINA28X_diff_in_se_o.XOutput2.XD2.D1.ic =      0.0000E+00
+X_U1.XU1.XINA28X_diff_in_se_o.XOutput2.XD3.D1.area =      1.0000E+00
+X_U1.XU1.XINA28X_diff_in_se_o.XOutput2.XD3.D1.ic =      0.0000E+00
+X_U1.XU1.XINA28X_diff_in_se_o.XOutput2.XD4.D1.area =      1.0000E+00
+X_U1.XU1.XINA28X_diff_in_se_o.XOutput2.XD4.D1.ic =      0.0000E+00
+X_U1.XU1.XINA28X_diff_in_se_o.XOutput2.XD5.D1.area =      1.0000E+00
+X_U1.XU1.XINA28X_diff_in_se_o.XOutput2.XD5.D1.ic =      0.0000E+00
+X_U1.XU1.XINA28X_diff_in_se_o.XOutput2.XD6.D1.area =      1.0000E+00
+X_U1.XU1.XINA28X_diff_in_se_o.XOutput2.XD6.D1.ic =      0.0000E+00
+X_U1.XU1.XINA28X_diff_in_se_o.XOutput2.XD7.D1.area =      1.0000E+00
+X_U1.XU1.XINA28X_diff_in_se_o.XOutput2.XD7.D1.ic =      0.0000E+00
+ X_U1.XU1.XINA28X_diff_in_se_o.XOutput2.XT1.L =      8.0000E-07
+ X_U1.XU1.XINA28X_diff_in_se_o.XOutput2.XT1.M =      4.8000E+01
+ X_U1.XU1.XINA28X_diff_in_se_o.XOutput2.XT1.W =      2.0000E-05
+ X_U1.XU1.XINA28X_diff_in_se_o.XOutput2.XT2.L =      8.0000E-07
+ X_U1.XU1.XINA28X_diff_in_se_o.XOutput2.XT2.M =      1.0000E+01
+ X_U1.XU1.XINA28X_diff_in_se_o.XOutput2.XT2.W =      2.0000E-05
+ X_U1.XU1.XINA28X_diff_in_se_o.XOutput2.XT3.L =      4.0000E-06
+ X_U1.XU1.XINA28X_diff_in_se_o.XOutput2.XT3.M =      6.0000E+00
+ X_U1.XU1.XINA28X_diff_in_se_o.XOutput2.XT3.W =      1.0000E-05
+ X_U1.XU1.XINA28X_diff_in_se_o.XOutput2.XT4.L =      4.0000E-06
+ X_U1.XU1.XINA28X_diff_in_se_o.XOutput2.XT4.M =      4.0000E+00
+ X_U1.XU1.XINA28X_diff_in_se_o.XOutput2.XT4.W =      1.0000E-05
+ X_U1.XU1.XINA28X_diff_in_se_o.XOutput2.XT7.L =      8.0000E-07
+ X_U1.XU1.XINA28X_diff_in_se_o.XOutput2.XT7.M =      1.0000E+01
+ X_U1.XU1.XINA28X_diff_in_se_o.XOutput2.XT7.W =      2.0000E-05
+ X_U1.XU1.XINA28X_diff_in_se_o.XOutput2.XT8.L =      4.4000E-06
+ X_U1.XU1.XINA28X_diff_in_se_o.XOutput2.XT8.M =      5.0000E+00
+ X_U1.XU1.XINA28X_diff_in_se_o.XOutput2.XT8.W =      2.0000E-05
+ X_U1.XU1.XINA28X_diff_in_se_o.XOutput2.XT9.L =      4.4000E-06
+ X_U1.XU1.XINA28X_diff_in_se_o.XOutput2.XT9.M =      1.0000E+01
+ X_U1.XU1.XINA28X_diff_in_se_o.XOutput2.XT9.W =      2.0000E-05
+X_U1.XU1.XINA28X_diff_in_se_o.XSW_H1.R_SW1.tc1 =      0.0000E+00
+X_U1.XU1.XINA28X_diff_in_se_o.XSW_H1.R_SW1.tc2 =      0.0000E+00
+X_U1.XU1.XINA28X_diff_in_se_o.XSW_H1.R_SW1.value =      1.0000E+09
+X_U1.XU1.XINA28X_diff_in_se_o.XSW_S1.R_SW1.tc1 =      0.0000E+00
+X_U1.XU1.XINA28X_diff_in_se_o.XSW_S1.R_SW1.tc2 =      0.0000E+00
+X_U1.XU1.XINA28X_diff_in_se_o.XSW_S1.R_SW1.value =      1.0000E+09
+X_U1.XU1.XINA28X_diff_in_se_o.XSW_S1_2.R_SW1.tc1 =      0.0000E+00
+X_U1.XU1.XINA28X_diff_in_se_o.XSW_S1_2.R_SW1.tc2 =      0.0000E+00
+X_U1.XU1.XINA28X_diff_in_se_o.XSW_S1_2.R_SW1.value =      1.0000E+09
+             X_U1.XU1.XINA28X_diff_ioa.C36.ic =      0.0000E+00
+          X_U1.XU1.XINA28X_diff_ioa.C36.value =      4.0000E-12
+             X_U1.XU1.XINA28X_diff_ioa.C37.ic =      0.0000E+00
+          X_U1.XU1.XINA28X_diff_ioa.C37.value =      1.0000E-12
+             X_U1.XU1.XINA28X_diff_ioa.C38.ic =      0.0000E+00
+          X_U1.XU1.XINA28X_diff_ioa.C38.value =      1.0000E-12
+              X_U1.XU1.XINA28X_diff_ioa.C9.ic =      0.0000E+00
+           X_U1.XU1.XINA28X_diff_ioa.C9.value =      4.0000E-12
+    X_U1.XU1.XINA28X_diff_ioa.XInput1.Ci11.ic =      0.0000E+00
+ X_U1.XU1.XINA28X_diff_ioa.XInput1.Ci11.value =      2.7000E-13
+   X_U1.XU1.XINA28X_diff_ioa.XInput1.Ci121.ic =      0.0000E+00
+X_U1.XU1.XINA28X_diff_ioa.XInput1.Ci121.value =      1.0000E-13
+   X_U1.XU1.XINA28X_diff_ioa.XInput1.Ci122.ic =      0.0000E+00
+X_U1.XU1.XINA28X_diff_ioa.XInput1.Ci122.value =      1.0000E-13
+   X_U1.XU1.XINA28X_diff_ioa.XInput1.Ci123.ic =      0.0000E+00
+X_U1.XU1.XINA28X_diff_ioa.XInput1.Ci123.value =      1.0000E-13
+   X_U1.XU1.XINA28X_diff_ioa.XInput1.Ci133.ic =      0.0000E+00
+X_U1.XU1.XINA28X_diff_ioa.XInput1.Ci133.value =      1.4086E-14
+   X_U1.XU1.XINA28X_diff_ioa.XInput1.Ci134.ic =      0.0000E+00
+X_U1.XU1.XINA28X_diff_ioa.XInput1.Ci134.value =      1.4086E-14
+    X_U1.XU1.XINA28X_diff_ioa.XInput1.G8.gain =      1.9023E-05
+  X_U1.XU1.XINA28X_diff_ioa.XInput1.Gi11.gain =      3.3929E-05
+  X_U1.XU1.XINA28X_diff_ioa.XInput1.Gi12.gain =      3.3929E-05
+  X_U1.XU1.XINA28X_diff_ioa.XInput1.GIEE.gain =      2.4000E-06
+      X_U1.XU1.XINA28X_diff_ioa.XInput1.L4.ic =      0.0000E+00
+ X_U1.XU1.XINA28X_diff_ioa.XInput1.L4.lgap.ic =      0.0000E+00
+X_U1.XU1.XINA28X_diff_ioa.XInput1.L4.lgap.value =      0.0000E+00
+   X_U1.XU1.XINA28X_diff_ioa.XInput1.L4.value =      3.1815E-05
+   X_U1.XU1.XINA28X_diff_ioa.XInput1.R100.tc1 =      0.0000E+00
+   X_U1.XU1.XINA28X_diff_ioa.XInput1.R100.tc2 =      0.0000E+00
+ X_U1.XU1.XINA28X_diff_ioa.XInput1.R100.value =      1.0000E+09
+    X_U1.XU1.XINA28X_diff_ioa.XInput1.R1c.tc1 =      0.0000E+00
+    X_U1.XU1.XINA28X_diff_ioa.XInput1.R1c.tc2 =      0.0000E+00
+  X_U1.XU1.XINA28X_diff_ioa.XInput1.R1c.value =      1.0000E+11
+  X_U1.XU1.XINA28X_diff_ioa.XInput1.R1c_2.tc1 =      0.0000E+00
+  X_U1.XU1.XINA28X_diff_ioa.XInput1.R1c_2.tc2 =      0.0000E+00
+X_U1.XU1.XINA28X_diff_ioa.XInput1.R1c_2.value =      5.0000E+11
+    X_U1.XU1.XINA28X_diff_ioa.XInput1.R20.tc1 =      0.0000E+00
+    X_U1.XU1.XINA28X_diff_ioa.XInput1.R20.tc2 =      0.0000E+00
+  X_U1.XU1.XINA28X_diff_ioa.XInput1.R20.value =      1.0000E-03
+   X_U1.XU1.XINA28X_diff_ioa.XInput1.R210.tc1 =      0.0000E+00
+   X_U1.XU1.XINA28X_diff_ioa.XInput1.R210.tc2 =      0.0000E+00
+ X_U1.XU1.XINA28X_diff_ioa.XInput1.R210.value =      1.9990E+00
+    X_U1.XU1.XINA28X_diff_ioa.XInput1.R2c.tc1 =      0.0000E+00
+    X_U1.XU1.XINA28X_diff_ioa.XInput1.R2c.tc2 =      0.0000E+00
+  X_U1.XU1.XINA28X_diff_ioa.XInput1.R2c.value =      5.0000E+11
+    X_U1.XU1.XINA28X_diff_ioa.XInput1.R2s.tc1 =      0.0000E+00
+    X_U1.XU1.XINA28X_diff_ioa.XInput1.R2s.tc2 =      0.0000E+00
+  X_U1.XU1.XINA28X_diff_ioa.XInput1.R2s.value =      1.0000E+11
+    X_U1.XU1.XINA28X_diff_ioa.XInput1.R3g.tc1 =      0.0000E+00
+    X_U1.XU1.XINA28X_diff_ioa.XInput1.R3g.tc2 =      0.0000E+00
+  X_U1.XU1.XINA28X_diff_ioa.XInput1.R3g.value =      2.9473E+04
+    X_U1.XU1.XINA28X_diff_ioa.XInput1.R4g.tc1 =      0.0000E+00
+    X_U1.XU1.XINA28X_diff_ioa.XInput1.R4g.tc2 =      0.0000E+00
+  X_U1.XU1.XINA28X_diff_ioa.XInput1.R4g.value =      2.9473E+04
+     X_U1.XU1.XINA28X_diff_ioa.XInput1.R7.tc1 =      0.0000E+00
+     X_U1.XU1.XINA28X_diff_ioa.XInput1.R7.tc2 =      0.0000E+00
+   X_U1.XU1.XINA28X_diff_ioa.XInput1.R7.value =      5.6493E+07
+     X_U1.XU1.XINA28X_diff_ioa.XInput1.R8.tc1 =      0.0000E+00
+     X_U1.XU1.XINA28X_diff_ioa.XInput1.R8.tc2 =      0.0000E+00
+   X_U1.XU1.XINA28X_diff_ioa.XInput1.R8.value =      5.6493E+07
+ X_U1.XU1.XINA28X_diff_ioa.XInput1.Rnoise.tc1 =      0.0000E+00
+ X_U1.XU1.XINA28X_diff_ioa.XInput1.Rnoise.tc2 =      0.0000E+00
+X_U1.XU1.XINA28X_diff_ioa.XInput1.Rnoise.value =      4.1681E+05
+  X_U1.XU1.XINA28X_diff_ioa.XInput1.VCMref.ac =      0.0000E+00
+X_U1.XU1.XINA28X_diff_ioa.XInput1.VCMref.acphase =      0.0000E+00
+  X_U1.XU1.XINA28X_diff_ioa.XInput1.VCMref.dc =      1.2000E+01
+  X_U1.XU1.XINA28X_diff_ioa.XInput1.Vdrop1.ac =      0.0000E+00
+X_U1.XU1.XINA28X_diff_ioa.XInput1.Vdrop1.acphase =      0.0000E+00
+  X_U1.XU1.XINA28X_diff_ioa.XInput1.Vdrop1.dc =      8.1672E-01
+ X_U1.XU1.XINA28X_diff_ioa.XInput1.Vdrop11.ac =      0.0000E+00
+X_U1.XU1.XINA28X_diff_ioa.XInput1.Vdrop11.acphase =      0.0000E+00
+ X_U1.XU1.XINA28X_diff_ioa.XInput1.Vdrop11.dc =      8.1672E-01
+  X_U1.XU1.XINA28X_diff_ioa.XInput1.Vdrop2.ac =      0.0000E+00
+X_U1.XU1.XINA28X_diff_ioa.XInput1.Vdrop2.acphase =      0.0000E+00
+  X_U1.XU1.XINA28X_diff_ioa.XInput1.Vdrop2.dc =      8.1672E-01
+ X_U1.XU1.XINA28X_diff_ioa.XInput1.Vdrop21.ac =      0.0000E+00
+X_U1.XU1.XINA28X_diff_ioa.XInput1.Vdrop21.acphase =      0.0000E+00
+ X_U1.XU1.XINA28X_diff_ioa.XInput1.Vdrop21.dc =      8.1672E-01
+X_U1.XU1.XINA28X_diff_ioa.XInput1.XD1.D1.area =      1.0000E+00
+  X_U1.XU1.XINA28X_diff_ioa.XInput1.XD1.D1.ic =      0.0000E+00
+X_U1.XU1.XINA28X_diff_ioa.XInput1.XD2.D1.area =      1.0000E+00
+  X_U1.XU1.XINA28X_diff_ioa.XInput1.XD2.D1.ic =      0.0000E+00
+X_U1.XU1.XINA28X_diff_ioa.XInput1.XD3.D1.area =      1.0000E+00
+  X_U1.XU1.XINA28X_diff_ioa.XInput1.XD3.D1.ic =      0.0000E+00
+X_U1.XU1.XINA28X_diff_ioa.XInput1.XD4.D1.area =      1.0000E+00
+  X_U1.XU1.XINA28X_diff_ioa.XInput1.XD4.D1.ic =      0.0000E+00
+X_U1.XU1.XINA28X_diff_ioa.XInput1.XD5.D1.area =      1.0000E+00
+  X_U1.XU1.XINA28X_diff_ioa.XInput1.XD5.D1.ic =      0.0000E+00
+X_U1.XU1.XINA28X_diff_ioa.XInput1.XD6.D1.area =      1.0000E+00
+  X_U1.XU1.XINA28X_diff_ioa.XInput1.XD6.D1.ic =      0.0000E+00
+X_U1.XU1.XINA28X_diff_ioa.XInput1.XD7.D1.area =      1.0000E+00
+  X_U1.XU1.XINA28X_diff_ioa.XInput1.XD7.D1.ic =      0.0000E+00
+X_U1.XU1.XINA28X_diff_ioa.XInput1.XD8.D1.area =      1.0000E+00
+  X_U1.XU1.XINA28X_diff_ioa.XInput1.XD8.D1.ic =      0.0000E+00
+X_U1.XU1.XINA28X_diff_ioa.XInput1.XD9.D1.area =      1.0000E+00
+  X_U1.XU1.XINA28X_diff_ioa.XInput1.XD9.D1.ic =      0.0000E+00
+      X_U1.XU1.XINA28X_diff_ioa.XInput1.XT1.L =      1.4000E-06
+      X_U1.XU1.XINA28X_diff_ioa.XInput1.XT1.M =      1.0000E+00
+      X_U1.XU1.XINA28X_diff_ioa.XInput1.XT1.W =      1.0400E-05
+      X_U1.XU1.XINA28X_diff_ioa.XInput1.XT2.L =      1.4000E-06
+      X_U1.XU1.XINA28X_diff_ioa.XInput1.XT2.M =      1.0000E+00
+      X_U1.XU1.XINA28X_diff_ioa.XInput1.XT2.W =      1.0400E-05
+   X_U1.XU1.XINA28X_diff_ioa.XOutput1.Co11.ic =      0.0000E+00
+X_U1.XU1.XINA28X_diff_ioa.XOutput1.Co11.value =      1.0000E-13
+   X_U1.XU1.XINA28X_diff_ioa.XOutput1.Co12.ic =      0.0000E+00
+X_U1.XU1.XINA28X_diff_ioa.XOutput1.Co12.value =      1.0000E-13
+   X_U1.XU1.XINA28X_diff_ioa.XOutput1.Co13.ic =      0.0000E+00
+X_U1.XU1.XINA28X_diff_ioa.XOutput1.Co13.value =      1.0000E-13
+   X_U1.XU1.XINA28X_diff_ioa.XOutput1.Co19.ic =      0.0000E+00
+X_U1.XU1.XINA28X_diff_ioa.XOutput1.Co19.value =      5.3557E-15
+ X_U1.XU1.XINA28X_diff_ioa.XOutput1.Go11.gain =      6.3096E-03
+ X_U1.XU1.XINA28X_diff_ioa.XOutput1.Go12.gain =      6.3096E-03
+ X_U1.XU1.XINA28X_diff_ioa.XOutput1.Go13.gain =      2.5238E-05
+  X_U1.XU1.XINA28X_diff_ioa.XOutput1.Ro11.tc1 =      0.0000E+00
+  X_U1.XU1.XINA28X_diff_ioa.XOutput1.Ro11.tc2 =      0.0000E+00
+X_U1.XU1.XINA28X_diff_ioa.XOutput1.Ro11.value =      1.0000E+09
+  X_U1.XU1.XINA28X_diff_ioa.XOutput1.Ro12.tc1 =      0.0000E+00
+  X_U1.XU1.XINA28X_diff_ioa.XOutput1.Ro12.tc2 =      0.0000E+00
+X_U1.XU1.XINA28X_diff_ioa.XOutput1.Ro12.value =      1.0000E+09
+  X_U1.XU1.XINA28X_diff_ioa.XOutput1.Ro13.tc1 =      0.0000E+00
+  X_U1.XU1.XINA28X_diff_ioa.XOutput1.Ro13.tc2 =      0.0000E+00
+X_U1.XU1.XINA28X_diff_ioa.XOutput1.Ro13.value =      1.5849E+02
+  X_U1.XU1.XINA28X_diff_ioa.XOutput1.Ro14.tc1 =      0.0000E+00
+  X_U1.XU1.XINA28X_diff_ioa.XOutput1.Ro14.tc2 =      0.0000E+00
+X_U1.XU1.XINA28X_diff_ioa.XOutput1.Ro14.value =      1.5849E+02
+  X_U1.XU1.XINA28X_diff_ioa.XOutput1.Ro15.tc1 =      0.0000E+00
+  X_U1.XU1.XINA28X_diff_ioa.XOutput1.Ro15.tc2 =      0.0000E+00
+X_U1.XU1.XINA28X_diff_ioa.XOutput1.Ro15.value =      1.0000E+09
+  X_U1.XU1.XINA28X_diff_ioa.XOutput1.Ro19.tc1 =      0.0000E+00
+  X_U1.XU1.XINA28X_diff_ioa.XOutput1.Ro19.tc2 =      0.0000E+00
+X_U1.XU1.XINA28X_diff_ioa.XOutput1.Ro19.value =      1.6625E+09
+X_U1.XU1.XINA28X_diff_ioa.XOutput1.VdrophO1.ac =      0.0000E+00
+X_U1.XU1.XINA28X_diff_ioa.XOutput1.VdrophO1.acphase =      0.0000E+00
+X_U1.XU1.XINA28X_diff_ioa.XOutput1.VdrophO1.dc =      1.1192E+00
+X_U1.XU1.XINA28X_diff_ioa.XOutput1.VdroplO1.ac =      0.0000E+00
+X_U1.XU1.XINA28X_diff_ioa.XOutput1.VdroplO1.acphase =      0.0000E+00
+X_U1.XU1.XINA28X_diff_ioa.XOutput1.VdroplO1.dc =      1.1192E+00
+X_U1.XU1.XINA28X_diff_ioa.XOutput1.XD1.D1.area =      1.0000E+00
+ X_U1.XU1.XINA28X_diff_ioa.XOutput1.XD1.D1.ic =      0.0000E+00
+X_U1.XU1.XINA28X_diff_ioa.XOutput1.XD4.D1.area =      1.0000E+00
+ X_U1.XU1.XINA28X_diff_ioa.XOutput1.XD4.D1.ic =      0.0000E+00
+   X_U1.XU1.XINA28X_diff_ioa.XSW_H1.R_SW1.tc1 =      0.0000E+00
+   X_U1.XU1.XINA28X_diff_ioa.XSW_H1.R_SW1.tc2 =      0.0000E+00
+ X_U1.XU1.XINA28X_diff_ioa.XSW_H1.R_SW1.value =      1.0000E+09
+   X_U1.XU1.XINA28X_diff_ioa.XSW_S1.R_SW1.tc1 =      0.0000E+00
+   X_U1.XU1.XINA28X_diff_ioa.XSW_S1.R_SW1.tc2 =      0.0000E+00
+ X_U1.XU1.XINA28X_diff_ioa.XSW_S1.R_SW1.value =      1.0000E+09
+ X_U1.XU1.XINA28X_diff_ioa.XSW_S1_2.R_SW1.tc1 =      0.0000E+00
+ X_U1.XU1.XINA28X_diff_ioa.XSW_S1_2.R_SW1.tc2 =      0.0000E+00
+X_U1.XU1.XINA28X_diff_ioa.XSW_S1_2.R_SW1.value =      1.0000E+09
+                    X_U1.XU1.XSW_H1.R_SW1.tc1 =      0.0000E+00
+                    X_U1.XU1.XSW_H1.R_SW1.tc2 =      0.0000E+00
+                  X_U1.XU1.XSW_H1.R_SW1.value =      1.0000E+09
+                    X_U1.XU1.XSW_H2.R_SW1.tc1 =      0.0000E+00
+                    X_U1.XU1.XSW_H2.R_SW1.tc2 =      0.0000E+00
+                  X_U1.XU1.XSW_H2.R_SW1.value =      1.0000E+09
+                    X_U1.XU1.XSW_H3.R_SW1.tc1 =      0.0000E+00
+                    X_U1.XU1.XSW_H3.R_SW1.tc2 =      0.0000E+00
+                  X_U1.XU1.XSW_H3.R_SW1.value =      1.0000E+09
+                    X_U1.XU1.XSW_H4.R_SW1.tc1 =      0.0000E+00
+                    X_U1.XU1.XSW_H4.R_SW1.tc2 =      0.0000E+00
+                  X_U1.XU1.XSW_H4.R_SW1.value =      1.0000E+09
+                    X_U1.XU1.XSW_S1.R_SW1.tc1 =      0.0000E+00
+                    X_U1.XU1.XSW_S1.R_SW1.tc2 =      0.0000E+00
+                  X_U1.XU1.XSW_S1.R_SW1.value =      1.0000E+09
+                    X_U1.XU1.XSW_S2.R_SW1.tc1 =      0.0000E+00
+                    X_U1.XU1.XSW_S2.R_SW1.tc2 =      0.0000E+00
+                  X_U1.XU1.XSW_S2.R_SW1.value =      1.0000E+09
+                    X_U1.XU1.XSW_S3.R_SW1.tc1 =      0.0000E+00
+                    X_U1.XU1.XSW_S3.R_SW1.tc2 =      0.0000E+00
+                  X_U1.XU1.XSW_S3.R_SW1.value =      1.0000E+09
+                    X_U1.XU1.XSW_S4.R_SW1.tc1 =      0.0000E+00
+                    X_U1.XU1.XSW_S4.R_SW1.tc2 =      0.0000E+00
+                  X_U1.XU1.XSW_S4.R_SW1.value =      1.0000E+09
+                               X_U1.XU1.XU1.C =      4.0000E-12
+                        X_U1.XU1.XU1.RCV1.tc1 =      0.0000E+00
+                        X_U1.XU1.XU1.RCV1.tc2 =      0.0000E+00
+                      X_U1.XU1.XU1.RCV1.value =      1.0000E+09
+                             X_U1.XU1.XU1.TSW =      4.0000E-09
+                               X_U1.XU1.XU2.C =      4.0000E-12
+                        X_U1.XU1.XU2.RCV1.tc1 =      0.0000E+00
+                        X_U1.XU1.XU2.RCV1.tc2 =      0.0000E+00
+                      X_U1.XU1.XU2.RCV1.value =      1.0000E+09
+                             X_U1.XU1.XU2.TSW =      4.0000E-09
+                         X_U1.XU1.XU3.E3.gain =      1.0000E+00
+                              X_U1.XU1.XU3.I0 =      1.0000E-03
+                           X_U1.XU1.XU3.I2.ac =      0.0000E+00
+                      X_U1.XU1.XU3.I2.acphase =      0.0000E+00
+                          X_U1.XU1.XU3.R2.tc1 =      0.0000E+00
+                          X_U1.XU1.XU3.R2.tc2 =      0.0000E+00
+                        X_U1.XU1.XU3.R2.value =      1.0300E-01
+                             X_U1.XU1.XU3_2.C =      2.0000E-11
+                      X_U1.XU1.XU3_2.RCV1.tc1 =      0.0000E+00
+                      X_U1.XU1.XU3_2.RCV1.tc2 =      0.0000E+00
+                    X_U1.XU1.XU3_2.RCV1.value =      1.0000E+09
+                           X_U1.XU1.XU3_2.TSW =      4.0000E-06
+                               X_U1.XU1.XU4.C =      2.0000E-11
+                        X_U1.XU1.XU4.RCV1.tc1 =      0.0000E+00
+                        X_U1.XU1.XU4.RCV1.tc2 =      0.0000E+00
+                      X_U1.XU1.XU4.RCV1.value =      1.0000E+09
+                             X_U1.XU1.XU4.TSW =      4.0000E-06
+                             X_U1.XU1.XU5.TSW =      4.0000E-06
+                           X_U1.XU1.XU5.VLIMN =     -8.0000E-02
+                           X_U1.XU1.XU5.VLIMP =      8.0000E-02
+                           X_U1.XU1.XU5.VOFFS =      2.0000E-05
+                             X_U1.XU1.XU6.TSW =      4.0000E-06
+                           X_U1.XU1.XU6.VLIMN =     -8.0000E-02
+                           X_U1.XU1.XU6.VLIMP =      8.0000E-02
+                           X_U1.XU1.XU6.VOFFS =      2.0000E-05
+                               X_U1.XU1.XU7.C =      2.0000E-11
+                        X_U1.XU1.XU7.RCV1.tc1 =      0.0000E+00
+                        X_U1.XU1.XU7.RCV1.tc2 =      0.0000E+00
+                      X_U1.XU1.XU7.RCV1.value =      1.0000E+09
+                             X_U1.XU1.XU7.TSW =      4.0000E-09
+                               X_U1.XU1.XU8.C =      2.0000E-11
+                        X_U1.XU1.XU8.RCV1.tc1 =      0.0000E+00
+                        X_U1.XU1.XU8.RCV1.tc2 =      0.0000E+00
+                      X_U1.XU1.XU8.RCV1.value =      1.0000E+09
+                             X_U1.XU1.XU8.TSW =      4.0000E-09
+                                          XJN =      1.5000E-07
+                                          XJP =      1.8000E-07
+                                               
+               
+
+ERROR -- Convergence problem in bias point calculation
+
+
+  Last node voltages tried were:
+
+ NODE   VOLTAGE     NODE   VOLTAGE     NODE   VOLTAGE     NODE   VOLTAGE
+
+
+(   IN)    0.0000  (  OUT) 213.3E-09  ( LOAD) 29.76E-21  (N14290888) 50.78E-06  
+
+(X_U1.XU1.20) 12.30E-15               (X_U1.XU1.24) 886.6E-21                   
+
+(X_U1.XU1.25) 778.8E-21               (X_U1.XU1.27) 19.47E-09                   
+
+(X_U1.XU1.28) 2.316E-06               (X_U1.XU1.30) 761.6E-21                   
+
+(X_U1.XU1.31) 761.6E-21               (X_U1.XU1.40) 17.74E-06                   
+
+(X_U1.XU1.VM) 761.6E-21               (X_U1.XU1.ACm) 10.16E-06                  
+
+(X_U1.XU1.Bias) 228.9E-18             (X_U1.XU1.IGND)    0.0000                 
+
+(X_U1.XU1.nACm)-103.2E-12             (X_U1.XU1.NOut) 1.689E-15                 
+
+(X_U1.XU1.POut) 1.689E-15             (X_U1.XU1.UkAC) 14.88E-21                 
+
+(X_U1.XU1.Vreg) 68.17E-15             (X_U1.XU1.AVDDM) 257.9E-12                
+
+(X_U1.XU1.ClkF1) 10.16E-06            (X_U1.XU1.ClkF2) 50.83E-12                
+
+(X_U1.XU1.IAVDD) 150.0E-15            (X_U1.XU1.Vsw1+) 3.082E-15                
+
+(X_U1.XU1.Vsw1-) 3.082E-15            (X_U1.XU1.XU5.2) 886.6E-21                
+
+(X_U1.XU1.XU6.2) 778.8E-21            (X_U1.XU1.ClkF1_)    0.0000               
+
+(X_U1.XU1.ClkF2_)    0.0000           (X_U1.XU1.Neg_26) 19.47E-09               
+
+(X_U1.XU1.Neg_33) 4.475E-15           (X_U1.XU1.VInsw+) 14.88E-21               
+
+(X_U1.XU1.VInsw-) 14.88E-21           (X_U1.XU1.XU3.40)-1.045E-09               
+
+(X_U1.XU1.NLContr) 2.059E-09          (X_U1.XU1.Plus_29) 2.317E-06              
+
+(X_U1.XU1.Plus_32) 4.475E-15          (X_U1.XU1.Startup) 10.16E-06              
+
+(X_U1.XU1.XBias.60) 7.109E-06         (X_U1.XU1.XBias.63)-3.047E-06             
+
+(X_U1.XU1.XBias.65)-71.02E-15         (X_U1.XU1.XBias.67)    0.0000             
+
+(X_U1.XU1.XBias.68) 68.17E-15         (X_U1.XU1.XBias.VB1) 7.095E-06            
+
+(X_U1.XU1.XBias.VB2)-3.047E-06        (X_U1.XU1.XBias.VB3) 8.769E-15            
+
+(X_U1.XU1.XDA1.A1A2) 14.88E-21        (X_U1.XU1.XDA2.A1A2)    0.0000            
+
+(X_U1.XU1.XBias.BVS1)-3.047E-06       (X_U1.XU1.XBias.CM_R)-383.0E-15           
+
+(X_U1.XU1.XControl.45) 6.739E-09      (X_U1.XU1.XControl.46) 10.16E-06          
+
+(X_U1.XU1.XControl.48)    0.0000      (X_U1.XU1.XControl.50)-14.69E-15          
+
+(X_U1.XU1.XControl.51) 50.79E-06      (X_U1.XU1.XControl.52) 10.16E-06          
+
+(X_U1.XU1.XControl.Vcc) 10.16E-06     (X_U1.XU1.XControl.VF4) 50.79E-06         
+
+(X_U1.XU1.XControl.VZ1) 6.713E-09     (X_U1.XU1.XControl.ClkF3) 10.16E-06       
+
+(X_U1.XU1.XControl.VBias) 24.67E-12   (X_U1.XU1.XControl.VF2_53)-14.69E-15      
+
+(X_U1.XU1.XControl.XACm.3) 10.16E-06  (X_U1.XU1.XControl.XSW1.1) 17.77E-06      
+
+(X_U1.XU1.XControl.XSW1.CN) 17.77E-06 (X_U1.XU1.XControl.XU1.THR) 26.41E-06     
+
+(X_U1.XU1.XControl.ClkStart) 10.16E-06                                          
+
+(X_U1.XU1.XControl.XClkF1.3) 10.16E-06                                          
+
+(X_U1.XU1.XINA28X_diff_ioa.Neg_74) 761.6E-21                                    
+
+(X_U1.XU1.XINA28X_diff_ioa.Plus_75) 761.6E-21                                   
+
+(X_U1.XU1.XINA28X_diff_ioa.N_Out_72) 761.7E-21                                  
+
+(X_U1.XU1.XINA28X_diff_ioa.P_Out_73) 761.7E-21                                  
+
+(X_U1.XU1.XINA28X_diff_in_se_o.Neg_94) 726.7E-21                                
+
+(X_U1.XU1.XINA28X_diff_ioa.XInput1.83) 8.295E-06                                
+
+(X_U1.XU1.XINA28X_diff_ioa.XInput1.84)-8.295E-06                                
+
+(X_U1.XU1.XINA28X_diff_ioa.XInput1.85) 8.295E-06                                
+
+(X_U1.XU1.XINA28X_diff_ioa.XInput1.86)-8.295E-06                                
+
+(X_U1.XU1.XINA28X_diff_ioa.XInput1.88)-5.215E-09                                
+
+(X_U1.XU1.XINA28X_diff_ioa.XInput1.89) 761.6E-21                                
+
+(X_U1.XU1.XINA28X_diff_in_se_o.Plus_95) 796.6E-21                               
+
+(X_U1.XU1.XINA28X_diff_ioa.XInput1.VA-) 2.075E-12                               
+
+(X_U1.XU1.XINA28X_diff_ioa.XInput1.VCM) 4.475E-15                               
+
+(X_U1.XU1.XINA28X_diff_ioa.XInput1.VF1) 50.78E-06                               
+
+(X_U1.XU1.XINA28X_diff_ioa.XOutput1.92) 11.37E-06                               
+
+(X_U1.XU1.XINA28X_diff_ioa.XOutput1.93)-11.37E-06                               
+
+(X_U1.XU1.XINA28X_diff_ioa.XOutput1.VB) 761.7E-21                               
+
+(X_U1.XU1.XINA28X_diff_in_se_o.N_Out_97) 24.39E-21                              
+
+(X_U1.XU1.XINA28X_diff_in_se_o.P_Out_96) 1.499E-18                              
+
+(X_U1.XU1.XINA28X_diff_ioa.XInput1.Vecm) 762.6E-21                              
+
+(X_U1.XU1.XINA28X_diff_ioa.XInput1.CMref) 121.9E-06                             
+
+(X_U1.XU1.XINA28X_diff_ioa.XInput1.VA+_78) 2.075E-12                            
+
+(X_U1.XU1.XINA28X_diff_ioa.XInput1.VF2_81) 2.075E-12                            
+
+(X_U1.XU1.XINA28X_diff_in_se_o.XInput2.119) 50.78E-06                           
+
+(X_U1.XU1.XINA28X_diff_in_se_o.XInput2.120) 761.6E-21                           
+
+(X_U1.XU1.XINA28X_diff_in_se_o.XInput2.121) 8.295E-06                           
+
+(X_U1.XU1.XINA28X_diff_in_se_o.XInput2.122)-8.295E-06                           
+
+(X_U1.XU1.XINA28X_diff_in_se_o.XInput2.123) 8.295E-06                           
+
+(X_U1.XU1.XINA28X_diff_in_se_o.XInput2.124)-8.295E-06                           
+
+(X_U1.XU1.XINA28X_diff_in_se_o.XOutput2.VG) 206.3E-12                           
+
+(X_U1.XU1.XINA28X_diff_in_se_o.XOutput2.VV) 761.6E-21                           
+
+(X_U1.XU1.XINA28X_diff_ioa.XInput1.Venoise)    0.0000                           
+
+(X_U1.XU1.XINA28X_diff_in_se_o.XInput2.Veps) 761.6E-21                          
+
+(X_U1.XU1.XINA28X_diff_in_se_o.XOutput2.101) 20.31E-06                          
+
+(X_U1.XU1.XINA28X_diff_in_se_o.XOutput2.102) 206.3E-12                          
+
+(X_U1.XU1.XINA28X_diff_in_se_o.XOutput2.103) 50.78E-06                          
+
+(X_U1.XU1.XINA28X_diff_in_se_o.XOutput2.104) 25.50E-06                          
+
+(X_U1.XU1.XINA28X_diff_in_se_o.XOutput2.106) 50.78E-06                          
+
+(X_U1.XU1.XINA28X_diff_in_se_o.XOutput2.107) 515.7E-12                          
+
+(X_U1.XU1.XINA28X_diff_in_se_o.XOutput2.108) 213.3E-09                          
+
+(X_U1.XU1.XINA28X_diff_in_se_o.XOutput2.109) 71.10E-09                          
+
+(X_U1.XU1.XINA28X_diff_in_se_o.XOutput2.110) 49.54E-06                          
+
+(X_U1.XU1.XINA28X_diff_in_se_o.XOutput2.112) 18.21E-06                          
+
+(X_U1.XU1.XINA28X_diff_in_se_o.XOutput2.113)-18.21E-06                          
+
+(X_U1.XU1.XINA28X_diff_in_se_o.XOutput2.114) 761.6E-21                          
+
+(X_U1.XU1.XINA28X_diff_in_se_o.XOutput2.115) 50.78E-06                          
+
+(X_U1.XU1.XINA28X_diff_in_se_o.XOutput2.116) 206.3E-12                          
+
+(X_U1.XU1.XINA28X_diff_in_se_o.XOutput2.VGP) 50.78E-06                          
+
+(X_U1.XU1.XINA28X_diff_in_se_o.XOutput2.Vt0) 20.31E-06                          
+
+(X_U1.XU1.XINA28X_diff_in_se_o.XInput2.VA+_118) 23.33E-12                   
+
+
+  These voltages failed to converge:
+
+    V(X_U1.XU1.NLContr)       =   203.83uV  \    2.059nV
+    V(X_U1.XU1.XControl.VBias) =    2.523uV  \    24.67pV
+    V(X_U1.XU1.XControl.ClkStart) =    40.50nV  \    10.16uV
+    V(X_U1.XU1.XBias.BVS1)    =  -300.00mV  \   -3.047uV
+    V(X_U1.XU1.XBias.63)      =  -300.00mV  \   -3.047uV
+    V(X_U1.XU1.XBias.VB2)     =  -300.00mV  \   -3.047uV
+    V(X_U1.XU1.Startup)       =     1.000V  \    10.16uV
+    V(X_U1.XU1.XControl.ClkF3) =     1.000V  \    10.16uV
+    V(X_U1.XU1.XControl.XSW1.CN) =     1.750V  \    17.77uV
+    V(X_U1.XU1.XControl.XSW1.1) =     1.750V  \    17.77uV
+    V(X_U1.XU1.XControl.XU1.THR) =     2.600V  \    26.41uV
+    V(X_U1.XU1.XINA28X_diff_ioa.XInput1.88) =  -513.49uV  \   -5.215nV
+    V(X_U1.XU1.XINA28X_diff_in_se_o.XOutput2.103) = 2.331e-21V  \    50.78uV
+    V(X_U1.XU1.XINA28X_diff_in_se_o.XOutput2.107) =    50.78uV  \   515.75pV
+    V(X_U1.XU1.XINA28X_diff_in_se_o.XInput2.VA+_118) =    2.305uV  \    23.34pV
+
+  These supply currents failed to converge:
+
+    I(X_U1.XU1.XControl.XU1.EOUT) =   -1.000nA  \   -10.16fA
+    I(X_U1.XU1.XControl.VS1)  =   -50.79fA  \   -2.580pA
+    I(X_U1.XU1.XControl.XClkF32.VCLKF32) =   -1.000nA  \   -10.16fA
+
+  These devices failed to converge:
+    X_U1.XU1.XControl.XU1.ETHR X_U1.XU1.XControl.XU1.EOUT 
+
+**** Interrupt ****
+**** Param: RELTOL = 0.001
+**** Param: ABSTOL = 1e-012
+**** Param: VNTOL = 1e-006
+**** Param: GMIN = 1e-012
+**** Param: TSTOP = 1e-009
+**** Param: TMAX = 0
+**** Param: ITL1 = 150
+**** Param: ITL2 = 20
+**** Param: ITL4 = 10
+
+ **** Published Runtime Parameters *****************************
+                                                               
+                                       ABSTOL =      1.0000E-12
+                                          ETA =      3.0000E+00
+                                        GAMMA =      0.0000E+00
+                                         GMIN =      1.0000E-12
+                                         ITL1 =      1.5000E+02
+                                         ITL2 =      2.0000E+01
+                                         ITL4 =      1.0000E+01
+                                        KAPPA =      1.0000E+00
+                                       LAMBDA =      1.0000E-02
+                                          LDN =      9.0000E-08
+                                          LDP =      9.0000E-08
+                                           LS =      1.0000E-06
+                                          PBN =      7.0000E-01
+                                          PBP =      7.0000E-01
+                                     R_R3.tc1 =      0.0000E+00
+                                     R_R3.tc2 =      0.0000E+00
+                                   R_R3.value =      1.0000E+04
+                                  R_Rload.tc1 =      0.0000E+00
+                                  R_Rload.tc2 =      0.0000E+00
+                                R_Rload.value =      5.0000E+00
+                                 R_Rshunt.tc1 =      0.0000E+00
+                                 R_Rshunt.tc2 =      0.0000E+00
+                               R_Rshunt.value =      1.0000E-02
+                                          RDS =      1.0000E+07
+                                       RELTOL =      1.0000E-03
+                                       RUNFOR =      0.0000E+00
+                                        THETA =      2.3000E-01
+                                         TMAX =      0.0000E+00
+                                          TOX =      8.0000E-09
+                                        TSTOP =      1.0000E-09
+                                          UON =      4.5000E+02
+                                          UOP =      1.5000E+02
+                                      V_V2.ac =      0.0000E+00
+                                 V_V2.acphase =      0.0000E+00
+                                      V_V2.dc =      5.0000E+00
+                                     V_Vin.ac =      1.0000E+00
+                                V_Vin.acphase =      0.0000E+00
+                                     V_Vin.dc =      0.0000E+00
+                                        VNTOL =      1.0000E-06
+                                        VTOHN =      7.5000E-01
+                                        VTOHP =      7.5000E-01
+                                       X_U1.G =      5.0000E+01
+                                 X_U1.TR_MODE =      0.0000E+00
+                              X_U1.XU1.Cc1.ic =      0.0000E+00
+                           X_U1.XU1.Cc1.value =      1.0000E-13
+                              X_U1.XU1.Cc2.ic =      0.0000E+00
+                           X_U1.XU1.Cc2.value =      1.0000E-13
+                             X_U1.XU1.Csw1.ic =      0.0000E+00
+                          X_U1.XU1.Csw1.value =      1.0000E-11
+                             X_U1.XU1.Csw2.ic =      0.0000E+00
+                          X_U1.XU1.Csw2.value =      1.0000E-11
+                             X_U1.XU1.Csw3.ic =      0.0000E+00
+                          X_U1.XU1.Csw3.value =      4.0000E-12
+                             X_U1.XU1.Csw4.ic =      0.0000E+00
+                          X_U1.XU1.Csw4.value =      4.0000E-12
+                          X_U1.XU1.EAVDD.gain =      5.0000E-01
+                          X_U1.XU1.EVCS2.gain =      1.0000E+00
+                          X_U1.XU1.EVCS4.gain =      1.0000E+00
+                                  X_U1.XU1.G1 =      5.0000E+00
+                                X_U1.XU1.hRrg =      2.0000E-03
+                             X_U1.XU1.RG1.tc2 =     -1.0000E-09
+                           X_U1.XU1.RG1.value =      4.9900E+04
+                             X_U1.XU1.RG2.tc2 =     -1.0000E-09
+                           X_U1.XU1.RG2.value =      3.3317E+04
+                             X_U1.XU1.RG3.tc2 =      1.0000E-09
+                           X_U1.XU1.RG3.value =      5.0080E+03
+                             X_U1.XU1.RG4.tc2 =      1.0000E-09
+                           X_U1.XU1.RG4.value =      5.0030E+03
+                              X_U1.XU1.RONSnl =      2.0000E+00
+                             X_U1.XU1.Rr1.tc2 =     -1.0000E-09
+                           X_U1.XU1.Rr1.value =      3.3200E+04
+                             X_U1.XU1.Rr2.tc2 =     -1.0000E-09
+                           X_U1.XU1.Rr2.value =      3.3333E+04
+                                X_U1.XU1.TC12 =      4.0211E-06
+                        X_U1.XU1.XBias.Ci5.ic =      0.0000E+00
+                     X_U1.XU1.XBias.Ci5.value =      1.0000E-12
+                        X_U1.XU1.XBias.Ci6.ic =      0.0000E+00
+                     X_U1.XU1.XBias.Ci6.value =      1.0000E-12
+                    X_U1.XU1.XBias.FBCS2.gain =      1.0000E+00
+                     X_U1.XU1.XBias.FCq1.gain =      1.0000E+00
+                   X_U1.XU1.XBias.FISb3s.gain =     -1.0000E+00
+                    X_U1.XU1.XBias.GISb2.gain =      3.6000E-05
+                       X_U1.XU1.XBias.ISb1.ac =      0.0000E+00
+                  X_U1.XU1.XBias.ISb1.acphase =      0.0000E+00
+                       X_U1.XU1.XBias.ISb1.dc =      1.4000E-05
+                        X_U1.XU1.XBias.R1.tc1 =      0.0000E+00
+                        X_U1.XU1.XBias.R1.tc2 =      0.0000E+00
+                      X_U1.XU1.XBias.R1.value =      1.0000E+09
+                        X_U1.XU1.XBias.R2.tc1 =     -1.1000E-03
+                        X_U1.XU1.XBias.R2.tc2 =      1.0000E-06
+                      X_U1.XU1.XBias.R2.value =      2.0000E+04
+                       X_U1.XU1.XBias.Rb2.tc1 =      0.0000E+00
+                       X_U1.XU1.XBias.Rb2.tc2 =      0.0000E+00
+                     X_U1.XU1.XBias.Rb2.value =      2.0000E+06
+                     X_U1.XU1.XBias.Rbus1.tc1 =      0.0000E+00
+                     X_U1.XU1.XBias.Rbus1.tc2 =      0.0000E+00
+                   X_U1.XU1.XBias.Rbus1.value =      3.0600E+03
+                     X_U1.XU1.XBias.Rbus2.tc1 =      0.0000E+00
+                     X_U1.XU1.XBias.Rbus2.tc2 =      0.0000E+00
+                   X_U1.XU1.XBias.Rbus2.value =      2.9400E+03
+                       X_U1.XU1.XBias.Rp2.tc1 =      0.0000E+00
+                       X_U1.XU1.XBias.Rp2.tc2 =      0.0000E+00
+                     X_U1.XU1.XBias.Rp2.value =      2.0000E+08
+                      X_U1.XU1.XBias.RSb3.tc1 =     -1.1000E-03
+                      X_U1.XU1.XBias.RSb3.tc2 =      1.0000E-06
+                    X_U1.XU1.XBias.RSb3.value =      1.0000E+05
+                      X_U1.XU1.XBias.VBVS3.ac =      0.0000E+00
+                 X_U1.XU1.XBias.VBVS3.acphase =      0.0000E+00
+                      X_U1.XU1.XBias.VBVS3.dc =      7.0000E-01
+                    X_U1.XU1.XBias.VCq1_in.ac =      0.0000E+00
+               X_U1.XU1.XBias.VCq1_in.acphase =      0.0000E+00
+                    X_U1.XU1.XBias.VCq1_in.dc =      0.0000E+00
+                     X_U1.XU1.XBias.VIBVS1.ac =      0.0000E+00
+                X_U1.XU1.XBias.VIBVS1.acphase =      0.0000E+00
+                     X_U1.XU1.XBias.VIBVS1.dc =      0.0000E+00
+                  X_U1.XU1.XBias.VISb3s_in.ac =      0.0000E+00
+             X_U1.XU1.XBias.VISb3s_in.acphase =      0.0000E+00
+                  X_U1.XU1.XBias.VISb3s_in.dc =      0.0000E+00
+                   X_U1.XU1.XBias.XD1.D1.area =      1.0000E+00
+                     X_U1.XU1.XBias.XD1.D1.ic =      0.0000E+00
+                   X_U1.XU1.XBias.XD2.D1.area =      1.0000E+00
+                     X_U1.XU1.XBias.XD2.D1.ic =      0.0000E+00
+                   X_U1.XU1.XBias.XD3.D1.area =      1.0000E+00
+                     X_U1.XU1.XBias.XD3.D1.ic =      0.0000E+00
+                   X_U1.XU1.XBias.XD4.D1.area =      1.0000E+00
+                     X_U1.XU1.XBias.XD4.D1.ic =      0.0000E+00
+                   X_U1.XU1.XBias.XD5.D1.area =      1.0000E+00
+                     X_U1.XU1.XBias.XD5.D1.ic =      0.0000E+00
+                   X_U1.XU1.XBias.XD6.D1.area =      1.0000E+00
+                     X_U1.XU1.XBias.XD6.D1.ic =      0.0000E+00
+                   X_U1.XU1.XBias.XD7.D1.area =      1.0000E+00
+                     X_U1.XU1.XBias.XD7.D1.ic =      0.0000E+00
+                     X_U1.XU1.XControl.Cc1.ic =      0.0000E+00
+                  X_U1.XU1.XControl.Cc1.value =      5.0000E-12
+                  X_U1.XU1.XControl.EGND.gain =      1.0000E+00
+                X_U1.XU1.XControl.EVCVS1.gain =     -1.0000E+00
+                  X_U1.XU1.XControl.GCS1.gain =      1.0000E+00
+               X_U1.XU1.XControl.HCCVSB1.gain =      2.5000E+05
+                     X_U1.XU1.XControl.IS3.ac =      0.0000E+00
+                X_U1.XU1.XControl.IS3.acphase =      0.0000E+00
+                     X_U1.XU1.XControl.IS3.dc =      5.1000E-06
+                     X_U1.XU1.XControl.R1.tc1 =      0.0000E+00
+                     X_U1.XU1.XControl.R1.tc2 =      0.0000E+00
+                   X_U1.XU1.XControl.R1.value =      4.0000E+06
+                     X_U1.XU1.XControl.R2.tc1 =      0.0000E+00
+                     X_U1.XU1.XControl.R2.tc2 =      0.0000E+00
+                   X_U1.XU1.XControl.R2.value =      1.0000E+03
+                   X_U1.XU1.XControl.R2_2.tc1 =      0.0000E+00
+                   X_U1.XU1.XControl.R2_2.tc2 =      0.0000E+00
+                 X_U1.XU1.XControl.R2_2.value =      1.0000E+03
+                     X_U1.XU1.XControl.R3.tc1 =      0.0000E+00
+                     X_U1.XU1.XControl.R3.tc2 =      0.0000E+00
+                   X_U1.XU1.XControl.R3.value =      1.0000E+03
+                     X_U1.XU1.XControl.R4.tc1 =      0.0000E+00
+                     X_U1.XU1.XControl.R4.tc2 =      0.0000E+00
+                   X_U1.XU1.XControl.R4.value =      5.0000E+07
+                    X_U1.XU1.XControl.Rb3.tc1 =      1.8700E-03
+                    X_U1.XU1.XControl.Rb3.tc2 =     -3.7700E-06
+                  X_U1.XU1.XControl.Rb3.value =      4.0000E+00
+                  X_U1.XU1.XControl.Rclk1.tc1 =      0.0000E+00
+                  X_U1.XU1.XControl.Rclk1.tc2 =      0.0000E+00
+                X_U1.XU1.XControl.Rclk1.value =      1.0000E-02
+                 X_U1.XU1.XControl.Rclk1a.tc1 =      0.0000E+00
+                 X_U1.XU1.XControl.Rclk1a.tc2 =      0.0000E+00
+               X_U1.XU1.XControl.Rclk1a.value =      1.0000E-02
+                  X_U1.XU1.XControl.Rclk2.tc1 =      0.0000E+00
+                  X_U1.XU1.XControl.Rclk2.tc2 =      0.0000E+00
+                X_U1.XU1.XControl.Rclk2.value =      1.0000E-02
+                 X_U1.XU1.XControl.Rclk2a.tc1 =      0.0000E+00
+                 X_U1.XU1.XControl.Rclk2a.tc2 =      0.0000E+00
+               X_U1.XU1.XControl.Rclk2a.value =      1.0000E-02
+                    X_U1.XU1.XControl.Rs4.tc1 =      0.0000E+00
+                    X_U1.XU1.XControl.Rs4.tc2 =      0.0000E+00
+                  X_U1.XU1.XControl.Rs4.value =      2.0000E+05
+              X_U1.XU1.XControl.VCCVSB1_in.ac =      0.0000E+00
+         X_U1.XU1.XControl.VCCVSB1_in.acphase =      0.0000E+00
+              X_U1.XU1.XControl.VCCVSB1_in.dc =      0.0000E+00
+                     X_U1.XU1.XControl.VS1.ac =      0.0000E+00
+                X_U1.XU1.XControl.VS1.acphase =      0.0000E+00
+                     X_U1.XU1.XControl.VS1.dc =      1.0000E+00
+                     X_U1.XU1.XControl.VS3.ac =      0.0000E+00
+                X_U1.XU1.XControl.VS3.acphase =      0.0000E+00
+                     X_U1.XU1.XControl.VS3.dc =      1.0000E+00
+               X_U1.XU1.XControl.XACm.VACM.ac =      1.0000E+00
+          X_U1.XU1.XControl.XACm.VACM.acphase =      0.0000E+00
+               X_U1.XU1.XControl.XACm.VACM.dc =      0.0000E+00
+            X_U1.XU1.XControl.XACm.VACM_DC.ac =      0.0000E+00
+       X_U1.XU1.XControl.XACm.VACM_DC.acphase =      0.0000E+00
+            X_U1.XU1.XControl.XACm.VACM_DC.dc =      1.0000E+00
+           X_U1.XU1.XControl.XClkF1.VCLKF1.ac =      0.0000E+00
+      X_U1.XU1.XControl.XClkF1.VCLKF1.acphase =      0.0000E+00
+           X_U1.XU1.XControl.XClkF1.VCLKF1.dc =      0.0000E+00
+        X_U1.XU1.XControl.XClkF1.VCLKF1_DC.ac =      0.0000E+00
+   X_U1.XU1.XControl.XClkF1.VCLKF1_DC.acphase =      0.0000E+00
+        X_U1.XU1.XControl.XClkF1.VCLKF1_DC.dc =      1.0000E+00
+           X_U1.XU1.XControl.XClkF2.VCLKF2.ac =      0.0000E+00
+      X_U1.XU1.XControl.XClkF2.VCLKF2.acphase =      0.0000E+00
+           X_U1.XU1.XControl.XClkF2.VCLKF2.dc =      0.0000E+00
+         X_U1.XU1.XControl.XClkF32.VCLKF32.ac =      0.0000E+00
+    X_U1.XU1.XControl.XClkF32.VCLKF32.acphase =      0.0000E+00
+         X_U1.XU1.XControl.XClkF32.VCLKF32.dc =      0.0000E+00
+                X_U1.XU1.XControl.XD1.D1.area =      1.0000E+00
+                  X_U1.XU1.XControl.XD1.D1.ic =      0.0000E+00
+                X_U1.XU1.XControl.XD2.D1.area =      1.0000E+00
+                  X_U1.XU1.XControl.XD2.D1.ic =      0.0000E+00
+                X_U1.XU1.XControl.XD3.D1.area =      1.0000E+00
+                  X_U1.XU1.XControl.XD3.D1.ic =      0.0000E+00
+                X_U1.XU1.XControl.XD4.D1.area =      1.0000E+00
+                  X_U1.XU1.XControl.XD4.D1.ic =      0.0000E+00
+                X_U1.XU1.XControl.XD5.D1.area =      1.0000E+00
+                  X_U1.XU1.XControl.XD5.D1.ic =      0.0000E+00
+                X_U1.XU1.XControl.XDZb1.CD.ic =      0.0000E+00
+             X_U1.XU1.XControl.XDZb1.CD.value =      1.0000E-12
+              X_U1.XU1.XControl.XDZb1.D1.area =      1.0000E+00
+                X_U1.XU1.XControl.XDZb1.D1.ic =      0.0000E+00
+                 X_U1.XU1.XControl.XSW1.C1.ic =      0.0000E+00
+              X_U1.XU1.XControl.XSW1.C1.value =      1.4430E-08
+                X_U1.XU1.XControl.XSW1.R1.tc1 =      0.0000E+00
+                X_U1.XU1.XControl.XSW1.R1.tc2 =      0.0000E+00
+              X_U1.XU1.XControl.XSW1.R1.value =      1.0000E+00
+                X_U1.XU1.XControl.XSW1.R2.tc1 =      0.0000E+00
+                X_U1.XU1.XControl.XSW1.R2.tc2 =      0.0000E+00
+              X_U1.XU1.XControl.XSW1.R2.value =      1.0000E+09
+                X_U1.XU1.XControl.XSW1.R3.tc1 =      0.0000E+00
+                X_U1.XU1.XControl.XSW1.R3.tc2 =      0.0000E+00
+              X_U1.XU1.XControl.XSW1.R3.value =      1.0000E+09
+                X_U1.XU1.XControl.XSW1.R4.tc1 =      0.0000E+00
+                X_U1.XU1.XControl.XSW1.R4.tc2 =      0.0000E+00
+              X_U1.XU1.XControl.XSW1.R4.value =      1.0000E+09
+                    X_U1.XU1.XControl.XSW1.RD =      1.0000E+00
+                  X_U1.XU1.XControl.XSW1.ROFF =      1.0000E+09
+                   X_U1.XU1.XControl.XSW1.RON =      1.0000E+00
+                  X_U1.XU1.XControl.XSW1.TDEL =      1.0000E-08
+                    X_U1.XU1.XControl.XSW1.VH =      7.5000E-01
+                    X_U1.XU1.XControl.XSW1.VT =      1.0000E+00
+                X_U1.XU1.XControl.XU1.COUT.ic =      0.0000E+00
+             X_U1.XU1.XControl.XU1.COUT.value =      1.4430E-11
+                   X_U1.XU1.XControl.XU1.ROUT =      1.0000E+02
+                   X_U1.XU1.XControl.XU1.TDEL =      1.0000E-09
+                  X_U1.XU1.XControl.XU1.VHYST =      5.0000E-02
+                  X_U1.XU1.XControl.XU1.VOUTH =      1.0000E+00
+                  X_U1.XU1.XControl.XU1.VOUTL =      0.0000E+00
+                 X_U1.XU1.XControl.XU1.VTHRES =      2.5500E+00
+                         X_U1.XU1.XD1.D1.area =      1.0000E+00
+                           X_U1.XU1.XD1.D1.ic =      0.0000E+00
+                         X_U1.XU1.XD2.D1.area =      1.0000E+00
+                           X_U1.XU1.XD2.D1.ic =      0.0000E+00
+                         X_U1.XU1.XD4.D1.area =      1.0000E+00
+                           X_U1.XU1.XD4.D1.ic =      0.0000E+00
+                         X_U1.XU1.XD5.D1.area =      1.0000E+00
+                           X_U1.XU1.XD5.D1.ic =      0.0000E+00
+                         X_U1.XU1.XD6.D1.area =      1.0000E+00
+                           X_U1.XU1.XD6.D1.ic =      0.0000E+00
+                         X_U1.XU1.XD7.D1.area =      1.0000E+00
+                           X_U1.XU1.XD7.D1.ic =      0.0000E+00
+                        X_U1.XU1.XDA1.D1.area =      1.0000E+00
+                          X_U1.XU1.XDA1.D1.ic =      0.0000E+00
+                        X_U1.XU1.XDA1.D2.area =      1.0000E+00
+                          X_U1.XU1.XDA1.D2.ic =      0.0000E+00
+                        X_U1.XU1.XDA2.D1.area =      1.0000E+00
+                          X_U1.XU1.XDA2.D1.ic =      0.0000E+00
+                        X_U1.XU1.XDA2.D2.area =      1.0000E+00
+                          X_U1.XU1.XDA2.D2.ic =      0.0000E+00
+         X_U1.XU1.XINA28X_diff_in_se_o.C36.ic =      0.0000E+00
+      X_U1.XU1.XINA28X_diff_in_se_o.C36.value =      6.0000E-12
+         X_U1.XU1.XINA28X_diff_in_se_o.C38.ic =      0.0000E+00
+      X_U1.XU1.XINA28X_diff_in_se_o.C38.value =      6.0000E-12
+X_U1.XU1.XINA28X_diff_in_se_o.XInput2.Ci21.ic =      0.0000E+00
+X_U1.XU1.XINA28X_diff_in_se_o.XInput2.Ci21.value =      1.0000E-13
+X_U1.XU1.XINA28X_diff_in_se_o.XInput2.Ci22.ic =      0.0000E+00
+X_U1.XU1.XINA28X_diff_in_se_o.XInput2.Ci22.value =      1.0000E-13
+X_U1.XU1.XINA28X_diff_in_se_o.XInput2.Ci23.ic =      0.0000E+00
+X_U1.XU1.XINA28X_diff_in_se_o.XInput2.Ci23.value =      1.0000E-13
+X_U1.XU1.XINA28X_diff_in_se_o.XInput2.Ci27.ic =      0.0000E+00
+X_U1.XU1.XINA28X_diff_in_se_o.XInput2.Ci27.value =      1.2521E-14
+X_U1.XU1.XINA28X_diff_in_se_o.XInput2.Ci28.ic =      0.0000E+00
+X_U1.XU1.XINA28X_diff_in_se_o.XInput2.Ci28.value =      1.2521E-14
+X_U1.XU1.XINA28X_diff_in_se_o.XInput2.G8ps.gain =      1.4197E-02
+X_U1.XU1.XINA28X_diff_in_se_o.XInput2.Gi21.gain =      3.0159E-05
+X_U1.XU1.XINA28X_diff_in_se_o.XInput2.Gi22.gain =      3.0159E-05
+X_U1.XU1.XINA28X_diff_in_se_o.XInput2.L191.ic =      0.0000E+00
+X_U1.XU1.XINA28X_diff_in_se_o.XInput2.L191.lgap.ic =      0.0000E+00
+X_U1.XU1.XINA28X_diff_in_se_o.XInput2.L191.lgap.value =      0.0000E+00
+X_U1.XU1.XINA28X_diff_in_se_o.XInput2.L191.value =      1.5915E-07
+X_U1.XU1.XINA28X_diff_in_se_o.XInput2.R191.tc1 =      0.0000E+00
+X_U1.XU1.XINA28X_diff_in_se_o.XInput2.R191.tc2 =      0.0000E+00
+X_U1.XU1.XINA28X_diff_in_se_o.XInput2.R191.value =      1.0000E-03
+X_U1.XU1.XINA28X_diff_in_se_o.XInput2.R201.tc1 =      0.0000E+00
+X_U1.XU1.XINA28X_diff_in_se_o.XInput2.R201.tc2 =      0.0000E+00
+X_U1.XU1.XINA28X_diff_in_se_o.XInput2.R201.value =      1.9999E+01
+X_U1.XU1.XINA28X_diff_in_se_o.XInput2.Ri21.tc1 =      0.0000E+00
+X_U1.XU1.XINA28X_diff_in_se_o.XInput2.Ri21.tc2 =      0.0000E+00
+X_U1.XU1.XINA28X_diff_in_se_o.XInput2.Ri21.value =      1.0000E+09
+X_U1.XU1.XINA28X_diff_in_se_o.XInput2.Ri22.tc1 =      0.0000E+00
+X_U1.XU1.XINA28X_diff_in_se_o.XInput2.Ri22.tc2 =      0.0000E+00
+X_U1.XU1.XINA28X_diff_in_se_o.XInput2.Ri22.value =      1.0000E+11
+X_U1.XU1.XINA28X_diff_in_se_o.XInput2.Ri23.tc1 =      0.0000E+00
+X_U1.XU1.XINA28X_diff_in_se_o.XInput2.Ri23.tc2 =      0.0000E+00
+X_U1.XU1.XINA28X_diff_in_se_o.XInput2.Ri23.value =      1.0000E+11
+X_U1.XU1.XINA28X_diff_in_se_o.XInput2.Ri27.tc1 =      0.0000E+00
+X_U1.XU1.XINA28X_diff_in_se_o.XInput2.Ri27.tc2 =      0.0000E+00
+X_U1.XU1.XINA28X_diff_in_se_o.XInput2.Ri27.value =      6.3554E+07
+X_U1.XU1.XINA28X_diff_in_se_o.XInput2.Ri28.tc1 =      0.0000E+00
+X_U1.XU1.XINA28X_diff_in_se_o.XInput2.Ri28.tc2 =      0.0000E+00
+X_U1.XU1.XINA28X_diff_in_se_o.XInput2.Ri28.value =      6.3554E+07
+X_U1.XU1.XINA28X_diff_in_se_o.XInput2.Vi2drop1.ac =      0.0000E+00
+X_U1.XU1.XINA28X_diff_in_se_o.XInput2.Vi2drop1.acphase =      0.0000E+00
+X_U1.XU1.XINA28X_diff_in_se_o.XInput2.Vi2drop1.dc =      8.1672E-01
+X_U1.XU1.XINA28X_diff_in_se_o.XInput2.Vi2drop11.ac =      0.0000E+00
+X_U1.XU1.XINA28X_diff_in_se_o.XInput2.Vi2drop11.acphase =      0.0000E+00
+X_U1.XU1.XINA28X_diff_in_se_o.XInput2.Vi2drop11.dc =      8.1672E-01
+X_U1.XU1.XINA28X_diff_in_se_o.XInput2.Vi2drop2.ac =      0.0000E+00
+X_U1.XU1.XINA28X_diff_in_se_o.XInput2.Vi2drop2.acphase =      0.0000E+00
+X_U1.XU1.XINA28X_diff_in_se_o.XInput2.Vi2drop2.dc =      8.1672E-01
+X_U1.XU1.XINA28X_diff_in_se_o.XInput2.Vi2drop21.ac =      0.0000E+00
+X_U1.XU1.XINA28X_diff_in_se_o.XInput2.Vi2drop21.acphase =      0.0000E+00
+X_U1.XU1.XINA28X_diff_in_se_o.XInput2.Vi2drop21.dc =      8.1672E-01
+X_U1.XU1.XINA28X_diff_in_se_o.XInput2.VPSref.ac =      0.0000E+00
+X_U1.XU1.XINA28X_diff_in_se_o.XInput2.VPSref.acphase =      0.0000E+00
+X_U1.XU1.XINA28X_diff_in_se_o.XInput2.VPSref.dc =      5.0000E+00
+X_U1.XU1.XINA28X_diff_in_se_o.XInput2.XD1.D1.area =      1.0000E+00
+X_U1.XU1.XINA28X_diff_in_se_o.XInput2.XD1.D1.ic =      0.0000E+00
+X_U1.XU1.XINA28X_diff_in_se_o.XInput2.XD2.D1.area =      1.0000E+00
+X_U1.XU1.XINA28X_diff_in_se_o.XInput2.XD2.D1.ic =      0.0000E+00
+X_U1.XU1.XINA28X_diff_in_se_o.XInput2.XD3.D1.area =      1.0000E+00
+X_U1.XU1.XINA28X_diff_in_se_o.XInput2.XD3.D1.ic =      0.0000E+00
+X_U1.XU1.XINA28X_diff_in_se_o.XInput2.XD4.D1.area =      1.0000E+00
+X_U1.XU1.XINA28X_diff_in_se_o.XInput2.XD4.D1.ic =      0.0000E+00
+ X_U1.XU1.XINA28X_diff_in_se_o.XOutput2.C4.ic =      0.0000E+00
+X_U1.XU1.XINA28X_diff_in_se_o.XOutput2.C4.value =      8.0000E-12
+ X_U1.XU1.XINA28X_diff_in_se_o.XOutput2.C5.ic =      0.0000E+00
+X_U1.XU1.XINA28X_diff_in_se_o.XOutput2.C5.value =      8.0000E-12
+X_U1.XU1.XINA28X_diff_in_se_o.XOutput2.Co21.ic =      0.0000E+00
+X_U1.XU1.XINA28X_diff_in_se_o.XOutput2.Co21.value =      1.0000E-14
+X_U1.XU1.XINA28X_diff_in_se_o.XOutput2.Co22.ic =      0.0000E+00
+X_U1.XU1.XINA28X_diff_in_se_o.XOutput2.Co22.value =      1.0000E-14
+X_U1.XU1.XINA28X_diff_in_se_o.XOutput2.Co23.ic =      0.0000E+00
+X_U1.XU1.XINA28X_diff_in_se_o.XOutput2.Co23.value =      1.0000E-14
+X_U1.XU1.XINA28X_diff_in_se_o.XOutput2.Co25.ic =      0.0000E+00
+X_U1.XU1.XINA28X_diff_in_se_o.XOutput2.Co25.value =      1.0000E-12
+X_U1.XU1.XINA28X_diff_in_se_o.XOutput2.EBMG.gain =      1.0000E+00
+X_U1.XU1.XINA28X_diff_in_se_o.XOutput2.EVMN1.gain =      1.0000E+00
+X_U1.XU1.XINA28X_diff_in_se_o.XOutput2.EVMP1.gain =      1.0000E+00
+X_U1.XU1.XINA28X_diff_in_se_o.XOutput2.G23.gain =      1.0000E+00
+X_U1.XU1.XINA28X_diff_in_se_o.XOutput2.Gdn1.gain =      5.0477E-05
+X_U1.XU1.XINA28X_diff_in_se_o.XOutput2.Gdn2.gain =      5.0477E-05
+X_U1.XU1.XINA28X_diff_in_se_o.XOutput2.GVCCS1.gain =      5.0000E-06
+ X_U1.XU1.XINA28X_diff_in_se_o.XOutput2.L9.ic =      0.0000E+00
+X_U1.XU1.XINA28X_diff_in_se_o.XOutput2.L9.lgap.ic =      0.0000E+00
+X_U1.XU1.XINA28X_diff_in_se_o.XOutput2.L9.lgap.value =      0.0000E+00
+X_U1.XU1.XINA28X_diff_in_se_o.XOutput2.L9.value =      1.4324E-07
+X_U1.XU1.XINA28X_diff_in_se_o.XOutput2.R0.tc1 =      0.0000E+00
+X_U1.XU1.XINA28X_diff_in_se_o.XOutput2.R0.tc2 =      0.0000E+00
+X_U1.XU1.XINA28X_diff_in_se_o.XOutput2.R0.value =      6.0000E+01
+X_U1.XU1.XINA28X_diff_in_se_o.XOutput2.R5.tc1 =      0.0000E+00
+X_U1.XU1.XINA28X_diff_in_se_o.XOutput2.R5.tc2 =      0.0000E+00
+X_U1.XU1.XINA28X_diff_in_se_o.XOutput2.R5.value =      6.0000E+01
+X_U1.XU1.XINA28X_diff_in_se_o.XOutput2.R83.tc1 =      0.0000E+00
+X_U1.XU1.XINA28X_diff_in_se_o.XOutput2.R83.tc2 =      0.0000E+00
+X_U1.XU1.XINA28X_diff_in_se_o.XOutput2.R83.value =      1.0000E+00
+X_U1.XU1.XINA28X_diff_in_se_o.XOutput2.R91.tc1 =      0.0000E+00
+X_U1.XU1.XINA28X_diff_in_se_o.XOutput2.R91.tc2 =      0.0000E+00
+X_U1.XU1.XINA28X_diff_in_se_o.XOutput2.R91.value =      9.0000E+00
+X_U1.XU1.XINA28X_diff_in_se_o.XOutput2.Rdn1.tc1 =      0.0000E+00
+X_U1.XU1.XINA28X_diff_in_se_o.XOutput2.Rdn1.tc2 =      0.0000E+00
+X_U1.XU1.XINA28X_diff_in_se_o.XOutput2.Rdn1.value =      2.9494E+07
+X_U1.XU1.XINA28X_diff_in_se_o.XOutput2.Rdn2.tc1 =      0.0000E+00
+X_U1.XU1.XINA28X_diff_in_se_o.XOutput2.Rdn2.tc2 =      0.0000E+00
+X_U1.XU1.XINA28X_diff_in_se_o.XOutput2.Rdn2.value =      2.9494E+07
+X_U1.XU1.XINA28X_diff_in_se_o.XOutput2.Ro21.tc1 =      0.0000E+00
+X_U1.XU1.XINA28X_diff_in_se_o.XOutput2.Ro21.tc2 =      0.0000E+00
+X_U1.XU1.XINA28X_diff_in_se_o.XOutput2.Ro21.value =      1.0000E+09
+X_U1.XU1.XINA28X_diff_in_se_o.XOutput2.Ro22.tc1 =      0.0000E+00
+X_U1.XU1.XINA28X_diff_in_se_o.XOutput2.Ro22.tc2 =      0.0000E+00
+X_U1.XU1.XINA28X_diff_in_se_o.XOutput2.Ro22.value =      1.0000E+11
+X_U1.XU1.XINA28X_diff_in_se_o.XOutput2.Ro23.tc1 =      0.0000E+00
+X_U1.XU1.XINA28X_diff_in_se_o.XOutput2.Ro23.tc2 =      0.0000E+00
+X_U1.XU1.XINA28X_diff_in_se_o.XOutput2.Ro23.value =      1.0000E+11
+X_U1.XU1.XINA28X_diff_in_se_o.XOutput2.Rpsrr1.tc1 =      0.0000E+00
+X_U1.XU1.XINA28X_diff_in_se_o.XOutput2.Rpsrr1.tc2 =      0.0000E+00
+X_U1.XU1.XINA28X_diff_in_se_o.XOutput2.Rpsrr1.value =      1.0000E+12
+X_U1.XU1.XINA28X_diff_in_se_o.XOutput2.Rsp1.tc1 =      0.0000E+00
+X_U1.XU1.XINA28X_diff_in_se_o.XOutput2.Rsp1.tc2 =      0.0000E+00
+X_U1.XU1.XINA28X_diff_in_se_o.XOutput2.Rsp1.value =      5.2000E+03
+X_U1.XU1.XINA28X_diff_in_se_o.XOutput2.Vo21.ac =      0.0000E+00
+X_U1.XU1.XINA28X_diff_in_se_o.XOutput2.Vo21.acphase =      0.0000E+00
+X_U1.XU1.XINA28X_diff_in_se_o.XOutput2.Vo21.dc =      1.7928E+00
+X_U1.XU1.XINA28X_diff_in_se_o.XOutput2.Vo22.ac =      0.0000E+00
+X_U1.XU1.XINA28X_diff_in_se_o.XOutput2.Vo22.acphase =      0.0000E+00
+X_U1.XU1.XINA28X_diff_in_se_o.XOutput2.Vo22.dc =      1.7928E+00
+X_U1.XU1.XINA28X_diff_in_se_o.XOutput2.XD1.D1.area =      1.0000E+00
+X_U1.XU1.XINA28X_diff_in_se_o.XOutput2.XD1.D1.ic =      0.0000E+00
+X_U1.XU1.XINA28X_diff_in_se_o.XOutput2.XD2.D1.area =      1.0000E+00
+X_U1.XU1.XINA28X_diff_in_se_o.XOutput2.XD2.D1.ic =      0.0000E+00
+X_U1.XU1.XINA28X_diff_in_se_o.XOutput2.XD3.D1.area =      1.0000E+00
+X_U1.XU1.XINA28X_diff_in_se_o.XOutput2.XD3.D1.ic =      0.0000E+00
+X_U1.XU1.XINA28X_diff_in_se_o.XOutput2.XD4.D1.area =      1.0000E+00
+X_U1.XU1.XINA28X_diff_in_se_o.XOutput2.XD4.D1.ic =      0.0000E+00
+X_U1.XU1.XINA28X_diff_in_se_o.XOutput2.XD5.D1.area =      1.0000E+00
+X_U1.XU1.XINA28X_diff_in_se_o.XOutput2.XD5.D1.ic =      0.0000E+00
+X_U1.XU1.XINA28X_diff_in_se_o.XOutput2.XD6.D1.area =      1.0000E+00
+X_U1.XU1.XINA28X_diff_in_se_o.XOutput2.XD6.D1.ic =      0.0000E+00
+X_U1.XU1.XINA28X_diff_in_se_o.XOutput2.XD7.D1.area =      1.0000E+00
+X_U1.XU1.XINA28X_diff_in_se_o.XOutput2.XD7.D1.ic =      0.0000E+00
+ X_U1.XU1.XINA28X_diff_in_se_o.XOutput2.XT1.L =      8.0000E-07
+ X_U1.XU1.XINA28X_diff_in_se_o.XOutput2.XT1.M =      4.8000E+01
+ X_U1.XU1.XINA28X_diff_in_se_o.XOutput2.XT1.W =      2.0000E-05
+ X_U1.XU1.XINA28X_diff_in_se_o.XOutput2.XT2.L =      8.0000E-07
+ X_U1.XU1.XINA28X_diff_in_se_o.XOutput2.XT2.M =      1.0000E+01
+ X_U1.XU1.XINA28X_diff_in_se_o.XOutput2.XT2.W =      2.0000E-05
+ X_U1.XU1.XINA28X_diff_in_se_o.XOutput2.XT3.L =      4.0000E-06
+ X_U1.XU1.XINA28X_diff_in_se_o.XOutput2.XT3.M =      6.0000E+00
+ X_U1.XU1.XINA28X_diff_in_se_o.XOutput2.XT3.W =      1.0000E-05
+ X_U1.XU1.XINA28X_diff_in_se_o.XOutput2.XT4.L =      4.0000E-06
+ X_U1.XU1.XINA28X_diff_in_se_o.XOutput2.XT4.M =      4.0000E+00
+ X_U1.XU1.XINA28X_diff_in_se_o.XOutput2.XT4.W =      1.0000E-05
+ X_U1.XU1.XINA28X_diff_in_se_o.XOutput2.XT7.L =      8.0000E-07
+ X_U1.XU1.XINA28X_diff_in_se_o.XOutput2.XT7.M =      1.0000E+01
+ X_U1.XU1.XINA28X_diff_in_se_o.XOutput2.XT7.W =      2.0000E-05
+ X_U1.XU1.XINA28X_diff_in_se_o.XOutput2.XT8.L =      4.4000E-06
+ X_U1.XU1.XINA28X_diff_in_se_o.XOutput2.XT8.M =      5.0000E+00
+ X_U1.XU1.XINA28X_diff_in_se_o.XOutput2.XT8.W =      2.0000E-05
+ X_U1.XU1.XINA28X_diff_in_se_o.XOutput2.XT9.L =      4.4000E-06
+ X_U1.XU1.XINA28X_diff_in_se_o.XOutput2.XT9.M =      1.0000E+01
+ X_U1.XU1.XINA28X_diff_in_se_o.XOutput2.XT9.W =      2.0000E-05
+X_U1.XU1.XINA28X_diff_in_se_o.XSW_H1.R_SW1.tc1 =      0.0000E+00
+X_U1.XU1.XINA28X_diff_in_se_o.XSW_H1.R_SW1.tc2 =      0.0000E+00
+X_U1.XU1.XINA28X_diff_in_se_o.XSW_H1.R_SW1.value =      1.0000E+09
+X_U1.XU1.XINA28X_diff_in_se_o.XSW_S1.R_SW1.tc1 =      0.0000E+00
+X_U1.XU1.XINA28X_diff_in_se_o.XSW_S1.R_SW1.tc2 =      0.0000E+00
+X_U1.XU1.XINA28X_diff_in_se_o.XSW_S1.R_SW1.value =      1.0000E+09
+X_U1.XU1.XINA28X_diff_in_se_o.XSW_S1_2.R_SW1.tc1 =      0.0000E+00
+X_U1.XU1.XINA28X_diff_in_se_o.XSW_S1_2.R_SW1.tc2 =      0.0000E+00
+X_U1.XU1.XINA28X_diff_in_se_o.XSW_S1_2.R_SW1.value =      1.0000E+09
+             X_U1.XU1.XINA28X_diff_ioa.C36.ic =      0.0000E+00
+          X_U1.XU1.XINA28X_diff_ioa.C36.value =      4.0000E-12
+             X_U1.XU1.XINA28X_diff_ioa.C37.ic =      0.0000E+00
+          X_U1.XU1.XINA28X_diff_ioa.C37.value =      1.0000E-12
+             X_U1.XU1.XINA28X_diff_ioa.C38.ic =      0.0000E+00
+          X_U1.XU1.XINA28X_diff_ioa.C38.value =      1.0000E-12
+              X_U1.XU1.XINA28X_diff_ioa.C9.ic =      0.0000E+00
+           X_U1.XU1.XINA28X_diff_ioa.C9.value =      4.0000E-12
+    X_U1.XU1.XINA28X_diff_ioa.XInput1.Ci11.ic =      0.0000E+00
+ X_U1.XU1.XINA28X_diff_ioa.XInput1.Ci11.value =      2.7000E-13
+   X_U1.XU1.XINA28X_diff_ioa.XInput1.Ci121.ic =      0.0000E+00
+X_U1.XU1.XINA28X_diff_ioa.XInput1.Ci121.value =      1.0000E-13
+   X_U1.XU1.XINA28X_diff_ioa.XInput1.Ci122.ic =      0.0000E+00
+X_U1.XU1.XINA28X_diff_ioa.XInput1.Ci122.value =      1.0000E-13
+   X_U1.XU1.XINA28X_diff_ioa.XInput1.Ci123.ic =      0.0000E+00
+X_U1.XU1.XINA28X_diff_ioa.XInput1.Ci123.value =      1.0000E-13
+   X_U1.XU1.XINA28X_diff_ioa.XInput1.Ci133.ic =      0.0000E+00
+X_U1.XU1.XINA28X_diff_ioa.XInput1.Ci133.value =      1.4086E-14
+   X_U1.XU1.XINA28X_diff_ioa.XInput1.Ci134.ic =      0.0000E+00
+X_U1.XU1.XINA28X_diff_ioa.XInput1.Ci134.value =      1.4086E-14
+    X_U1.XU1.XINA28X_diff_ioa.XInput1.G8.gain =      1.9023E-05
+  X_U1.XU1.XINA28X_diff_ioa.XInput1.Gi11.gain =      3.3929E-05
+  X_U1.XU1.XINA28X_diff_ioa.XInput1.Gi12.gain =      3.3929E-05
+  X_U1.XU1.XINA28X_diff_ioa.XInput1.GIEE.gain =      2.4000E-06
+      X_U1.XU1.XINA28X_diff_ioa.XInput1.L4.ic =      0.0000E+00
+ X_U1.XU1.XINA28X_diff_ioa.XInput1.L4.lgap.ic =      0.0000E+00
+X_U1.XU1.XINA28X_diff_ioa.XInput1.L4.lgap.value =      0.0000E+00
+   X_U1.XU1.XINA28X_diff_ioa.XInput1.L4.value =      3.1815E-05
+   X_U1.XU1.XINA28X_diff_ioa.XInput1.R100.tc1 =      0.0000E+00
+   X_U1.XU1.XINA28X_diff_ioa.XInput1.R100.tc2 =      0.0000E+00
+ X_U1.XU1.XINA28X_diff_ioa.XInput1.R100.value =      1.0000E+09
+    X_U1.XU1.XINA28X_diff_ioa.XInput1.R1c.tc1 =      0.0000E+00
+    X_U1.XU1.XINA28X_diff_ioa.XInput1.R1c.tc2 =      0.0000E+00
+  X_U1.XU1.XINA28X_diff_ioa.XInput1.R1c.value =      1.0000E+11
+  X_U1.XU1.XINA28X_diff_ioa.XInput1.R1c_2.tc1 =      0.0000E+00
+  X_U1.XU1.XINA28X_diff_ioa.XInput1.R1c_2.tc2 =      0.0000E+00
+X_U1.XU1.XINA28X_diff_ioa.XInput1.R1c_2.value =      5.0000E+11
+    X_U1.XU1.XINA28X_diff_ioa.XInput1.R20.tc1 =      0.0000E+00
+    X_U1.XU1.XINA28X_diff_ioa.XInput1.R20.tc2 =      0.0000E+00
+  X_U1.XU1.XINA28X_diff_ioa.XInput1.R20.value =      1.0000E-03
+   X_U1.XU1.XINA28X_diff_ioa.XInput1.R210.tc1 =      0.0000E+00
+   X_U1.XU1.XINA28X_diff_ioa.XInput1.R210.tc2 =      0.0000E+00
+ X_U1.XU1.XINA28X_diff_ioa.XInput1.R210.value =      1.9990E+00
+    X_U1.XU1.XINA28X_diff_ioa.XInput1.R2c.tc1 =      0.0000E+00
+    X_U1.XU1.XINA28X_diff_ioa.XInput1.R2c.tc2 =      0.0000E+00
+  X_U1.XU1.XINA28X_diff_ioa.XInput1.R2c.value =      5.0000E+11
+    X_U1.XU1.XINA28X_diff_ioa.XInput1.R2s.tc1 =      0.0000E+00
+    X_U1.XU1.XINA28X_diff_ioa.XInput1.R2s.tc2 =      0.0000E+00
+  X_U1.XU1.XINA28X_diff_ioa.XInput1.R2s.value =      1.0000E+11
+    X_U1.XU1.XINA28X_diff_ioa.XInput1.R3g.tc1 =      0.0000E+00
+    X_U1.XU1.XINA28X_diff_ioa.XInput1.R3g.tc2 =      0.0000E+00
+  X_U1.XU1.XINA28X_diff_ioa.XInput1.R3g.value =      2.9473E+04
+    X_U1.XU1.XINA28X_diff_ioa.XInput1.R4g.tc1 =      0.0000E+00
+    X_U1.XU1.XINA28X_diff_ioa.XInput1.R4g.tc2 =      0.0000E+00
+  X_U1.XU1.XINA28X_diff_ioa.XInput1.R4g.value =      2.9473E+04
+     X_U1.XU1.XINA28X_diff_ioa.XInput1.R7.tc1 =      0.0000E+00
+     X_U1.XU1.XINA28X_diff_ioa.XInput1.R7.tc2 =      0.0000E+00
+   X_U1.XU1.XINA28X_diff_ioa.XInput1.R7.value =      5.6493E+07
+     X_U1.XU1.XINA28X_diff_ioa.XInput1.R8.tc1 =      0.0000E+00
+     X_U1.XU1.XINA28X_diff_ioa.XInput1.R8.tc2 =      0.0000E+00
+   X_U1.XU1.XINA28X_diff_ioa.XInput1.R8.value =      5.6493E+07
+ X_U1.XU1.XINA28X_diff_ioa.XInput1.Rnoise.tc1 =      0.0000E+00
+ X_U1.XU1.XINA28X_diff_ioa.XInput1.Rnoise.tc2 =      0.0000E+00
+X_U1.XU1.XINA28X_diff_ioa.XInput1.Rnoise.value =      4.1681E+05
+  X_U1.XU1.XINA28X_diff_ioa.XInput1.VCMref.ac =      0.0000E+00
+X_U1.XU1.XINA28X_diff_ioa.XInput1.VCMref.acphase =      0.0000E+00
+  X_U1.XU1.XINA28X_diff_ioa.XInput1.VCMref.dc =      1.2000E+01
+  X_U1.XU1.XINA28X_diff_ioa.XInput1.Vdrop1.ac =      0.0000E+00
+X_U1.XU1.XINA28X_diff_ioa.XInput1.Vdrop1.acphase =      0.0000E+00
+  X_U1.XU1.XINA28X_diff_ioa.XInput1.Vdrop1.dc =      8.1672E-01
+ X_U1.XU1.XINA28X_diff_ioa.XInput1.Vdrop11.ac =      0.0000E+00
+X_U1.XU1.XINA28X_diff_ioa.XInput1.Vdrop11.acphase =      0.0000E+00
+ X_U1.XU1.XINA28X_diff_ioa.XInput1.Vdrop11.dc =      8.1672E-01
+  X_U1.XU1.XINA28X_diff_ioa.XInput1.Vdrop2.ac =      0.0000E+00
+X_U1.XU1.XINA28X_diff_ioa.XInput1.Vdrop2.acphase =      0.0000E+00
+  X_U1.XU1.XINA28X_diff_ioa.XInput1.Vdrop2.dc =      8.1672E-01
+ X_U1.XU1.XINA28X_diff_ioa.XInput1.Vdrop21.ac =      0.0000E+00
+X_U1.XU1.XINA28X_diff_ioa.XInput1.Vdrop21.acphase =      0.0000E+00
+ X_U1.XU1.XINA28X_diff_ioa.XInput1.Vdrop21.dc =      8.1672E-01
+X_U1.XU1.XINA28X_diff_ioa.XInput1.XD1.D1.area =      1.0000E+00
+  X_U1.XU1.XINA28X_diff_ioa.XInput1.XD1.D1.ic =      0.0000E+00
+X_U1.XU1.XINA28X_diff_ioa.XInput1.XD2.D1.area =      1.0000E+00
+  X_U1.XU1.XINA28X_diff_ioa.XInput1.XD2.D1.ic =      0.0000E+00
+X_U1.XU1.XINA28X_diff_ioa.XInput1.XD3.D1.area =      1.0000E+00
+  X_U1.XU1.XINA28X_diff_ioa.XInput1.XD3.D1.ic =      0.0000E+00
+X_U1.XU1.XINA28X_diff_ioa.XInput1.XD4.D1.area =      1.0000E+00
+  X_U1.XU1.XINA28X_diff_ioa.XInput1.XD4.D1.ic =      0.0000E+00
+X_U1.XU1.XINA28X_diff_ioa.XInput1.XD5.D1.area =      1.0000E+00
+  X_U1.XU1.XINA28X_diff_ioa.XInput1.XD5.D1.ic =      0.0000E+00
+X_U1.XU1.XINA28X_diff_ioa.XInput1.XD6.D1.area =      1.0000E+00
+  X_U1.XU1.XINA28X_diff_ioa.XInput1.XD6.D1.ic =      0.0000E+00
+X_U1.XU1.XINA28X_diff_ioa.XInput1.XD7.D1.area =      1.0000E+00
+  X_U1.XU1.XINA28X_diff_ioa.XInput1.XD7.D1.ic =      0.0000E+00
+X_U1.XU1.XINA28X_diff_ioa.XInput1.XD8.D1.area =      1.0000E+00
+  X_U1.XU1.XINA28X_diff_ioa.XInput1.XD8.D1.ic =      0.0000E+00
+X_U1.XU1.XINA28X_diff_ioa.XInput1.XD9.D1.area =      1.0000E+00
+  X_U1.XU1.XINA28X_diff_ioa.XInput1.XD9.D1.ic =      0.0000E+00
+      X_U1.XU1.XINA28X_diff_ioa.XInput1.XT1.L =      1.4000E-06
+      X_U1.XU1.XINA28X_diff_ioa.XInput1.XT1.M =      1.0000E+00
+      X_U1.XU1.XINA28X_diff_ioa.XInput1.XT1.W =      1.0400E-05
+      X_U1.XU1.XINA28X_diff_ioa.XInput1.XT2.L =      1.4000E-06
+      X_U1.XU1.XINA28X_diff_ioa.XInput1.XT2.M =      1.0000E+00
+      X_U1.XU1.XINA28X_diff_ioa.XInput1.XT2.W =      1.0400E-05
+   X_U1.XU1.XINA28X_diff_ioa.XOutput1.Co11.ic =      0.0000E+00
+X_U1.XU1.XINA28X_diff_ioa.XOutput1.Co11.value =      1.0000E-13
+   X_U1.XU1.XINA28X_diff_ioa.XOutput1.Co12.ic =      0.0000E+00
+X_U1.XU1.XINA28X_diff_ioa.XOutput1.Co12.value =      1.0000E-13
+   X_U1.XU1.XINA28X_diff_ioa.XOutput1.Co13.ic =      0.0000E+00
+X_U1.XU1.XINA28X_diff_ioa.XOutput1.Co13.value =      1.0000E-13
+   X_U1.XU1.XINA28X_diff_ioa.XOutput1.Co19.ic =      0.0000E+00
+X_U1.XU1.XINA28X_diff_ioa.XOutput1.Co19.value =      5.3557E-15
+ X_U1.XU1.XINA28X_diff_ioa.XOutput1.Go11.gain =      6.3096E-03
+ X_U1.XU1.XINA28X_diff_ioa.XOutput1.Go12.gain =      6.3096E-03
+ X_U1.XU1.XINA28X_diff_ioa.XOutput1.Go13.gain =      2.5238E-05
+  X_U1.XU1.XINA28X_diff_ioa.XOutput1.Ro11.tc1 =      0.0000E+00
+  X_U1.XU1.XINA28X_diff_ioa.XOutput1.Ro11.tc2 =      0.0000E+00
+X_U1.XU1.XINA28X_diff_ioa.XOutput1.Ro11.value =      1.0000E+09
+  X_U1.XU1.XINA28X_diff_ioa.XOutput1.Ro12.tc1 =      0.0000E+00
+  X_U1.XU1.XINA28X_diff_ioa.XOutput1.Ro12.tc2 =      0.0000E+00
+X_U1.XU1.XINA28X_diff_ioa.XOutput1.Ro12.value =      1.0000E+09
+  X_U1.XU1.XINA28X_diff_ioa.XOutput1.Ro13.tc1 =      0.0000E+00
+  X_U1.XU1.XINA28X_diff_ioa.XOutput1.Ro13.tc2 =      0.0000E+00
+X_U1.XU1.XINA28X_diff_ioa.XOutput1.Ro13.value =      1.5849E+02
+  X_U1.XU1.XINA28X_diff_ioa.XOutput1.Ro14.tc1 =      0.0000E+00
+  X_U1.XU1.XINA28X_diff_ioa.XOutput1.Ro14.tc2 =      0.0000E+00
+X_U1.XU1.XINA28X_diff_ioa.XOutput1.Ro14.value =      1.5849E+02
+  X_U1.XU1.XINA28X_diff_ioa.XOutput1.Ro15.tc1 =      0.0000E+00
+  X_U1.XU1.XINA28X_diff_ioa.XOutput1.Ro15.tc2 =      0.0000E+00
+X_U1.XU1.XINA28X_diff_ioa.XOutput1.Ro15.value =      1.0000E+09
+  X_U1.XU1.XINA28X_diff_ioa.XOutput1.Ro19.tc1 =      0.0000E+00
+  X_U1.XU1.XINA28X_diff_ioa.XOutput1.Ro19.tc2 =      0.0000E+00
+X_U1.XU1.XINA28X_diff_ioa.XOutput1.Ro19.value =      1.6625E+09
+X_U1.XU1.XINA28X_diff_ioa.XOutput1.VdrophO1.ac =      0.0000E+00
+X_U1.XU1.XINA28X_diff_ioa.XOutput1.VdrophO1.acphase =      0.0000E+00
+X_U1.XU1.XINA28X_diff_ioa.XOutput1.VdrophO1.dc =      1.1192E+00
+X_U1.XU1.XINA28X_diff_ioa.XOutput1.VdroplO1.ac =      0.0000E+00
+X_U1.XU1.XINA28X_diff_ioa.XOutput1.VdroplO1.acphase =      0.0000E+00
+X_U1.XU1.XINA28X_diff_ioa.XOutput1.VdroplO1.dc =      1.1192E+00
+X_U1.XU1.XINA28X_diff_ioa.XOutput1.XD1.D1.area =      1.0000E+00
+ X_U1.XU1.XINA28X_diff_ioa.XOutput1.XD1.D1.ic =      0.0000E+00
+X_U1.XU1.XINA28X_diff_ioa.XOutput1.XD4.D1.area =      1.0000E+00
+ X_U1.XU1.XINA28X_diff_ioa.XOutput1.XD4.D1.ic =      0.0000E+00
+   X_U1.XU1.XINA28X_diff_ioa.XSW_H1.R_SW1.tc1 =      0.0000E+00
+   X_U1.XU1.XINA28X_diff_ioa.XSW_H1.R_SW1.tc2 =      0.0000E+00
+ X_U1.XU1.XINA28X_diff_ioa.XSW_H1.R_SW1.value =      1.0000E+09
+   X_U1.XU1.XINA28X_diff_ioa.XSW_S1.R_SW1.tc1 =      0.0000E+00
+   X_U1.XU1.XINA28X_diff_ioa.XSW_S1.R_SW1.tc2 =      0.0000E+00
+ X_U1.XU1.XINA28X_diff_ioa.XSW_S1.R_SW1.value =      1.0000E+09
+ X_U1.XU1.XINA28X_diff_ioa.XSW_S1_2.R_SW1.tc1 =      0.0000E+00
+ X_U1.XU1.XINA28X_diff_ioa.XSW_S1_2.R_SW1.tc2 =      0.0000E+00
+X_U1.XU1.XINA28X_diff_ioa.XSW_S1_2.R_SW1.value =      1.0000E+09
+                    X_U1.XU1.XSW_H1.R_SW1.tc1 =      0.0000E+00
+                    X_U1.XU1.XSW_H1.R_SW1.tc2 =      0.0000E+00
+                  X_U1.XU1.XSW_H1.R_SW1.value =      1.0000E+09
+                    X_U1.XU1.XSW_H2.R_SW1.tc1 =      0.0000E+00
+                    X_U1.XU1.XSW_H2.R_SW1.tc2 =      0.0000E+00
+                  X_U1.XU1.XSW_H2.R_SW1.value =      1.0000E+09
+                    X_U1.XU1.XSW_H3.R_SW1.tc1 =      0.0000E+00
+                    X_U1.XU1.XSW_H3.R_SW1.tc2 =      0.0000E+00
+                  X_U1.XU1.XSW_H3.R_SW1.value =      1.0000E+09
+                    X_U1.XU1.XSW_H4.R_SW1.tc1 =      0.0000E+00
+                    X_U1.XU1.XSW_H4.R_SW1.tc2 =      0.0000E+00
+                  X_U1.XU1.XSW_H4.R_SW1.value =      1.0000E+09
+                    X_U1.XU1.XSW_S1.R_SW1.tc1 =      0.0000E+00
+                    X_U1.XU1.XSW_S1.R_SW1.tc2 =      0.0000E+00
+                  X_U1.XU1.XSW_S1.R_SW1.value =      1.0000E+09
+                    X_U1.XU1.XSW_S2.R_SW1.tc1 =      0.0000E+00
+                    X_U1.XU1.XSW_S2.R_SW1.tc2 =      0.0000E+00
+                  X_U1.XU1.XSW_S2.R_SW1.value =      1.0000E+09
+                    X_U1.XU1.XSW_S3.R_SW1.tc1 =      0.0000E+00
+                    X_U1.XU1.XSW_S3.R_SW1.tc2 =      0.0000E+00
+                  X_U1.XU1.XSW_S3.R_SW1.value =      1.0000E+09
+                    X_U1.XU1.XSW_S4.R_SW1.tc1 =      0.0000E+00
+                    X_U1.XU1.XSW_S4.R_SW1.tc2 =      0.0000E+00
+                  X_U1.XU1.XSW_S4.R_SW1.value =      1.0000E+09
+                               X_U1.XU1.XU1.C =      4.0000E-12
+                        X_U1.XU1.XU1.RCV1.tc1 =      0.0000E+00
+                        X_U1.XU1.XU1.RCV1.tc2 =      0.0000E+00
+                      X_U1.XU1.XU1.RCV1.value =      1.0000E+09
+                             X_U1.XU1.XU1.TSW =      4.0000E-09
+                               X_U1.XU1.XU2.C =      4.0000E-12
+                        X_U1.XU1.XU2.RCV1.tc1 =      0.0000E+00
+                        X_U1.XU1.XU2.RCV1.tc2 =      0.0000E+00
+                      X_U1.XU1.XU2.RCV1.value =      1.0000E+09
+                             X_U1.XU1.XU2.TSW =      4.0000E-09
+                         X_U1.XU1.XU3.E3.gain =      1.0000E+00
+                              X_U1.XU1.XU3.I0 =      1.0000E-03
+                           X_U1.XU1.XU3.I2.ac =      0.0000E+00
+                      X_U1.XU1.XU3.I2.acphase =      0.0000E+00
+                          X_U1.XU1.XU3.R2.tc1 =      0.0000E+00
+                          X_U1.XU1.XU3.R2.tc2 =      0.0000E+00
+                        X_U1.XU1.XU3.R2.value =      1.0300E-01
+                             X_U1.XU1.XU3_2.C =      2.0000E-11
+                      X_U1.XU1.XU3_2.RCV1.tc1 =      0.0000E+00
+                      X_U1.XU1.XU3_2.RCV1.tc2 =      0.0000E+00
+                    X_U1.XU1.XU3_2.RCV1.value =      1.0000E+09
+                           X_U1.XU1.XU3_2.TSW =      4.0000E-06
+                               X_U1.XU1.XU4.C =      2.0000E-11
+                        X_U1.XU1.XU4.RCV1.tc1 =      0.0000E+00
+                        X_U1.XU1.XU4.RCV1.tc2 =      0.0000E+00
+                      X_U1.XU1.XU4.RCV1.value =      1.0000E+09
+                             X_U1.XU1.XU4.TSW =      4.0000E-06
+                             X_U1.XU1.XU5.TSW =      4.0000E-06
+                           X_U1.XU1.XU5.VLIMN =     -8.0000E-02
+                           X_U1.XU1.XU5.VLIMP =      8.0000E-02
+                           X_U1.XU1.XU5.VOFFS =      2.0000E-05
+                             X_U1.XU1.XU6.TSW =      4.0000E-06
+                           X_U1.XU1.XU6.VLIMN =     -8.0000E-02
+                           X_U1.XU1.XU6.VLIMP =      8.0000E-02
+                           X_U1.XU1.XU6.VOFFS =      2.0000E-05
+                               X_U1.XU1.XU7.C =      2.0000E-11
+                        X_U1.XU1.XU7.RCV1.tc1 =      0.0000E+00
+                        X_U1.XU1.XU7.RCV1.tc2 =      0.0000E+00
+                      X_U1.XU1.XU7.RCV1.value =      1.0000E+09
+                             X_U1.XU1.XU7.TSW =      4.0000E-09
+                               X_U1.XU1.XU8.C =      2.0000E-11
+                        X_U1.XU1.XU8.RCV1.tc1 =      0.0000E+00
+                        X_U1.XU1.XU8.RCV1.tc2 =      0.0000E+00
+                      X_U1.XU1.XU8.RCV1.value =      1.0000E+09
+                             X_U1.XU1.XU8.TSW =      4.0000E-09
+                                          XJN =      1.5000E-07
+                                          XJP =      1.8000E-07
+                                               
+               
+
+ERROR -- Convergence problem in bias point calculation
+
+
+  Last node voltages tried were:
+
+ NODE   VOLTAGE     NODE   VOLTAGE     NODE   VOLTAGE     NODE   VOLTAGE
+
+
+(   IN)    0.0000  (  OUT) 213.3E-09  ( LOAD) 29.76E-21  (N14290888) 50.78E-06  
+
+(X_U1.XU1.20) 12.30E-15               (X_U1.XU1.24) 886.6E-21                   
+
+(X_U1.XU1.25) 778.8E-21               (X_U1.XU1.27) 19.47E-09                   
+
+(X_U1.XU1.28) 2.316E-06               (X_U1.XU1.30) 761.6E-21                   
+
+(X_U1.XU1.31) 761.6E-21               (X_U1.XU1.40) 17.74E-06                   
+
+(X_U1.XU1.VM) 761.6E-21               (X_U1.XU1.ACm) 10.16E-06                  
+
+(X_U1.XU1.Bias) 228.9E-18             (X_U1.XU1.IGND)    0.0000                 
+
+(X_U1.XU1.nACm)-103.2E-12             (X_U1.XU1.NOut) 1.689E-15                 
+
+(X_U1.XU1.POut) 1.689E-15             (X_U1.XU1.UkAC) 14.88E-21                 
+
+(X_U1.XU1.Vreg) 68.17E-15             (X_U1.XU1.AVDDM) 257.9E-12                
+
+(X_U1.XU1.ClkF1) 10.16E-06            (X_U1.XU1.ClkF2) 50.83E-12                
+
+(X_U1.XU1.IAVDD) 150.0E-15            (X_U1.XU1.Vsw1+) 3.082E-15                
+
+(X_U1.XU1.Vsw1-) 3.082E-15            (X_U1.XU1.XU5.2) 886.6E-21                
+
+(X_U1.XU1.XU6.2) 778.8E-21            (X_U1.XU1.ClkF1_)    0.0000               
+
+(X_U1.XU1.ClkF2_)    0.0000           (X_U1.XU1.Neg_26) 19.47E-09               
+
+(X_U1.XU1.Neg_33) 4.475E-15           (X_U1.XU1.VInsw+) 14.88E-21               
+
+(X_U1.XU1.VInsw-) 14.88E-21           (X_U1.XU1.XU3.40)-1.045E-09               
+
+(X_U1.XU1.NLContr) 2.059E-09          (X_U1.XU1.Plus_29) 2.317E-06              
+
+(X_U1.XU1.Plus_32) 4.475E-15          (X_U1.XU1.Startup) 10.16E-06              
+
+(X_U1.XU1.XBias.60) 7.109E-06         (X_U1.XU1.XBias.63)-3.047E-06             
+
+(X_U1.XU1.XBias.65)-71.02E-15         (X_U1.XU1.XBias.67)    0.0000             
+
+(X_U1.XU1.XBias.68) 68.17E-15         (X_U1.XU1.XBias.VB1) 7.095E-06            
+
+(X_U1.XU1.XBias.VB2)-3.047E-06        (X_U1.XU1.XBias.VB3) 8.769E-15            
+
+(X_U1.XU1.XDA1.A1A2) 14.88E-21        (X_U1.XU1.XDA2.A1A2)    0.0000            
+
+(X_U1.XU1.XBias.BVS1)-3.047E-06       (X_U1.XU1.XBias.CM_R)-383.0E-15           
+
+(X_U1.XU1.XControl.45) 6.739E-09      (X_U1.XU1.XControl.46) 10.16E-06          
+
+(X_U1.XU1.XControl.48)    0.0000      (X_U1.XU1.XControl.50)-14.69E-15          
+
+(X_U1.XU1.XControl.51) 50.79E-06      (X_U1.XU1.XControl.52) 10.16E-06          
+
+(X_U1.XU1.XControl.Vcc) 10.16E-06     (X_U1.XU1.XControl.VF4) 50.79E-06         
+
+(X_U1.XU1.XControl.VZ1) 6.713E-09     (X_U1.XU1.XControl.ClkF3) 10.16E-06       
+
+(X_U1.XU1.XControl.VBias) 24.67E-12   (X_U1.XU1.XControl.VF2_53)-14.69E-15      
+
+(X_U1.XU1.XControl.XACm.3) 10.16E-06  (X_U1.XU1.XControl.XSW1.1) 17.77E-06      
+
+(X_U1.XU1.XControl.XSW1.CN) 17.77E-06 (X_U1.XU1.XControl.XU1.THR) 26.41E-06     
+
+(X_U1.XU1.XControl.ClkStart) 10.16E-06                                          
+
+(X_U1.XU1.XControl.XClkF1.3) 10.16E-06                                          
+
+(X_U1.XU1.XINA28X_diff_ioa.Neg_74) 761.6E-21                                    
+
+(X_U1.XU1.XINA28X_diff_ioa.Plus_75) 761.6E-21                                   
+
+(X_U1.XU1.XINA28X_diff_ioa.N_Out_72) 761.7E-21                                  
+
+(X_U1.XU1.XINA28X_diff_ioa.P_Out_73) 761.7E-21                                  
+
+(X_U1.XU1.XINA28X_diff_in_se_o.Neg_94) 726.7E-21                                
+
+(X_U1.XU1.XINA28X_diff_ioa.XInput1.83) 8.295E-06                                
+
+(X_U1.XU1.XINA28X_diff_ioa.XInput1.84)-8.295E-06                                
+
+(X_U1.XU1.XINA28X_diff_ioa.XInput1.85) 8.295E-06                                
+
+(X_U1.XU1.XINA28X_diff_ioa.XInput1.86)-8.295E-06                                
+
+(X_U1.XU1.XINA28X_diff_ioa.XInput1.88)-5.215E-09                                
+
+(X_U1.XU1.XINA28X_diff_ioa.XInput1.89) 761.6E-21                                
+
+(X_U1.XU1.XINA28X_diff_in_se_o.Plus_95) 796.6E-21                               
+
+(X_U1.XU1.XINA28X_diff_ioa.XInput1.VA-) 2.075E-12                               
+
+(X_U1.XU1.XINA28X_diff_ioa.XInput1.VCM) 4.475E-15                               
+
+(X_U1.XU1.XINA28X_diff_ioa.XInput1.VF1) 50.78E-06                               
+
+(X_U1.XU1.XINA28X_diff_ioa.XOutput1.92) 11.37E-06                               
+
+(X_U1.XU1.XINA28X_diff_ioa.XOutput1.93)-11.37E-06                               
+
+(X_U1.XU1.XINA28X_diff_ioa.XOutput1.VB) 761.7E-21                               
+
+(X_U1.XU1.XINA28X_diff_in_se_o.N_Out_97) 24.39E-21                              
+
+(X_U1.XU1.XINA28X_diff_in_se_o.P_Out_96) 1.499E-18                              
+
+(X_U1.XU1.XINA28X_diff_ioa.XInput1.Vecm) 762.6E-21                              
+
+(X_U1.XU1.XINA28X_diff_ioa.XInput1.CMref) 121.9E-06                             
+
+(X_U1.XU1.XINA28X_diff_ioa.XInput1.VA+_78) 2.075E-12                            
+
+(X_U1.XU1.XINA28X_diff_ioa.XInput1.VF2_81) 2.075E-12                            
+
+(X_U1.XU1.XINA28X_diff_in_se_o.XInput2.119) 50.78E-06                           
+
+(X_U1.XU1.XINA28X_diff_in_se_o.XInput2.120) 761.6E-21                           
+
+(X_U1.XU1.XINA28X_diff_in_se_o.XInput2.121) 8.295E-06                           
+
+(X_U1.XU1.XINA28X_diff_in_se_o.XInput2.122)-8.295E-06                           
+
+(X_U1.XU1.XINA28X_diff_in_se_o.XInput2.123) 8.295E-06                           
+
+(X_U1.XU1.XINA28X_diff_in_se_o.XInput2.124)-8.295E-06                           
+
+(X_U1.XU1.XINA28X_diff_in_se_o.XOutput2.VG) 206.3E-12                           
+
+(X_U1.XU1.XINA28X_diff_in_se_o.XOutput2.VV) 761.6E-21                           
+
+(X_U1.XU1.XINA28X_diff_ioa.XInput1.Venoise)    0.0000                           
+
+(X_U1.XU1.XINA28X_diff_in_se_o.XInput2.Veps) 761.6E-21                          
+
+(X_U1.XU1.XINA28X_diff_in_se_o.XOutput2.101) 20.31E-06                          
+
+(X_U1.XU1.XINA28X_diff_in_se_o.XOutput2.102) 206.3E-12                          
+
+(X_U1.XU1.XINA28X_diff_in_se_o.XOutput2.103) 50.78E-06                          
+
+(X_U1.XU1.XINA28X_diff_in_se_o.XOutput2.104) 25.50E-06                          
+
+(X_U1.XU1.XINA28X_diff_in_se_o.XOutput2.106) 50.78E-06                          
+
+(X_U1.XU1.XINA28X_diff_in_se_o.XOutput2.107) 515.7E-12                          
+
+(X_U1.XU1.XINA28X_diff_in_se_o.XOutput2.108) 213.3E-09                          
+
+(X_U1.XU1.XINA28X_diff_in_se_o.XOutput2.109) 71.10E-09                          
+
+(X_U1.XU1.XINA28X_diff_in_se_o.XOutput2.110) 49.54E-06                          
+
+(X_U1.XU1.XINA28X_diff_in_se_o.XOutput2.112) 18.21E-06                          
+
+(X_U1.XU1.XINA28X_diff_in_se_o.XOutput2.113)-18.21E-06                          
+
+(X_U1.XU1.XINA28X_diff_in_se_o.XOutput2.114) 761.6E-21                          
+
+(X_U1.XU1.XINA28X_diff_in_se_o.XOutput2.115) 50.78E-06                          
+
+(X_U1.XU1.XINA28X_diff_in_se_o.XOutput2.116) 206.3E-12                          
+
+(X_U1.XU1.XINA28X_diff_in_se_o.XOutput2.VGP) 50.78E-06                          
+
+(X_U1.XU1.XINA28X_diff_in_se_o.XOutput2.Vt0) 20.31E-06                          
+
+(X_U1.XU1.XINA28X_diff_in_se_o.XInput2.VA+_118) 23.33E-12                   
+
+
+  These voltages failed to converge:
+
+    V(X_U1.XU1.NLContr)       =   203.83uV  \    2.059nV
+    V(X_U1.XU1.XControl.VBias) =    2.523uV  \    24.67pV
+    V(X_U1.XU1.XControl.ClkStart) =    40.50nV  \    10.16uV
+    V(X_U1.XU1.XBias.BVS1)    =  -300.00mV  \   -3.047uV
+    V(X_U1.XU1.XBias.63)      =  -300.00mV  \   -3.047uV
+    V(X_U1.XU1.XBias.VB2)     =  -300.00mV  \   -3.047uV
+    V(X_U1.XU1.Startup)       =     1.000V  \    10.16uV
+    V(X_U1.XU1.XControl.ClkF3) =     1.000V  \    10.16uV
+    V(X_U1.XU1.XControl.XSW1.CN) =     1.750V  \    17.77uV
+    V(X_U1.XU1.XControl.XSW1.1) =     1.750V  \    17.77uV
+    V(X_U1.XU1.XControl.XU1.THR) =     2.600V  \    26.41uV
+    V(X_U1.XU1.XINA28X_diff_ioa.XInput1.88) =  -513.49uV  \   -5.215nV
+    V(X_U1.XU1.XINA28X_diff_in_se_o.XOutput2.103) = 2.331e-21V  \    50.78uV
+    V(X_U1.XU1.XINA28X_diff_in_se_o.XOutput2.107) =    50.78uV  \   515.75pV
+    V(X_U1.XU1.XINA28X_diff_in_se_o.XInput2.VA+_118) =    2.305uV  \    23.34pV
+
+  These supply currents failed to converge:
+
+    I(X_U1.XU1.XControl.XU1.EOUT) =   -1.000nA  \   -10.16fA
+    I(X_U1.XU1.XControl.VS1)  =   -50.79fA  \   -2.580pA
+    I(X_U1.XU1.XControl.XClkF32.VCLKF32) =   -1.000nA  \   -10.16fA
+
+  These devices failed to converge:
+    X_U1.XU1.XControl.XU1.ETHR X_U1.XU1.XControl.XU1.EOUT 
+
+**** Interrupt ****
