@@ -7,19 +7,19 @@
       "Application": "Pcbnew",
       "Version":     "(5.1.6)-1"
     },
-    "CreationDate":  "2020-06-16T01:11:06+01:00"
+    "CreationDate":  "2020-06-16T18:44:35+01:00"
   },
   "GeneralSpecs":
   {
     "ProjectId":
     {
-      "Name": "peltier_driver_pcb",
-      "GUID": "70656c74-6965-4725-9f64-72697665725f",
+      "Name": "I_sense_pcb",
+      "GUID": "495f7365-6e73-4655-9f70-63622e6b6963",
       "Revision": "rev?"
     },
     "Size":
     {
-      "X": 61.050,
+      "X": 59.550,
       "Y": 33.050
     },
     "LayerNumber": 2,
@@ -40,47 +40,47 @@
   "FilesAttributes":
   [
     {
-      "Path":  "peltier_driver_pcb-F_Cu.gbr",
+      "Path":  "I_sense_pcb-F_Cu.gbr",
       "FileFunction":  "Copper,L1,Top",
       "FilePolarity":  "Positive"
     },
     {
-      "Path":  "peltier_driver_pcb-B_Cu.gbr",
+      "Path":  "I_sense_pcb-B_Cu.gbr",
       "FileFunction":  "Copper,L2,Bot",
       "FilePolarity":  "Positive"
     },
     {
-      "Path":  "peltier_driver_pcb-F_Paste.gbr",
+      "Path":  "I_sense_pcb-F_Paste.gbr",
       "FileFunction":  "SolderPaste,Top",
       "FilePolarity":  "Positive"
     },
     {
-      "Path":  "peltier_driver_pcb-B_Paste.gbr",
+      "Path":  "I_sense_pcb-B_Paste.gbr",
       "FileFunction":  "SolderPaste,Bot",
       "FilePolarity":  "Positive"
     },
     {
-      "Path":  "peltier_driver_pcb-F_SilkS.gbr",
+      "Path":  "I_sense_pcb-F_SilkS.gbr",
       "FileFunction":  "Legend,Top",
       "FilePolarity":  "Positive"
     },
     {
-      "Path":  "peltier_driver_pcb-B_SilkS.gbr",
+      "Path":  "I_sense_pcb-B_SilkS.gbr",
       "FileFunction":  "Legend,Bot",
       "FilePolarity":  "Positive"
     },
     {
-      "Path":  "peltier_driver_pcb-F_Mask.gbr",
+      "Path":  "I_sense_pcb-F_Mask.gbr",
       "FileFunction":  "SolderMask,Top",
       "FilePolarity":  "Negative"
     },
     {
-      "Path":  "peltier_driver_pcb-B_Mask.gbr",
+      "Path":  "I_sense_pcb-B_Mask.gbr",
       "FileFunction":  "SolderMask,Bot",
       "FilePolarity":  "Negative"
     },
     {
-      "Path":  "peltier_driver_pcb-Edge_Cuts.gbr",
+      "Path":  "I_sense_pcb-Edge_Cuts.gbr",
       "FileFunction":  "Profile",
       "FilePolarity":  "Positive"
     }

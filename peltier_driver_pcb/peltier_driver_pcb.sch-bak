@@ -3,7 +3,7 @@ EELAYER 30 0
 EELAYER END
 $Descr A4 11693 8268
 encoding utf-8
-Sheet 1 1
+Sheet 1 2
 Title ""
 Date ""
 Rev ""
@@ -249,9 +249,9 @@ Text GLabel 2500 7350 0    50   Input ~ 0
 SCL
 Text GLabel 2500 7150 0    50   Input ~ 0
 SDA
-Text GLabel 2500 7250 0    50   Input ~ 0
-D0
 Text GLabel 3000 6450 2    50   Input ~ 0
+D0
+Text GLabel 3000 6650 2    50   Input ~ 0
 D1
 Text GLabel 3000 7250 2    50   Input ~ 0
 PWM1
@@ -815,11 +815,11 @@ F 3 "" H 3000 7400 50  0001 C CNN
 $EndComp
 Wire Wire Line
 	3000 7400 3000 7350
-Text GLabel 3000 6650 2    50   Input ~ 0
-D2
 Text GLabel 3000 6850 2    50   Input ~ 0
-D3
+D2
 Text GLabel 3000 6950 2    50   Input ~ 0
+D3
+Text GLabel 2500 7250 0    50   Input ~ 0
 A4
 Wire Wire Line
 	1950 6950 2500 6950
@@ -898,4 +898,10 @@ Wire Wire Line
 Connection ~ 3450 7150
 Text Notes 4000 7700 0    50   ~ 10
 R_let = (5V - V_LED)/(15mA)
+$Sheet
+S 5400 1150 2100 650 
+U 5EE94CC6
+F0 "Sheet5EE94CC5" 50
+F1 "ARduino_Nano.sch" 50
+$EndSheet
 $EndSCHEMATC

@@ -3,7 +3,7 @@ EELAYER 30 0
 EELAYER END
 $Descr A4 11693 8268
 encoding utf-8
-Sheet 1 1
+Sheet 1 2
 Title ""
 Date ""
 Rev ""
@@ -898,4 +898,10 @@ Wire Wire Line
 Connection ~ 3450 7150
 Text Notes 4000 7700 0    50   ~ 10
 R_let = (5V - V_LED)/(15mA)
+$Sheet
+S 5400 1150 2100 650 
+U 5EE94CC6
+F0 "Sheet5EE94CC5" 50
+F1 "ARduino_Nano.sch" 50
+$EndSheet
 $EndSCHEMATC

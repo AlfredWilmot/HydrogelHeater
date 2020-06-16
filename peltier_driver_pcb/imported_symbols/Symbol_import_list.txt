@@ -1,1 +1,2 @@
 Arduino_Nano:	https://www.snapeda.com/parts/ARDUINO%20NANO/Arduino/view-part/1128261/?welcome=home#
+Arduino.pretty: https://github.com/Alarm-Siren/arduino-kicad-library
