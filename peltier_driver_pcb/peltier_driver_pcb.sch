@@ -237,21 +237,21 @@ Text GLabel 3000 6750 2    50   Input ~ 0
 T_sense1
 Text GLabel 2500 6750 0    50   Input ~ 0
 T_sense2
-Text GLabel 2500 7250 0    50   Input ~ 0
+Text GLabel 2500 6450 0    50   Input ~ 0
 A0
-Text GLabel 3000 6450 2    50   Input ~ 0
+Text GLabel 2500 6650 0    50   Input ~ 0
 A1
-Text GLabel 3000 6650 2    50   Input ~ 0
+Text GLabel 2500 6850 0    50   Input ~ 0
 A2
-Text GLabel 3000 6850 2    50   Input ~ 0
+Text GLabel 2500 7050 0    50   Input ~ 0
 A3
 Text GLabel 2500 7350 0    50   Input ~ 0
 SCL
 Text GLabel 2500 7150 0    50   Input ~ 0
 SDA
-Text GLabel 2500 6450 0    50   Input ~ 0
+Text GLabel 3000 6450 2    50   Input ~ 0
 D0
-Text GLabel 2500 6650 0    50   Input ~ 0
+Text GLabel 3000 6650 2    50   Input ~ 0
 D1
 Text GLabel 3000 7250 2    50   Input ~ 0
 PWM1
@@ -815,11 +815,11 @@ F 3 "" H 3000 7400 50  0001 C CNN
 $EndComp
 Wire Wire Line
 	3000 7400 3000 7350
-Text GLabel 2500 6850 0    50   Input ~ 0
+Text GLabel 3000 6850 2    50   Input ~ 0
 D2
-Text GLabel 2500 7050 0    50   Input ~ 0
-D3
 Text GLabel 3000 6950 2    50   Input ~ 0
+D3
+Text GLabel 2500 7250 0    50   Input ~ 0
 A4
 Wire Wire Line
 	1950 6950 2500 6950
