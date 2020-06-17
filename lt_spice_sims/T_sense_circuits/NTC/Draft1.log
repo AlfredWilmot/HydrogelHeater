@@ -1,5 +1,7 @@
 Circuit: * C:\Users\alfre\Desktop\HydrogelHeater\lt_spice_sims\T_sense_circuits\NTC\Draft1.asc
 
+Laplace(u1:u1:u6:e1): Window=72.334184µs Nfft=16384
+Laplace(u1:u1:u5:e1): Window=72.334184µs Nfft=16384
 Model "q_nmos_out": Oxide thickness thinner than recommended for a level 3 MOSFET.
 Model "q_pmos_out": Oxide thickness thinner than recommended for a level 3 MOSFET.
 u1:u1:control:clkf2:vclkf2: Removing PWL point (2.091,1)
@@ -42,68 +44,74 @@ vernier = 0.00390625
 Gmin = 2.61537e-007
 vernier = 0.00195313
 vernier = 0.000976563
-vernier = 0.00130208
-Gmin = 2.61303e-007
-vernier = 0.00173611
-Gmin = 2.60284e-007
-vernier = 0.00231481
-vernier = 0.00308642
-Gmin = 2.58584e-007
-vernier = 0.00411522
-vernier = 0.00548696
-Gmin = 2.55894e-007
-vernier = 0.00731595
-Gmin = 2.5172e-007
-vernier = 0.00975459
-vernier = 0.0130061
-Gmin = 2.44868e-007
-vernier = 0.0173415
-vernier = 0.023122
-Gmin = 2.34333e-007
-vernier = 0.0308293
-Gmin = 2.18682e-007
-vernier = 0.0411057
-vernier = 0.0548076
-Gmin = 1.94774e-007
-vernier = 0.0730768
-vernier = 0.0974357
-Gmin = 1.62043e-007
-vernier = 0.129914
-Gmin = 1.21489e-007
-vernier = 0.173219
-vernier = 0.230959
-Gmin = 7.52582e-008
-vernier = 0.307945
-vernier = 0.410593
-Gmin = 3.54537e-008
-vernier = 0.547457
-Gmin = 1.11087e-008
-vernier = 0.729942
-vernier = 0.973256
-Gmin = 1.70045e-009
+vernier = 0.000488281
+vernier = 0.000651042
+Gmin = 2.6159e-007
+vernier = 0.000868055
+Gmin = 2.61094e-007
+vernier = 0.00115741
+vernier = 0.00154321
+Gmin = 2.60283e-007
+vernier = 0.00205761
+vernier = 0.00274348
+Gmin = 2.59004e-007
+vernier = 0.00365797
+Gmin = 2.5694e-007
+vernier = 0.0048773
+vernier = 0.00650306
+Gmin = 2.53597e-007
+vernier = 0.00867074
+vernier = 0.011561
+Gmin = 2.48388e-007
+vernier = 0.0154146
+Gmin = 2.40166e-007
+vernier = 0.0205529
+vernier = 0.0274038
+Gmin = 2.27296e-007
+vernier = 0.0365384
+vernier = 0.0487178
+Gmin = 2.08326e-007
+vernier = 0.0649571
+Gmin = 1.80916e-007
+vernier = 0.0866095
+vernier = 0.115479
+Gmin = 1.43741e-007
+vernier = 0.153972
+vernier = 0.205296
+Gmin = 1.00078e-007
+vernier = 0.273728
+Gmin = 5.59658e-008
+vernier = 0.364971
+vernier = 0.486628
+Gmin = 2.1982e-008
+vernier = 0.648837
+vernier = 0.865116
+Gmin = 5.19694e-009
 vernier = 1
-Gmin = 1.84553e-010
-Gmin = 1.98163e-011
-Gmin = 2.12776e-012
-Gmin = 2.28466e-013
+Gmin = 6.39782e-010
+Gmin = 6.8696e-011
+Gmin = 7.37618e-012
+Gmin = 7.92011e-013
+Gmin = 0
 Gmin = 0
 Gmin stepping succeeded in finding the operating point.
 
 
-Date: Mon Jun 15 23:24:36 2020
-Total elapsed time: 0.485 seconds.
+Date: Wed Jun 17 15:18:51 2020
+Total elapsed time: 16.031 seconds.
 
 tnom = 27
 temp = 27
-method = trap
-totiter = 2256
-traniter = 0
-tranpoints = 0
-accept = 0
-rejected = 0
+method = modified trap
+totiter = 455617
+traniter = 453174
+tranpoints = 226551
+accept = 226542
+rejected = 9
 matrix size = 234
-fillins = 247
+fillins = 253
 solver = Normal
-Matrix Compiler1:    1148 opcodes
-Matrix Compiler2: 24.53 KB object code size  3.2/4.2/[1.1]
+Thread vector: 15.3/10.2[4] 13.4/4.7[4] 5.7/4.6[4] 0.8/1.5[1]  2592/500
+Matrix Compiler1: 20.33 KB object code size  12.0/5.7/[2.3]
+Matrix Compiler2: 24.65 KB object code size  3.8/4.4/[1.0]
 
