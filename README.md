@@ -21,3 +21,13 @@
 ## Some intersting parts I wanted to note down:
 (DRB8873 H-bridge, 10A; built-in current regulation, uses current-mirror to infer output current (so no R_sense needed))[https://www.ti.com/lit/ds/symlink/drv8873.pdf?ts=1593795815021&ref_url=https%253A%252F%252Fwww.ti.com%252Fproduct%252FDRV8873]
 (VNH7100AS (H-bridge, internally limited output current))[https://docs.rs-online.com/bb0a/0900766b8160a473.pdf]
+
+
+## Useful Analog application notes and articles
+\\*Voltage Controlled Current Source (VCCS) Articles*
+(Bidirectional current sources)[https://www.allaboutcircuits.com/technical-articles/how-to-design-simple-voltage-controlled-bidirectional-analog-current-source/]
+(Howland Current Pump(TI))[https://www.ti.com/lit/an/snoa474a/snoa474a.pdf]
+(Types and applications of current mirrors)[https://www.allaboutcircuits.com/technical-articles/learn-analog-circuits-introduction-to-current-mirrors-types-applications/]
+
+\\*Measurement circuits*
+(Collection of Measurement & control circuits (LT))[https://www.analog.com/media/en/technical-documentation/application-notes/an45f.pdf]
