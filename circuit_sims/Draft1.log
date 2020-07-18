@@ -1,0 +1,23 @@
+Circuit: * C:\Users\alfre\Desktop\HydrogelHeater\circuit_sims\Draft1.asc
+
+Instance "m:u2:6": Length shorter than recommended for a level 2 MOSFET.
+Instance "m:u2:5": Length shorter than recommended for a level 2 MOSFET.
+Direct Newton iteration for .op point succeeded.
+
+Date: Wed Jul 08 12:36:39 2020
+Total elapsed time: 0.380 seconds.
+
+tnom = 27
+temp = 27
+method = modified trap
+totiter = 39335
+traniter = 39312
+tranpoints = 19616
+accept = 16389
+rejected = 3227
+matrix size = 53
+fillins = 32
+solver = Normal
+Matrix Compiler1: 4.52 KB object code size  0.6/0.3/[0.2]
+Matrix Compiler2: 4.97 KB object code size  0.3/0.4/[0.2]
+
