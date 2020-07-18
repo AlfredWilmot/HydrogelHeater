@@ -24,7 +24,7 @@ void setup() {
   display.display();
   delay(1000);
   display.clearDisplay();
-  display.setTextSize(2);      // Normal 1:1 pixel scale
+  display.setTextSize(4.5);      // Normal 1:1 pixel scale
   display.setTextColor(SSD1306_WHITE); // Draw white text
   display.setCursor(0, 0);     // Start at top-left corner
   //display.cp437(true);         // Use full 256 char 'Code Page 437' font
