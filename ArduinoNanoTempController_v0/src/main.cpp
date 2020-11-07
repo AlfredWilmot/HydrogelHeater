@@ -3,6 +3,13 @@
 #include "Adafruit_SSD1306.h"
 #include "Adafruit_GFX.h"
 
+// I2C IR sensor libs
+#include "Wire.h"
+#include "Adafruit_MLX90614.h"
+/* Reference code taken from: https://miliohm.com/non-contact-temperature-sensor-mlx90614-arduino-tutorial/ */
+Adafruit_MLX90614 IR_sense = Adafruit_MLX90614();
+
+
 /*TODO: 
     > Add more indicator LEDs to the board for diagnostics.
     > Can also add information into classes from datasheets to also consider sensor accuracy/ precision.
@@ -109,9 +116,9 @@ void loop()
   display.print(int(INA283.read()));
   
   display.setCursor(0, 20);
-  display.print("NTC-thermistor: ");
+  display.print("IR-sensor: ");
   display.setCursor(100, 20);
-  display.print(my_ntc.read(), 1);
+  display.print(IR_sense.readObjectTempC(), 1);
   display.display(); 
   delay(10);
   }
