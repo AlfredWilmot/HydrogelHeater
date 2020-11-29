@@ -246,7 +246,29 @@ double readThermocouple() {
 /*--------------------------------------------------------------------------------*/
 // Source: http://www.electronoobs.com/eng_arduino_tut24_code3.php
 
+//Variables
+float set_temperature = 0;            //Default temperature setpoint. Leave it 0 and control it with rotary encoder
 
+float temperature_read = 0.0;
+float PID_error = 0;
+float previous_error = 0;
+float elapsedTime, Time, timePrev;
+float PID_value = 0;
+int button_pressed = 0;
+int menu_activated=0;
+float last_set_temperature = 0;
+
+//PID constants
+//////////////////////////////////////////////////////////
+int kp = 90, ki = 30, kd = 80;
+//////////////////////////////////////////////////////////
+
+int PID_p = 0;    int PID_i = 0;    int PID_d = 0;
+float last_kp = 0;
+float last_ki = 0;
+float last_kd = 0;
+
+int PID_values_fixed =0;
 
 int PID_loop(float set_temp, float read_temp)
 {

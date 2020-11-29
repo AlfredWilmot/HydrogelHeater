@@ -121,4 +121,5 @@ void loop()
   display.print(IR_sense.readObjectTempC(), 1);
   display.display(); 
   delay(10);
+
   }
