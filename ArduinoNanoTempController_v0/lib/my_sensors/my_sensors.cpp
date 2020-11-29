@@ -196,3 +196,85 @@ float I_sensor::read(bool get_raw)
 
   return float(this->_value);
 }
+
+
+
+/*--------------------------------------------------------------------------------*/
+// K-type thermocouple using MAX6675
+/*--------------------------------------------------------------------------------*/
+// Source: http://www.electronoobs.com/eng_arduino_tut24_code3.php
+
+//The function that reads the SPI data from MAX6675
+double readThermocouple() {
+
+  uint16_t v;
+  pinMode(MAX6675_CS, OUTPUT);
+  pinMode(MAX6675_SO, INPUT);
+  pinMode(MAX6675_SCK, OUTPUT);
+  
+  digitalWrite(MAX6675_CS, LOW);
+  delay(1);
+
+  // Read in 16 bits,
+  //  15    = 0 always
+  //  14..2 = 0.25 degree counts MSB First
+  //  2     = 1 if thermocouple is open circuit  
+  //  1..0  = uninteresting status
+  
+  v = shiftIn(MAX6675_SO, MAX6675_SCK, MSBFIRST);
+  v <<= 8;
+  v |= shiftIn(MAX6675_SO, MAX6675_SCK, MSBFIRST);
+  
+  digitalWrite(MAX6675_CS, HIGH);
+  if (v & 0x4) 
+  {    
+    // Bit 2 indicates if the thermocouple is disconnected
+    return NAN;     
+  }
+
+  // The lower three bits (0,1,2) are discarded status bits
+  v >>= 3;
+
+  // The remaining bits are the number of 0.25 degree (C) counts
+  return v*0.25;
+}
+
+
+
+/*--------------------------------------------------------------------------------*/
+// PID loop code
+/*--------------------------------------------------------------------------------*/
+// Source: http://www.electronoobs.com/eng_arduino_tut24_code3.php
+
+
+
+int PID_loop(float set_temp, float read_temp)
+{
+
+  //Next we calculate the error between the setpoint and the real value
+  PID_error = set_temp - read_temp + 3;
+  //Calculate the P value
+  PID_p = 0.01*kp * PID_error;
+  //Calculate the I value in a range on +-3
+  PID_i = 0.01*PID_i + (ki * PID_error);
+  
+  //For derivative we need real time to calculate speed change rate
+  timePrev = Time;                            // the previous time is stored before the actual time read
+  Time = millis();                            // actual time read
+  elapsedTime = (Time - timePrev) / 1000; 
+  //Now we can calculate the D calue
+  PID_d = 0.01*kd*((PID_error - previous_error)/elapsedTime);
+  //Final total PID value is the sum of P + I + D
+  PID_value = PID_p + PID_i + PID_d;
+
+  //We define PWM range between 0 and 255
+  if(PID_value < 0)
+  {    PID_value = 0;    }
+  if(PID_value > 255)  
+  {    PID_value = 255;  }
+
+  previous_error = PID_error;     //Remember to store the previous error for next loop.
+
+  return PID_value;
+
+}
