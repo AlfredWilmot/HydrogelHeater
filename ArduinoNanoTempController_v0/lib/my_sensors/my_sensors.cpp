@@ -203,7 +203,8 @@ float I_sensor::read(bool get_raw)
 /*--------------------------------------------------------------------------------*/
 // K-type thermocouple using MAX6675
 /*--------------------------------------------------------------------------------*/
-// Source: http://www.electronoobs.com/eng_arduino_tut24_code3.php
+// useful resources:  https://www.best-microcontroller-projects.com/arduino-shiftin.html
+//                    http://arduinolearning.com/code/max6675-and-arduino-example.php
 
 K_type_couple::K_type_couple(uint8_t cs_pin)
 {
