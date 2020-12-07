@@ -92,11 +92,26 @@ public:
 /*--------------------------------------------------------------------------------*/
 // Source: http://www.electronoobs.com/eng_arduino_tut24_code3.php
 
-#define MAX6675_CS   10
+
+#define MAX6675_CS   11
 #define MAX6675_SO   12
 #define MAX6675_SCK  13
 
-double readThermocouple(void);
+class K_type_couple
+{
+private:
+  uint16_t
+    _value = 0;
+  uint8_t
+    _cs = MAX6675_CS;
+public:
+  K_type_couple(uint8_t cs_pin);
+  double read(void);
+};
+
+
+
+//double readThermocouple(void);
 
 
 /*--------------------------------------------------------------------------------*/

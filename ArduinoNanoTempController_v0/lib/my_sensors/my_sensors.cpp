@@ -1,5 +1,5 @@
 #include "my_sensors.h"
-
+#include "SPI.h"
 /*--------------------------------------------------------------------------------*/
 // Encoder push-button code
 /*--------------------------------------------------------------------------------*/
@@ -169,6 +169,7 @@ float I_sensor::read(bool get_raw)
 {
   int tmp = analogRead(this->_pin);
 
+  
   if (this->_avg_count < this->_avg)
   {
     this->_accumulator += tmp;
@@ -204,14 +205,31 @@ float I_sensor::read(bool get_raw)
 /*--------------------------------------------------------------------------------*/
 // Source: http://www.electronoobs.com/eng_arduino_tut24_code3.php
 
-//The function that reads the SPI data from MAX6675
-double readThermocouple() {
+K_type_couple::K_type_couple(uint8_t cs_pin)
+{
 
-  uint16_t v;
-  pinMode(MAX6675_CS, OUTPUT);
+  this->_value = 0.0;
+  this->_cs = cs_pin;
+  // configuring the SPI pins.
+  
+  pinMode(cs_pin, OUTPUT);
+  digitalWrite(cs_pin,HIGH);
   pinMode(MAX6675_SO, INPUT);
   pinMode(MAX6675_SCK, OUTPUT);
-  
+  digitalWrite(MAX6675_SCK, LOW);
+
+}
+
+
+
+//The function that reads the SPI data from MAX6675
+double K_type_couple::read(void) {
+
+  uint16_t v;
+
+  v &= 0x00;
+
+  digitalWrite(MAX6675_SCK, LOW);
   digitalWrite(MAX6675_CS, LOW);
   delay(1);
 
@@ -221,11 +239,19 @@ double readThermocouple() {
   //  2     = 1 if thermocouple is open circuit  
   //  1..0  = uninteresting status
   
-  v = shiftIn(MAX6675_SO, MAX6675_SCK, MSBFIRST);
-  v <<= 8;
-  v |= shiftIn(MAX6675_SO, MAX6675_SCK, MSBFIRST);
+  uint16_t i;
+
+  for (i=0; i<16;++i)
+  {
+    digitalWrite(MAX6675_SCK, HIGH); //falling edge
+    v |= digitalRead(MAX6675_SO) << (15-i); //MSB first according to MAX6675 datasheet.
+    digitalWrite(MAX6675_SCK, LOW); //rising edge
+  }
+
   
   digitalWrite(MAX6675_CS, HIGH);
+  delay(300); //conversion time requires at least 250ms!!! (please for the love of god set this up on a seperate thread/ ISR)
+
   if (v & 0x4) 
   {    
     // Bit 2 indicates if the thermocouple is disconnected

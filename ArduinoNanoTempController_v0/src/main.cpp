@@ -15,7 +15,7 @@ Adafruit_MLX90614 IR_sense = Adafruit_MLX90614();
     > Can also add information into classes from datasheets to also consider sensor accuracy/ precision.
 */
 
-/* Resources for setting-up ARdunio programming in VS-Code:
+/* Resources for setting-up Ardunio programming in VS-Code:
 
 -> Tutorial for settin-up PlatformIO for Arduino programming  (https://www.youtube.com/watch?v=dany7ae_0ks) 
 -> Explore config files for different MCUs; not jsut Arduino  (https://platformio.org/boards)
@@ -41,9 +41,13 @@ Adafruit_SSD1306 display(SCREEN_WIDTH, SCREEN_HEIGHT, &Wire, OLED_RESET);
 #define IN_2 7
 #define EN_A 6
 
-#define IN_3 9
-#define IN_4 10
-#define EN_B 11
+// #define IN_3 9
+// #define IN_4 10
+// #define EN_B 11
+
+// Setting up SPI-based K-type thermocouple (uses MAX6675 chip)
+K_type_couple MAX6675(MAX6675_CS);
+
 
 void setup()
 {
@@ -118,7 +122,8 @@ void loop()
   display.setCursor(0, 20);
   display.print("IR-sensor: ");
   display.setCursor(100, 20);
-  display.print(IR_sense.readObjectTempC(), 1);
+  //display.print(IR_sense.readObjectTempC(), 1);
+  display.print(MAX6675.read(),1);
   display.display(); 
   delay(10);
 
