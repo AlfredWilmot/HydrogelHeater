@@ -100,10 +100,13 @@ public:
 class K_type_couple
 {
 private:
-  uint16_t
-    _value = 0;
+  float
+    _value = 0.0;
   uint8_t
     _cs = MAX6675_CS;
+  unsigned long 
+    _conversion_timer = 0,
+    _conversion_timeout = 300; //~250ms is needed for a new temperature masurement from the thermocouple (MAX6675) IC.
 public:
   K_type_couple(uint8_t cs_pin);
   double read(void);

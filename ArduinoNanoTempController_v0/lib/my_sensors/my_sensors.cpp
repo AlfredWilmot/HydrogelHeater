@@ -4,6 +4,8 @@
 // Encoder push-button code
 /*--------------------------------------------------------------------------------*/
 
+// Some useful notes on interrupts: https://gammon.com.au/interrupts
+
 EncoderPushButton::EncoderPushButton(int IN_A, int IN_B, int SW)
 {
   //configuring internal pup resistors (20k to 5V)
@@ -205,14 +207,18 @@ float I_sensor::read(bool get_raw)
 /*--------------------------------------------------------------------------------*/
 // useful resources:  https://www.best-microcontroller-projects.com/arduino-shiftin.html
 //                    http://arduinolearning.com/code/max6675-and-arduino-example.php
+//                    
 
 K_type_couple::K_type_couple(uint8_t cs_pin)
 {
 
   this->_value = 0.0;
   this->_cs = cs_pin;
+
+  // start the conversion timer.
+  this-> _conversion_timer = millis();
+
   // configuring the SPI pins.
-  
   pinMode(cs_pin, OUTPUT);
   digitalWrite(cs_pin,HIGH);
   pinMode(MAX6675_SO, INPUT);
@@ -226,44 +232,56 @@ K_type_couple::K_type_couple(uint8_t cs_pin)
 //The function that reads the SPI data from MAX6675
 double K_type_couple::read(void) {
 
-  uint16_t v;
-
-  v &= 0x00;
-
-  digitalWrite(MAX6675_SCK, LOW);
-  digitalWrite(MAX6675_CS, LOW);
-  delay(1);
-
-  // Read in 16 bits,
-  //  15    = 0 always
-  //  14..2 = 0.25 degree counts MSB First
-  //  2     = 1 if thermocouple is open circuit  
-  //  1..0  = uninteresting status
-  
-  uint16_t i;
-
-  for (i=0; i<16;++i)
+  /*  Sample the sensor when a new temperature conversion is ready.
+      Otherwise, just return the last known temperature value.*/
+  if ((millis() - this-> _conversion_timer) >= this-> _conversion_timeout)
   {
-    digitalWrite(MAX6675_SCK, HIGH); //falling edge
-    v |= digitalRead(MAX6675_SO) << (15-i); //MSB first according to MAX6675 datasheet.
-    digitalWrite(MAX6675_SCK, LOW); //rising edge
-  }
+    // reset the conversion timer
+    this-> _conversion_timer = millis();
 
+    // sample sensor to get the latest temperature vale.
+    uint16_t v;
+
+    v &= 0x00;
+
+    // Telling sensor that you want to read the latest temperature value from it.
+    digitalWrite(MAX6675_SCK, LOW);
+    digitalWrite(MAX6675_CS, LOW);
+    delay(1);
+
+    // Read in 16 bits,
+    //  15    = 0 always
+    //  14..2 = 0.25 degree counts MSB First
+    //  2     = 1 if thermocouple is open circuit  
+    //  1..0  = uninteresting status
+    
+    // SPI using digital IO pins (CLK timing isn't critical for this application)
+    uint16_t i;
+    for (i=0; i<16;++i)
+    {
+      digitalWrite(MAX6675_SCK, HIGH); //falling edge
+      v |= digitalRead(MAX6675_SO) << (15-i); //MSB first according to MAX6675 datasheet.
+      digitalWrite(MAX6675_SCK, LOW); //rising edge
+    }
+
+    
+    digitalWrite(MAX6675_CS, HIGH);
+
+    if (v & 0x4) 
+    {    
+      // Bit 2 indicates if the thermocouple is disconnected
+      return NAN;     
+    }
+
+    // The lower three bits (0,1,2) are discarded status bits
+    v >>= 3;
+
+    // The remaining bits are the number of 0.25 degree (C) counts; store in the private variable.
+    this->_value = v*0.25;
+
+  }
   
-  digitalWrite(MAX6675_CS, HIGH);
-  delay(300); //conversion time requires at least 250ms!!! (please for the love of god set this up on a seperate thread/ ISR)
-
-  if (v & 0x4) 
-  {    
-    // Bit 2 indicates if the thermocouple is disconnected
-    return NAN;     
-  }
-
-  // The lower three bits (0,1,2) are discarded status bits
-  v >>= 3;
-
-  // The remaining bits are the number of 0.25 degree (C) counts
-  return v*0.25;
+  return this->_value;
 }
 
 
