@@ -58,6 +58,9 @@ Adafruit_SSD1306 display(SCREEN_WIDTH, SCREEN_HEIGHT, &Wire, OLED_RESET);
 K_type_couple MAX6675(MAX6675_CS);
 
 
+//target temperature designated by the user
+float set_point = 0.0;
+
 void setup()
 {
 
@@ -92,18 +95,19 @@ void setup()
   attachInterrupt(digitalPinToInterrupt(3), encoder_ISR_handler, CHANGE); 
   attachInterrupt(digitalPinToInterrupt(4), encoder_ISR_handler, CHANGE); 
 
-
+  //initialize the setpoint to equal the ambient temperature of the thermocouple.
+  set_point = MAX6675.read();
 
 }
 
 void loop()
 {
 
-  int set_point = EC11.count;
+  set_point += float(EC11.get_turn_count());
 
   // threshold the set-point
-  set_point > 100 ? set_point = 100, EC11.count = 100: set_point = set_point;
-  set_point < 0 ? set_point = 0, EC11.count = 0 : set_point = set_point;
+  set_point > 100 ? set_point = 100: set_point = set_point;
+  set_point < 0 ? set_point = 0: set_point = set_point;
   
 
 // This all needs to be combined with the PID loop
@@ -177,7 +181,6 @@ default:
 
 
   /*Display analytics*/ 
-
   // show data on OLED 128x32 display
   display.clearDisplay();
 

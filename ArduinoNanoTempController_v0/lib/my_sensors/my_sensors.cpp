@@ -41,6 +41,26 @@ int EncoderPushButton::get_sw_state()
 }
 
 
+/* Safely sets the turn-count varaible by ensuring no other contexts are accessing it*/
+int EncoderPushButton::get_turn_count(bool reset_counter)
+{
+
+  int tmp;
+
+  noInterrupts();
+
+  tmp = _count;
+
+  if (reset_counter)
+  {
+    _count = 0;
+  }
+
+  interrupts();
+
+  return tmp;
+}
+
 
 /* Will vary from -100 (fully CCW) to +100 (fully CW) as soft limits.*/
 void EncoderPushButton::encoder_handler()
@@ -77,11 +97,11 @@ void EncoderPushButton::encoder_handler()
 
       if(_prev_val == 1) //implies CW rotation
       {
-        count++;
+        _count++;
       }
       if(_prev_val == 2) //implies CCW rotation
       {
-        count--;
+        _count--;
       }
     }
     _prev_val = latest_val;

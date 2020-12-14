@@ -27,7 +27,10 @@ private:
       // designate pins used by encoder.
       _pin_a,             
       _pin_b,
-      _sw;
+      _sw,
+
+      //counter variable to track the number of encoder "ticks"
+      _count = 0;
       
   bool _transition_flag = false;  // indicates whether the encoder is between rest-positions (otherwise each "tick" counts as two increments).
 
@@ -35,11 +38,7 @@ public:
   EncoderPushButton(int IN_A, int IN_B, int SW);
   void encoder_handler();
   int get_sw_state();
-  int get_turn_count();
-
-  //counter variable to track the number of encoder "ticks"
-  int count = 0;
-
+  int get_turn_count(bool reset_count = true);
 };
 
 
