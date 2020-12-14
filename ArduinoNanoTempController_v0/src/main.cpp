@@ -29,6 +29,15 @@ I_sensor INA283(Arduino_h::A7, 10);
 
 // Setup encoder push-button
 EncoderPushButton EC11(2,3,4);
+void encoder_ISR_handler()
+{
+  EC11.encoder_handler();
+}
+//Arduino_h::attachInterrupt(digitalPinToInterrupt(2), EC11.read_encoder_val(), CHANGE);
+
+  //attachInterrupt(digitalPinToInterrupt(IN_B), test, CHANGE);
+  //attachInterrupt(digitalPinToInterrupt(SW), test, RISING);
+
 
 // Setting up the LCD
 #define SCREEN_WIDTH 128 // OLED display width, in pixels
@@ -76,35 +85,98 @@ void setup()
   display.setTextColor(SSD1306_WHITE); // Draw white text
   display.setCursor(0, 0);     // Start at top-left corner
   //display.cp437(true);         // Use full 256 char 'Code Page 437' font
+
+
+  //set up Interrupts on encoder pins
+  attachInterrupt(digitalPinToInterrupt(2), encoder_ISR_handler, CHANGE);
+  attachInterrupt(digitalPinToInterrupt(3), encoder_ISR_handler, CHANGE); 
+  attachInterrupt(digitalPinToInterrupt(4), encoder_ISR_handler, CHANGE); 
+
+
+
 }
 
 void loop()
 {
 
-  int tmp = EC11.read_encoder_val();
+  int set_point = EC11.count;
 
-  //move motor CW if encoder val > 0, CCW if < 0, and stop if == 0.
-  if (tmp > 0)
-  {
-    digitalWrite(IN_1,HIGH);
-    digitalWrite(IN_2, LOW);
-  }
-  else if (tmp < 0)
-  {
-    digitalWrite(IN_1,LOW);
-    digitalWrite(IN_2, HIGH);
-  }
-  else
-  {
-    digitalWrite(IN_1,LOW);
-    digitalWrite(IN_2, LOW);
-  }
+  // threshold the set-point
+  set_point > 100 ? set_point = 100, EC11.count = 100: set_point = set_point;
+  set_point < 0 ? set_point = 0, EC11.count = 0 : set_point = set_point;
   
-  //motor speed (i.e. current draw is determined by the magnitude of the encoder counter)
-  analogWrite(EN_A, int( (255/100)*abs(tmp) ));
+
+// This all needs to be combined with the PID loop
+  // //move motor CW if encoder val > 0, CCW if < 0, and stop if == 0.
+  // if (set_point > 0)
+  // {
+  //   digitalWrite(IN_1,HIGH);
+  //   digitalWrite(IN_2, LOW);
+  // }
+  // else if (set_point < 0)
+  // {
+  //   digitalWrite(IN_1,LOW);
+  //   digitalWrite(IN_2, HIGH);
+  // }
+  // else
+  // {
+  //   digitalWrite(IN_1,LOW);
+  //   digitalWrite(IN_2, LOW);
+  // }
   
-  // check the switch
-  EC11.read_sw_state();
+  // //motor speed (i.e. current draw is determined by the magnitude of the encoder counter)
+  // analogWrite(EN_A, int( (255/100)*abs(set_point) ));
+  
+  /*
+    ----
+    MENU
+    ----
+
+    > Overview screen
+    > encoder button press -> go to "config submenu" -> can configure temperature sensor used, temperature resolution (fine [0.1], coarse [1.0], v_coarse [5.0]), adjust PID params.
+    > Rotate encoder (adjusts set-point based on variables set in the config menu)
+  
+  */
+
+
+// if in main menu
+//    if encoder is rotating        --> change sp
+//    if encoder button is pressed  --> move to sub-menu
+
+// if in sub menu
+//    if encoder is rotating        --> move through options
+//    if button is pressed          --> select option, blahblah
+
+int menu_state = 0;
+
+switch (menu_state)
+{
+/* sub menu*/
+case 0:
+
+  switch (menu_state)
+  {
+  case 0:
+    /* code */
+    break;
+  
+  default:
+    break;
+  }
+
+  break;
+
+/* main menu*/
+default:
+  //show data
+  break;
+}
+ 
+ 
+ 
+
+
+  /*Display analytics*/ 
 
   // show data on OLED 128x32 display
   display.clearDisplay();
@@ -112,7 +184,7 @@ void loop()
   display.setCursor(0, 0);
   display.print("Encoder: ");
   display.setCursor(100, 0);
-  display.print(tmp);
+  display.print(set_point);
   
   display.setCursor(0, 10);
   display.print("ADC I-sense: ");

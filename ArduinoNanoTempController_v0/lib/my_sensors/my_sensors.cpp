@@ -17,12 +17,13 @@ EncoderPushButton::EncoderPushButton(int IN_A, int IN_B, int SW)
   pinMode(LED_BUILTIN, OUTPUT);
 
   //designate encoder pins
-  this->_sw = SW;
-  this->_pin_a = IN_A;
-  this->_pin_b = IN_B;
+  _sw = SW;
+  _pin_a = IN_A;
+  _pin_b = IN_B;
 
   //pre-loading the "old value" so there's something for the new value to compare to.
-  this->_in_a_old = digitalRead(IN_A);
+  _prev_val |= (digitalRead(IN_A) << 1);
+  _prev_val |= (digitalRead(IN_B) << 0);
 
 }
 
@@ -32,82 +33,60 @@ EncoderPushButton::EncoderPushButton(int IN_A, int IN_B, int SW)
 
 /*Read and return the push-button state.
   Pushing the button will reset the counter.*/
-int EncoderPushButton::read_sw_state()
+int EncoderPushButton::get_sw_state()
 {
   // check pin.
-  this->_sw_state = digitalRead(this->_sw);
+  return digitalRead(_sw);
 
-  // use on-board LED to indicate state.
-  if (this->_sw_state == HIGH) 
-  {
-    digitalWrite(LED_BUILTIN, LOW);
-  } 
-  else 
-  {
-    digitalWrite(LED_BUILTIN, HIGH);
-    this->_pulse_count = 0;
-  }
-  return this->_sw_state;
 }
-
-
 
 
 
 /* Will vary from -100 (fully CCW) to +100 (fully CW) as soft limits.*/
-int EncoderPushButton::read_encoder_val()
+void EncoderPushButton::encoder_handler()
 {
-  this->_in_a_new = digitalRead(this->_pin_a);
   
-  // Checking to see if the encoder is moving.
-  if (this->_in_a_new != this->_in_a_old)
-  { 
+  //one single "tick" of the encoder corresponds to a 2-bit resolution of values [0..3]
+  int latest_val = 0;
+  latest_val |= (digitalRead(_pin_a) << 1);
+  latest_val |= (digitalRead(_pin_b) << 0);
 
-    //prevents unwanted incremnets between 
-    if (!this->_transition_flag)
-    {
-      digitalWrite(LED_BUILTIN, HIGH);
-      this->_transition_flag = true;
-      return this->_pulse_count;
-    }
-    
+  // CW rotation  --> 3,1,0,2
+  // CCW rotation --> 3,2,0,1
 
-    // Checking the direction of the encoder's roation.
-    if (digitalRead(this->_pin_b) != (this->_in_a_new))
-    { 
-      // Encoder is rotating CCW
-      this->_pulse_count -= this->_pulse_step;
-    } 
-    else 
-    {
-      // Encoder is rotating CW
-      this->_pulse_count += this->_pulse_step;
-    }
-  }
-  
-  //ensure that the pulse count doesn't exceed the designated limit.
-  if (this->_pulse_count > this->_pulse_lim)
+  //ignore repeated readings (noise)
+  if(latest_val != _prev_val)
   {
-    this->_pulse_count = this->_pulse_lim;
-  }
-  else if (this->_pulse_count < -this->_pulse_lim)
-  {
-    this->_pulse_count = -this->_pulse_lim;
-  }
-  
-  
-  //update the "old" value.
-  this->_in_a_old = this->_in_a_new;
 
-  // wait for button debounce.
-  delay(2);
 
-  digitalWrite(LED_BUILTIN, LOW);
-  this->_transition_flag = false;
-  return this->_pulse_count;
+
+    if ( (latest_val == 3 && _prev_val == 2) || (latest_val == 1 && _prev_val == 3) || (latest_val == 0 && _prev_val == 1) || (latest_val == 2 && _prev_val == 0) )
+    {
+      _sub_count++;
+    }
+    else
+    {
+      _sub_count--;
+    }
+
+    //encoder resting value is high for both pins (0b11 = 3)
+    if(latest_val == 3 && (_sub_count%4 == 0) )
+    {
+      
+      _sub_count = 0; //reset sub-count
+
+      if(_prev_val == 1) //implies CW rotation
+      {
+        count++;
+      }
+      if(_prev_val == 2) //implies CCW rotation
+      {
+        count--;
+      }
+    }
+    _prev_val = latest_val;
+  }
 }
-
-
 
 
 
@@ -292,7 +271,7 @@ double K_type_couple::read(void) {
 // Source: http://www.electronoobs.com/eng_arduino_tut24_code3.php
 
 //Variables
-float set_temperature = 0;            //Default temperature setpoint. Leave it 0 and control it with rotary encoder
+//float set_temperature = 0;            //Default temperature setpoint. Leave it 0 and control it with rotary encoder
 
 float temperature_read = 0.0;
 float PID_error = 0;
@@ -301,7 +280,7 @@ float elapsedTime, Time, timePrev;
 float PID_value = 0;
 int button_pressed = 0;
 int menu_activated=0;
-float last_set_temperature = 0;
+//float last_set_temperature = 0;
 
 //PID constants
 //////////////////////////////////////////////////////////

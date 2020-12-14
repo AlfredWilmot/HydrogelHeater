@@ -19,19 +19,26 @@ private:
       _pulse_lim    = 100,  //+/- limit of pulse counter.
       _pulse_step   = 5,    //steps for every detected pulse.
       _in_a_new     = 0,    //stores the last known value from  the IN_A pin.
-      _in_a_old     = 0,    //stores the value before the last known value from the IN_A pin.
+      _prev_val     = 0,    //stores the value before the last known value from the IN_A pin.
       _sw_state     = 0,    //HIGH --> switch is released, LOW --> switch is pressed.
+      
+      _sub_count = 0,
 
       // designate pins used by encoder.
       _pin_a,             
       _pin_b,
       _sw;
+      
   bool _transition_flag = false;  // indicates whether the encoder is between rest-positions (otherwise each "tick" counts as two increments).
 
 public:
   EncoderPushButton(int IN_A, int IN_B, int SW);
-  int read_sw_state();
-  int read_encoder_val();
+  void encoder_handler();
+  int get_sw_state();
+  int get_turn_count();
+
+  //counter variable to track the number of encoder "ticks"
+  int count = 0;
 
 };
 
@@ -112,9 +119,6 @@ public:
   double read(void);
 };
 
-
-
-//double readThermocouple(void);
 
 
 /*--------------------------------------------------------------------------------*/
