@@ -151,35 +151,6 @@ void loop()
 //    if encoder is rotating        --> move through options
 //    if button is pressed          --> select option, blahblah
 
-int menu_state = 0;
-
-switch (menu_state)
-{
-/* sub menu*/
-case 0:
-
-  switch (menu_state)
-  {
-  case 0:
-    /* code */
-    break;
-  
-  default:
-    break;
-  }
-
-  break;
-
-/* main menu*/
-default:
-  //show data
-  break;
-}
- 
- 
- 
-
-
   /*Display analytics*/ 
   // show data on OLED 128x32 display
   display.clearDisplay();
@@ -188,18 +159,17 @@ default:
   display.print("Encoder: ");
   display.setCursor(100, 0);
   display.print(set_point);
-  
+
   display.setCursor(0, 10);
   display.print("ADC I-sense: ");
   display.setCursor(100, 10);
   display.print(int(INA283.read()));
-  
+
   display.setCursor(0, 20);
   display.print("IR-sensor: ");
   display.setCursor(100, 20);
   //display.print(IR_sense.readObjectTempC(), 1);
   display.print(MAX6675.read(),1);
   display.display(); 
-  delay(10);
 
   }

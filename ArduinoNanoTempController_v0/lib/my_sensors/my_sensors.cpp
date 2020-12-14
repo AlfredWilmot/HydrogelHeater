@@ -31,13 +31,25 @@ EncoderPushButton::EncoderPushButton(int IN_A, int IN_B, int SW)
 
 
 
-/*Read and return the push-button state.
-  Pushing the button will reset the counter.*/
-int EncoderPushButton::get_sw_state()
+/*Attempts to "safely" check the state of the encoder*/
+int EncoderPushButton::get_state(bool reset_state)
 {
-  // check pin.
-  return digitalRead(_sw);
+  noInterrupts();
+  if (digitalRead(_sw))
+  {
+    _enc_state = btn_push;
+  }
+  
+  int tmp = _enc_state;
 
+  if (reset_state)
+  {
+    _enc_state = unmoved;
+  }
+  
+  return tmp;
+
+  interrupts();
 }
 
 
@@ -47,16 +59,12 @@ int EncoderPushButton::get_turn_count(bool reset_counter)
 
   int tmp;
 
-  noInterrupts();
-
   tmp = _count;
 
   if (reset_counter)
   {
     _count = 0;
   }
-
-  interrupts();
 
   return tmp;
 }
@@ -77,16 +85,15 @@ void EncoderPushButton::encoder_handler()
   //ignore repeated readings (noise)
   if(latest_val != _prev_val)
   {
-
-
-
     if ( (latest_val == 3 && _prev_val == 2) || (latest_val == 1 && _prev_val == 3) || (latest_val == 0 && _prev_val == 1) || (latest_val == 2 && _prev_val == 0) )
     {
       _sub_count++;
+      _enc_state = cw_turn;
     }
     else
     {
       _sub_count--;
+      _enc_state = ccw_turn;
     }
 
     //encoder resting value is high for both pins (0b11 = 3)

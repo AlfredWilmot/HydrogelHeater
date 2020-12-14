@@ -12,6 +12,10 @@
   https://dronebotworkshop.com/rotary-encoders-arduino/
   
 */
+
+// used to indicate the last known state of the encoder for menu input.
+enum enc_states{unmoved, cw_turn, ccw_turn, btn_push};
+
 class EncoderPushButton
 {
 private:
@@ -30,14 +34,17 @@ private:
       _sw,
 
       //counter variable to track the number of encoder "ticks"
-      _count = 0;
+      _count = 0,
+
+      //tracks encoder state
+      _enc_state = unmoved;
       
   bool _transition_flag = false;  // indicates whether the encoder is between rest-positions (otherwise each "tick" counts as two increments).
 
 public:
   EncoderPushButton(int IN_A, int IN_B, int SW);
   void encoder_handler();
-  int get_sw_state();
+  int get_state(bool reset_state = true);
   int get_turn_count(bool reset_count = true);
 };
 
