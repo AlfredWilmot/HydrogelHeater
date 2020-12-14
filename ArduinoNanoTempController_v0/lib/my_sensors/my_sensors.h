@@ -24,7 +24,6 @@ private:
       _pulse_step   = 5,    //steps for every detected pulse.
       _in_a_new     = 0,    //stores the last known value from  the IN_A pin.
       _prev_val     = 0,    //stores the value before the last known value from the IN_A pin.
-      _sw_state     = 0,    //HIGH --> switch is released, LOW --> switch is pressed.
       
       _sub_count = 0,
 

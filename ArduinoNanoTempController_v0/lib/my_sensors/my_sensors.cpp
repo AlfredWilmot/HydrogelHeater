@@ -34,12 +34,12 @@ EncoderPushButton::EncoderPushButton(int IN_A, int IN_B, int SW)
 /*Attempts to "safely" check the state of the encoder*/
 int EncoderPushButton::get_state(bool reset_state)
 {
-  noInterrupts();
-  if (digitalRead(_sw))
+
+  if (!digitalRead(_sw))
   {
     _enc_state = btn_push;
   }
-  
+
   int tmp = _enc_state;
 
   if (reset_state)
@@ -48,26 +48,25 @@ int EncoderPushButton::get_state(bool reset_state)
   }
   
   return tmp;
-
-  interrupts();
 }
 
 
 /* Safely sets the turn-count varaible by ensuring no other contexts are accessing it*/
-int EncoderPushButton::get_turn_count(bool reset_counter)
+int EncoderPushButton::get_turn_count(bool reset_count)
 {
 
   int tmp;
 
   tmp = _count;
 
-  if (reset_counter)
+  if (reset_count)
   {
     _count = 0;
   }
 
   return tmp;
 }
+
 
 
 /* Will vary from -100 (fully CCW) to +100 (fully CW) as soft limits.*/
@@ -113,6 +112,7 @@ void EncoderPushButton::encoder_handler()
     }
     _prev_val = latest_val;
   }
+
 }
 
 

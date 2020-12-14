@@ -33,6 +33,8 @@ void encoder_ISR_handler()
 {
   EC11.encoder_handler();
 }
+
+
 //Arduino_h::attachInterrupt(digitalPinToInterrupt(2), EC11.read_encoder_val(), CHANGE);
 
   //attachInterrupt(digitalPinToInterrupt(IN_B), test, CHANGE);
@@ -60,6 +62,12 @@ K_type_couple MAX6675(MAX6675_CS);
 
 //target temperature designated by the user
 float set_point = 0.0;
+
+// other menu control variables
+int toggle_sense = 0;
+int prev_state = EC11.get_state();
+
+
 
 void setup()
 {
@@ -94,7 +102,6 @@ void setup()
   attachInterrupt(digitalPinToInterrupt(2), encoder_ISR_handler, CHANGE);
   attachInterrupt(digitalPinToInterrupt(3), encoder_ISR_handler, CHANGE); 
   attachInterrupt(digitalPinToInterrupt(4), encoder_ISR_handler, CHANGE); 
-
   //initialize the setpoint to equal the ambient temperature of the thermocouple.
   set_point = MAX6675.read();
 
@@ -143,13 +150,8 @@ void loop()
   */
 
 
-// if in main menu
-//    if encoder is rotating        --> change sp
-//    if encoder button is pressed  --> move to sub-menu
 
-// if in sub menu
-//    if encoder is rotating        --> move through options
-//    if button is pressed          --> select option, blahblah
+
 
   /*Display analytics*/ 
   // show data on OLED 128x32 display
@@ -165,11 +167,34 @@ void loop()
   display.setCursor(100, 10);
   display.print(int(INA283.read()));
 
+
+
+  if (EC11.get_state() == btn_push and prev_state != btn_push)
+  {
+    toggle_sense^=1;
+    prev_state = btn_push;
+  }
+  else if (EC11.get_state() != btn_push)
+  {
+    prev_state = EC11.get_state();
+  }
+  
+  
+  if (toggle_sense)
+  {
   display.setCursor(0, 20);
   display.print("IR-sensor: ");
   display.setCursor(100, 20);
-  //display.print(IR_sense.readObjectTempC(), 1);
+  display.print(IR_sense.readObjectTempC(), 1);
+  }
+  else
+  {
+  display.setCursor(0, 20);
+  display.print("k-type: ");
+  display.setCursor(100, 20);
   display.print(MAX6675.read(),1);
+  }
+  
   display.display(); 
 
   }
