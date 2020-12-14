@@ -303,7 +303,7 @@ double K_type_couple::read(void) {
 float temperature_read = 0.0;
 float PID_error = 0;
 float previous_error = 0;
-float elapsedTime, Time, timePrev;
+float elapsedTime=0, Time=0, timePrev=0;
 float PID_value = 0;
 int button_pressed = 0;
 int menu_activated=0;
@@ -311,7 +311,7 @@ int menu_activated=0;
 
 //PID constants
 //////////////////////////////////////////////////////////
-int kp = 90, ki = 30, kd = 80;
+int kp = 180, ki = 30, kd = 80;
 //////////////////////////////////////////////////////////
 
 int PID_p = 0;    int PID_i = 0;    int PID_d = 0;
@@ -325,7 +325,7 @@ int PID_loop(float set_temp, float read_temp)
 {
 
   //Next we calculate the error between the setpoint and the real value
-  PID_error = set_temp - read_temp + 3;
+  PID_error = set_temp - read_temp;
   //Calculate the P value
   PID_p = 0.01*kp * PID_error;
   //Calculate the I value in a range on +-3
@@ -335,16 +335,15 @@ int PID_loop(float set_temp, float read_temp)
   timePrev = Time;                            // the previous time is stored before the actual time read
   Time = millis();                            // actual time read
   elapsedTime = (Time - timePrev) / 1000; 
+
   //Now we can calculate the D calue
   PID_d = 0.01*kd*((PID_error - previous_error)/elapsedTime);
   //Final total PID value is the sum of P + I + D
   PID_value = PID_p + PID_i + PID_d;
 
-  //We define PWM range between 0 and 255
-  if(PID_value < 0)
-  {    PID_value = 0;    }
-  if(PID_value > 255)  
-  {    PID_value = 255;  }
+  PID_value = (abs(PID_value)/1000) * 255;
+
+  PID_value > 255 ? PID_value = 255 : PID_value = PID_value;
 
   previous_error = PID_error;     //Remember to store the previous error for next loop.
 

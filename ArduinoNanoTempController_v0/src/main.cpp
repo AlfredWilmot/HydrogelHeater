@@ -62,6 +62,8 @@ K_type_couple MAX6675(MAX6675_CS);
 
 //target temperature designated by the user
 float set_point = 0.0;
+// read temperature is determined by the sensor being used
+float read_temperature = 0.0;
 
 // other menu control variables
 int toggle_sense = 0;
@@ -116,27 +118,6 @@ void loop()
   set_point > 100 ? set_point = 100: set_point = set_point;
   set_point < 0 ? set_point = 0: set_point = set_point;
   
-
-// This all needs to be combined with the PID loop
-  // //move motor CW if encoder val > 0, CCW if < 0, and stop if == 0.
-  // if (set_point > 0)
-  // {
-  //   digitalWrite(IN_1,HIGH);
-  //   digitalWrite(IN_2, LOW);
-  // }
-  // else if (set_point < 0)
-  // {
-  //   digitalWrite(IN_1,LOW);
-  //   digitalWrite(IN_2, HIGH);
-  // }
-  // else
-  // {
-  //   digitalWrite(IN_1,LOW);
-  //   digitalWrite(IN_2, LOW);
-  // }
-  
-  // //motor speed (i.e. current draw is determined by the magnitude of the encoder counter)
-  // analogWrite(EN_A, int( (255/100)*abs(set_point) ));
   
   /*
     ----
@@ -167,8 +148,6 @@ void loop()
   display.setCursor(100, 10);
   display.print(int(INA283.read()));
 
-
-
   if (EC11.get_state() == btn_push and prev_state != btn_push)
   {
     toggle_sense^=1;
@@ -179,22 +158,46 @@ void loop()
     prev_state = EC11.get_state();
   }
   
-  
   if (toggle_sense)
   {
   display.setCursor(0, 20);
   display.print("IR-sensor: ");
   display.setCursor(100, 20);
-  display.print(IR_sense.readObjectTempC(), 1);
+  read_temperature = IR_sense.readObjectTempC();
+  display.print(read_temperature, 1);
   }
   else
   {
   display.setCursor(0, 20);
   display.print("k-type: ");
   display.setCursor(100, 20);
-  display.print(MAX6675.read(),1);
+  read_temperature = MAX6675.read();
+  display.print(read_temperature,1);
   }
   
   display.display(); 
 
+  
+// This all needs to be combined with the PID loop
+  // //move motor CW if encoder val > 0, CCW if < 0, and stop if == 0.
+  if (set_point - read_temperature > 0)
+  {
+    digitalWrite(IN_1,HIGH);
+    digitalWrite(IN_2, LOW);
+  }
+  else if (set_point - read_temperature < 0)
+  {
+    digitalWrite(IN_1,LOW);
+    digitalWrite(IN_2, HIGH);
+  }
+  else
+  {
+    digitalWrite(IN_1,LOW);
+    digitalWrite(IN_2, LOW);
+  }
+  
+  //motor speed (i.e. current draw is determined by the magnitude of the encoder counter)
+  int tmp = PID_loop(set_point, read_temperature);
+  analogWrite(EN_A, tmp);
+  Serial.println(tmp);
   }
