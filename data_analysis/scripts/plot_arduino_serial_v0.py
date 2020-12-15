@@ -55,6 +55,7 @@ def main():
     plt.figure()
     plt.ion()
     plt.show()
+
     
     sp_data = [0]
     msrd_data = [0]
@@ -72,9 +73,13 @@ def main():
             measured_temp = s.readline()
             measured_temp.decode()
             
+            pwm_duty = s.readline()
+            pwm_duty.decode()
+            
             #data = float(data)
-            print("target_temp   = " + str(float(target_temp)))
-            print("measured_temp = " + str(float(measured_temp)))
+            #print("target_temp   = " + str(float(target_temp)))
+            #print("measured_temp = " + str(float(measured_temp)))
+            print("pwm_duty = " + str(int(pwm_duty)))
             
             sp_data.append(float(target_temp))
             msrd_data.append(float(measured_temp))
@@ -88,8 +93,13 @@ def main():
             
             
             plt.cla()       # clear the plot so that only one is rendered at a time.
+            plt.title("Set-point vs measured temperature (^C)")
+            plt.ylim(0,100)
+        
+            
             plt.plot(sp_data, 'r')
             plt.plot(msrd_data, 'b')
+            plt.legend(["set-point", "measured temp"])
             
             plt.pause(0.01) # give matplot lib some time to render the plot.
             
