@@ -56,7 +56,8 @@ def main():
     plt.ion()
     plt.show()
     
-    x = [0]
+    sp_data = [0]
+    msrd_data = [0]
     length = 100
     
     '''
@@ -65,18 +66,30 @@ def main():
     while True:
         
         try:
-            data = s.readline()     # grab read the serial data-stream
-            data.decode()
-            data = float(data)
-            print(data)
+            target_temp = s.readline()     # grab read the serial data-stream
+            target_temp.decode()
             
-            x.append(data)
+            measured_temp = s.readline()
+            measured_temp.decode()
             
-            if len(x) > length:
-                del(x[0])
+            #data = float(data)
+            print("target_temp   = " + str(float(target_temp)))
+            print("measured_temp = " + str(float(measured_temp)))
+            
+            sp_data.append(float(target_temp))
+            msrd_data.append(float(measured_temp))
+            
+            
+            if len(sp_data) > length:
+                del(sp_data[0])
+            
+            if len(msrd_data) > length:
+                del(msrd_data[0])
+            
             
             plt.cla()       # clear the plot so that only one is rendered at a time.
-            plt.plot(x)
+            plt.plot(sp_data, 'r')
+            plt.plot(msrd_data, 'b')
             
             plt.pause(0.01) # give matplot lib some time to render the plot.
             
@@ -87,6 +100,9 @@ def main():
             plt.close()
             s.close()
             sys.exit()
+        
+        except ValueError:
+            print("Garbled input")
                        
 
 if __name__ == '__main__':
