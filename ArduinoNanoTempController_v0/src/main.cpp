@@ -112,7 +112,7 @@ void setup()
 void loop()
 {
 
-  set_point += float(EC11.get_turn_count());
+  set_point += float(EC11.get_turn_count())/10;
 
   // threshold the set-point
   set_point > 100 ? set_point = 100: set_point = set_point;
