@@ -23,6 +23,7 @@ import struct
 
 import matplotlib.pyplot as plt
 import numpy as np
+import time
 
 def main():
     
@@ -38,14 +39,20 @@ def main():
 
         try:
             print ("Attempting to connect to: " + str(p.device))
-            s = serial.Serial(p.device)
+            
+            s = serial.Serial()
+            s.port = str(p.device)
+            s.baudrate = 9600
+            s.timeout = 1
+            s.open()
             
         except:
             print("Could not connect to comport")
             
             if p == ports[-1]:
                 print("No more available comports to connect to, exiting program.")
-                sys.exit()
+                #sys.exit()
+                return -1
      
         
     '''
@@ -64,9 +71,13 @@ def main():
     '''
     Main loop: reads serial data, and plots it.
     '''
-    while True:
+    
+    
+    while s.isOpen():
         
         try:
+            
+            
             target_temp = s.readline()     # grab read the serial data-stream
             target_temp.decode()
             
@@ -79,7 +90,7 @@ def main():
             #data = float(data)
             #print("target_temp   = " + str(float(target_temp)))
             #print("measured_temp = " + str(float(measured_temp)))
-            print("pwm_duty = " + str(int(pwm_duty)))
+            #print("pwm_duty = " + str(int(pwm_duty)))
             
             sp_data.append(float(target_temp))
             msrd_data.append(float(measured_temp))
@@ -92,16 +103,24 @@ def main():
                 del(msrd_data[0])
             
             
-            plt.cla()       # clear the plot so that only one is rendered at a time.
-            plt.title("Set-point vs measured temperature (^C)")
-            plt.ylim(0,100)
-        
+            #check if a plot is present (if not, user has closed it; so exit the application)
+            if plt.fignum_exists(1):
             
-            plt.plot(sp_data, 'r')
-            plt.plot(msrd_data, 'b')
-            plt.legend(["set-point", "measured temp"])
+                plt.cla()       # clear the plot so that only one is rendered at a time.
+                plt.title("Set-point vs measured temperature (^C)")
+                plt.ylim(0,100)
             
-            plt.pause(0.01) # give matplot lib some time to render the plot.
+                
+                plt.plot(sp_data, 'r')
+                plt.plot(msrd_data, 'b')
+                plt.legend(["set-point", "measured temp"])
+                
+                plt.pause(0.01) # give matplot lib some time to render the plot.
+            else:
+                print("user closed plot, exiting.")
+                s.close()
+                #sys.exit()
+                return 0
             
             s.flushInput()  # Get rid of values accumulated in the buffer while the plot was rendering: want to plot the latest values.
             
@@ -109,11 +128,18 @@ def main():
             print("Keyboard interrupt, exiting the program")
             plt.close()
             s.close()
-            sys.exit()
+            #sys.exit()
+            return -1
         
-        except ValueError:
-            print("Garbled input")
+        
+        except Exception as e:
+             print(str(e))
+             
                        
+        
+        
+    
+    return 0
 
 if __name__ == '__main__':
     main()
