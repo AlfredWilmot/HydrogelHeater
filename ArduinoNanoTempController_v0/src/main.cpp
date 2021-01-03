@@ -70,9 +70,29 @@ int toggle_sense = 0;
 int prev_state = EC11.get_state();
 
 
+// Control loop variables
+#define window_width 10 
+float rolling_window[window_width];     // averages consecutive values (behaves like FIFO buffer)
+float hyst_gap = 0.1;                   // smallest "acceptable" error (ie +/- 0.1C)
+float kp = 20;                         // proportional gain
+float ki = 0.2;                         // integral gain
+float err = 0;                          // error term (difference between measured value and setpoint for a given time-step)
+float hyst_val = 0.1;                   // hysteresis gap (i.e. +/- 0.1C)
+float driving_signal = 0;               // value used to drive the output current through the peltier device [0,255]
 
+
+
+/* ------------------------------------------------------------------------------------------- */
+/* -------------------------------------- ONE-TIME SETUP-------------------------------------- */
+/* ------------------------------------------------------------------------------------------- */
 void setup()
 {
+
+  // preset all the rolling window values to 0 (for the control-loop)
+  for (int i=0; i<window_width; i++)
+  {
+    rolling_window[i] = 0;
+  }
 
   // Setup motor-driver pins
   pinMode(EN_A,OUTPUT);
@@ -109,9 +129,13 @@ void setup()
 
 }
 
+/* ------------------------------------------------------------------------------------------- */
+/* ---------------------------------------- MAIN LOOP ---------------------------------------- */
+/* ------------------------------------------------------------------------------------------- */
 void loop()
 {
 
+  // sample the encoder counter so the SP can be adjusted in steps of 0.1C.
   set_point += float(EC11.get_turn_count())/10;
 
   // threshold the set-point
@@ -141,12 +165,18 @@ void loop()
   display.setCursor(0, 0);
   display.print("Encoder: ");
   display.setCursor(100, 0);
-  display.print(set_point);
+  display.print(set_point,1);
+
+  // display.setCursor(0, 10);
+  // display.print("ADC I-sense: ");
+  // display.setCursor(100, 10);
+  // display.print(int(INA283.read()));
 
   display.setCursor(0, 10);
-  display.print("ADC I-sense: ");
+  display.print("Driving signal: ");
   display.setCursor(100, 10);
-  display.print(int(INA283.read()));
+  display.print(int(driving_signal));
+
 
   if (EC11.get_state() == btn_push and prev_state != btn_push)
   {
@@ -196,16 +226,52 @@ void loop()
     digitalWrite(IN_2, LOW);
   }
   
-  //motor speed (i.e. current draw is determined by the magnitude of the encoder counter)
-  int tmp = PID_loop(set_point, read_temperature);
+  /*-------------------*/
+  /* MAIN CONTROL LOOP */
+  /*-------------------*/
 
+  // calculate latest error term
+  err = abs(set_point-read_temperature);
+
+  // shift all elements to the right and feed newest err term to the FIFO buffer
+  for (int i = window_width-1; i>0; i--)
+  {
+    rolling_window[i] = rolling_window[i-1];
+  }
+  rolling_window[0] = err;
+
+
+  float accumulator = 0,  // running sum of values seen in rolling window.
+    avg_err = 0;      // average of values seen in rolling window.
+
+
+  // calculate the sum and average error from the rolling window.
+  for (int i = 0; i < window_width; i++)
+  {
+    accumulator += rolling_window[i];
+  }
+  avg_err = accumulator/window_width;
+
+
+  // Use the gain values to scale the driving signal (want accumulated errors to address )
+
+  if (avg_err > hyst_val)
+  {
+    driving_signal = (accumulator*ki + avg_err)*kp;
+  }
+  else
+  {
+    driving_signal = 0;
+  }
+  
   //limit output current
-  tmp > 220 ? tmp = 220 : tmp = tmp; 
+  driving_signal > 220 ? driving_signal = 220 : driving_signal = driving_signal; 
 
-  analogWrite(EN_A, tmp);
+  // feed current to peltier device
+  analogWrite(EN_A, int(driving_signal));
   
   //transmit data over serial port
   Serial.println(set_point);
   Serial.println(read_temperature);
-  Serial.println(tmp);
+  //Serial.println(driving_signal);
   }
