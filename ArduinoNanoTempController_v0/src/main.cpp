@@ -198,8 +198,12 @@ void loop()
   
   //motor speed (i.e. current draw is determined by the magnitude of the encoder counter)
   int tmp = PID_loop(set_point, read_temperature);
-  analogWrite(EN_A, tmp);
 
+  //limit output current
+  tmp > 220 ? tmp = 220 : tmp = tmp; 
+
+  analogWrite(EN_A, tmp);
+  
   //transmit data over serial port
   Serial.println(set_point);
   Serial.println(read_temperature);
