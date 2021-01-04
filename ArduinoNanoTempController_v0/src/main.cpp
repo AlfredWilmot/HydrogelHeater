@@ -225,5 +225,5 @@ void loop()
   //transmit data over serial port
   Serial.println(set_point);
   Serial.println(read_temperature);
-  //Serial.println(driving_signal);
+  Serial.println(output_signal);
   }
