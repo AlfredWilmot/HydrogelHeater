@@ -345,7 +345,7 @@ int rolling_average_controller(float sp_val, float rd_val)
 
   if (avg_err > hyst_val)
   {
-    // ddriving signal will ramp-up until the SP value is reached (will ramp down if the measured val is below the SP)
+    // driving signal will ramp-up until the SP value is reached (will ramp down if the measured val is below the SP)
     float corrective_term = (accumulator*ki + avg_err)*kp;
     sp_val > rd_val ? driving_signal += corrective_term : driving_signal -= corrective_term;
   }
@@ -363,12 +363,9 @@ int rolling_average_controller(float sp_val, float rd_val)
 }
 
 
-// if the rate of change of error is too steep, drive the accumulation in the opposite direction to prevent overshoot
-// variables for tracking the rate of change of error: diminish the accumulator for steeper rates of error change
-float elapsedTime=0, Time=0, timePrev=0;
-float prev_delta = 0; //previous time-detla (compare with latest one to infer how quickly the error is changing)
 
-bool reset_accumulator = true;
+bool hyst_actvtd = false;
+float signal_out = 0;
 
 /* Controller based on cumulative error */
 int cumulative_error_compensation(float sp_val, float rd_val)
@@ -377,46 +374,57 @@ int cumulative_error_compensation(float sp_val, float rd_val)
   // the driving signal should remain static at whatever value is needed to maintain the desired SP once it is reached.
   // add the (bidirectional) cummulative error to the driving signal value.
 
-  kp = 50;
-  ki = 2;
-  float outer_hyst = 1;
-  float dilated_outer_hyst = 1.5;
-  float inner_hyst = 0.1;
+  kp = 20;
+  ki = 0.1;
+  float hyst_trig = 2;
+  float dilated_hyst = 5;
+  float tol = 0.1;
   float max_output = 220;
 
 
   // calculate latest error term (is it increasing or decreasing?)
   err = sp_val-rd_val;
 
-  bool outer_hyst_condition           = abs(err) >= outer_hyst;
-  bool dilated_outer_hyst_condition   = abs(err) >= dilated_outer_hyst;
+  // Hysteresis conditions
+  bool outside_hyst         = abs(err) >  hyst_trig;
+  bool outside_dilated_hyst = abs(err) >  dilated_hyst;
+  bool inside_hyst          = abs(err) <= hyst_trig;
+  bool inside_dilated_hyst  = abs(err) <= dilated_hyst;
+  bool outside_tol          = abs(err) >  tol;
+  bool inside_tol           = abs(err) <= tol;
 
-  if ( (outer_hyst_condition && reset_accumulator) || (dilated_outer_hyst_condition && !reset_accumulator))
+  // Conditions for using the proportional gain: outside trigger-band when hyst inactive, or outside dilated-band when hyst active.
+  if ( (!hyst_actvtd && outside_hyst) || (hyst_actvtd && outside_dilated_hyst) )
   { 
-    accumulator = err*kp;
-    reset_accumulator = true;
+    err > 0 ? signal_out = max_output : signal_out = -max_output;
+    accumulator = 0;
+    hyst_actvtd = false;
+  }
+  // Conditions for using cumulative gain (and activating hysteresis): 
+  // within trigger-band when hyst inactive, or within dilated-band when hyst active.
+  else if ( (!hyst_actvtd && inside_hyst) || (hyst_actvtd && inside_dilated_hyst) )
+  {
+
+    if (!hyst_actvtd)
+    {
+      accumulator = signal_out;
+      hyst_actvtd = true;  
+    }
+    
+    if (inside_tol)
+    {
+      signal_out = signal_out;
+    }
+    else
+    {
+      accumulator += err*ki;
+      signal_out  = accumulator;
+    }   
+  
   }
   else
   {
-
-    // only reset the accumulator when going from outside the outter_hyst to within it.
-    // if (reset_accumulator)
-    // {
-    //   accumulator = 0;
-    // }
-    
-    reset_accumulator = false;
-
-    // if the error is increasing, drive the accumulator in the direction to counteract it.
-    if (abs(err) >= abs(prev_err)+inner_hyst)
-    {
-      accumulator += err*ki;
-    }
-    // if it's decreasing then maintain the current value.
-    else
-    {
-      accumulator = accumulator;
-    }
+    signal_out = signal_out;
   }
 
   
@@ -430,10 +438,12 @@ int cumulative_error_compensation(float sp_val, float rd_val)
 
   // set the driving current based on the cumulative error   
   //limit output current
-  accumulator > max_output  ? accumulator = max_output : accumulator = accumulator; 
-  accumulator < -max_output ? accumulator = -max_output: accumulator = accumulator;
+  accumulator > max_output ? accumulator = max_output : accumulator = accumulator;
+  accumulator < -max_output ? accumulator = -max_output : accumulator = accumulator;
+  signal_out > max_output  ? signal_out = max_output : signal_out = signal_out; 
+  signal_out < -max_output ? signal_out = -max_output: signal_out = signal_out;
 
-  return int(accumulator);
+  return int(signal_out);
 }
 
 
