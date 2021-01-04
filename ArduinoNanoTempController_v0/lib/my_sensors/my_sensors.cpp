@@ -311,6 +311,11 @@ float prev_err = 0;                     // used for tracking changes in the erro
 // value used to drive the output current through the peltier device [0,255]
 float driving_signal = 0;
 
+
+
+
+
+
 /*----- Controller based on a PI implementation with a rolling-average window -----*/
 int rolling_average_controller(float sp_val, float rd_val)
 {
@@ -357,6 +362,14 @@ int rolling_average_controller(float sp_val, float rd_val)
 
 }
 
+
+// if the rate of change of error is too steep, drive the accumulation in the opposite direction to prevent overshoot
+// variables for tracking the rate of change of error: diminish the accumulator for steeper rates of error change
+float elapsedTime=0, Time=0, timePrev=0;
+float prev_delta = 0; //previous time-detla (compare with latest one to infer how quickly the error is changing)
+
+bool reset_accumulator = true;
+
 /* Controller based on cumulative error */
 int cumulative_error_compensation(float sp_val, float rd_val)
 {
@@ -364,31 +377,63 @@ int cumulative_error_compensation(float sp_val, float rd_val)
   // the driving signal should remain static at whatever value is needed to maintain the desired SP once it is reached.
   // add the (bidirectional) cummulative error to the driving signal value.
 
-  kp = 1.5;
+  kp = 50;
+  ki = 2;
+  float outer_hyst = 1;
+  float dilated_outer_hyst = 1.5;
+  float inner_hyst = 0.1;
+  float max_output = 220;
+
 
   // calculate latest error term (is it increasing or decreasing?)
   err = sp_val-rd_val;
 
+  bool outer_hyst_condition           = abs(err) >= outer_hyst;
+  bool dilated_outer_hyst_condition   = abs(err) >= dilated_outer_hyst;
 
-  // if the error is increasing, drive the accumulator in the direction to counteract it.
-  if (abs(err) >= abs(prev_err)+hyst_val)
-  {
-    accumulator += err*kp;
+  if ( (outer_hyst_condition && reset_accumulator) || (dilated_outer_hyst_condition && !reset_accumulator))
+  { 
+    accumulator = err*kp;
+    reset_accumulator = true;
   }
-  // if it's decreasing then maintain the current value.
   else
   {
-    accumulator = accumulator;
+
+    // only reset the accumulator when going from outside the outter_hyst to within it.
+    // if (reset_accumulator)
+    // {
+    //   accumulator = 0;
+    // }
+    
+    reset_accumulator = false;
+
+    // if the error is increasing, drive the accumulator in the direction to counteract it.
+    if (abs(err) >= abs(prev_err)+inner_hyst)
+    {
+      accumulator += err*ki;
+    }
+    // if it's decreasing then maintain the current value.
+    else
+    {
+      accumulator = accumulator;
+    }
   }
 
+  
+
+
+
+  // when the driven signal reaches an outer hysteresis threshold aroudn the SP, reset the driving signal and switch to the accumulator
 
   // capture the latest error value for future reference.
   prev_err = err;
 
   // set the driving current based on the cumulative error   
   //limit output current
-  accumulator > 220 ? accumulator = 220 : accumulator = accumulator; 
-  accumulator < -220 ? accumulator = -220: accumulator = accumulator;
+  accumulator > max_output  ? accumulator = max_output : accumulator = accumulator; 
+  accumulator < -max_output ? accumulator = -max_output: accumulator = accumulator;
 
   return int(accumulator);
 }
+
+

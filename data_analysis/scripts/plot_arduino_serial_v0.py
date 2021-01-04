@@ -66,8 +66,8 @@ def main():
     
     sp_data = [0]
     msrd_data = [0]
-    length = 20
-    
+    length = 1000
+    y_max = 40
     '''
     Main loop: reads serial data, and plots it.
     '''
@@ -108,8 +108,8 @@ def main():
             
                 plt.cla()       # clear the plot so that only one is rendered at a time.
                 plt.title("Set-point vs measured temperature (^C)")
-                plt.xlim(0,20)
-                plt.ylim(0,50)
+                plt.xlim(0,length)
+                plt.ylim(15,y_max)
             
                 
                 plt.plot(sp_data, 'r')
@@ -117,7 +117,7 @@ def main():
                 plt.legend(["set-point", "measured temp"])
                 
                 err = abs(float(target_temp) - float(measured_temp))
-                plt.text(length*0.8,40, "err: " + "{0:.2f}".format(err) + "C")
+                plt.text(length*0.9,y_max*0.9, "err: " + "{0:.2f}".format(err) + "C")
                 
                 plt.pause(0.01) # give matplot lib some time to render the plot.
             else:
