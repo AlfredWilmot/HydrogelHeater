@@ -124,4 +124,12 @@ public:
   double read(void);
 };
 
+/*--------------------------------------------------------------------------------*/
+// Control loop code
+/*--------------------------------------------------------------------------------*/
+
+// developed control functions
+int rolling_average_controller(float,float);
+int cumulative_error_compensation(float,float);
+
 #endif

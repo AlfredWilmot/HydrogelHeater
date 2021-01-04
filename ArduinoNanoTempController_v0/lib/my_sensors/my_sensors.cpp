@@ -289,3 +289,106 @@ double K_type_couple::read(void) {
   
   return this->_value;
 }
+
+
+/*--------------------------------------------------------------------------------*/
+// Control loop code
+/*--------------------------------------------------------------------------------*/
+
+
+// Control loop variables
+#define window_width 10 
+float rolling_window[window_width] = {0,0,0,0,0,0,0,0,0,0};     // averages consecutive values (behaves like FIFO buffer)
+float hyst_val = 0.1;                   // smallest "acceptable" error (ie +/- 0.1C)
+float kp = 0.01;                         // proportional gain
+float ki = 0.1;                         // integral gain
+float err = 0;                          // error term (difference between measured value and setpoint for a given time-step)
+float accumulator = 0;                  // running sum of values seen in rolling window.
+float avg_err = 0;                      // average of values seen in rolling window.
+float prev_err = 0;                     // used for tracking changes in the error term over time
+
+
+// value used to drive the output current through the peltier device [0,255]
+float driving_signal = 0;
+
+/*----- Controller based on a PI implementation with a rolling-average window -----*/
+int rolling_average_controller(float sp_val, float rd_val)
+{
+   // calculate latest error term
+  err = abs(sp_val-rd_val);
+
+  // shift all elements to the right and feed newest err term to the FIFO buffer
+  for (int i = window_width-1; i>0; i--)
+  {
+    rolling_window[i] = rolling_window[i-1];
+  }
+  rolling_window[0] = err;
+
+  // reset variables
+  accumulator = 0;
+  avg_err = 0;      
+
+  // calculate the sum and average error from the rolling window.
+  for (int i = 0; i < window_width; i++)
+  {
+    accumulator += rolling_window[i];
+  }
+  avg_err = accumulator/window_width;
+
+
+  // Use the gain values to scale the driving signal (want accumulated errors to address )
+
+  if (avg_err > hyst_val)
+  {
+    // ddriving signal will ramp-up until the SP value is reached (will ramp down if the measured val is below the SP)
+    float corrective_term = (accumulator*ki + avg_err)*kp;
+    sp_val > rd_val ? driving_signal += corrective_term : driving_signal -= corrective_term;
+  }
+  else
+  {
+    driving_signal = driving_signal;
+  }
+  
+  //limit output current
+  driving_signal > 220 ? driving_signal = 220 : driving_signal = driving_signal; 
+  driving_signal < -220 ? driving_signal = -220: driving_signal = driving_signal;
+
+  return int(driving_signal);
+
+}
+
+/* Controller based on cumulative error */
+int cumulative_error_compensation(float sp_val, float rd_val)
+{
+  // want the cumulative error to build-up when the error term is either not decreasing or is beyond the hysteresis threshold (e.g. SP +/- 0.1C).
+  // the driving signal should remain static at whatever value is needed to maintain the desired SP once it is reached.
+  // add the (bidirectional) cummulative error to the driving signal value.
+
+  kp = 1.5;
+
+  // calculate latest error term (is it increasing or decreasing?)
+  err = sp_val-rd_val;
+
+
+  // if the error is increasing, drive the accumulator in the direction to counteract it.
+  if (abs(err) >= abs(prev_err)+hyst_val)
+  {
+    accumulator += err*kp;
+  }
+  // if it's decreasing then maintain the current value.
+  else
+  {
+    accumulator = accumulator;
+  }
+
+
+  // capture the latest error value for future reference.
+  prev_err = err;
+
+  // set the driving current based on the cumulative error   
+  //limit output current
+  accumulator > 220 ? accumulator = 220 : accumulator = accumulator; 
+  accumulator < -220 ? accumulator = -220: accumulator = accumulator;
+
+  return int(accumulator);
+}
