@@ -198,8 +198,8 @@ void loop()
   /*-------------------*/
 
   //output_signal = rolling_average_controller(set_point, read_temperature);
-  output_signal = cumulative_error_compensation(set_point, read_temperature);
-  //output_signal = PID_loop(set_point, read_temperature);
+  //output_signal = cumulative_error_compensation(set_point, read_temperature);
+  output_signal = PID_loop(set_point, read_temperature);
 
   //move motor CW if encoder val > 0, CCW if < 0, and stop if == 0.
   if (output_signal > 0)

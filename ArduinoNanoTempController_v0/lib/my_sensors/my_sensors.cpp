@@ -299,13 +299,14 @@ double K_type_couple::read(void) {
 // Control loop variables
 #define window_width 10 
 float rolling_window[window_width] = {0,0,0,0,0,0,0,0,0,0};     // averages consecutive values (behaves like FIFO buffer)
-float hyst_val = 0.1;                   // smallest "acceptable" error (ie +/- 0.1C)
-float kp = 0.01;                         // proportional gain
-float ki = 0.1;                         // integral gain
-float err = 0;                          // error term (difference between measured value and setpoint for a given time-step)
-float accumulator = 0;                  // running sum of values seen in rolling window.
-float avg_err = 0;                      // average of values seen in rolling window.
-float prev_err = 0;                     // used for tracking changes in the error term over time
+float hyst_val = 0.1;     // smallest "acceptable" error (ie +/- 0.1C)
+float kp = 0.01;          // proportional gain
+float ki = 0.1;           // integral gain
+float kd = 0;             // differential gain                             
+float err = 0;            // error term (difference between measured value and setpoint for a given time-step)
+float accumulator = 0;    // running sum of values seen in rolling window.
+float avg_err = 0;        // average of values seen in rolling window.
+float prev_err = 0;       // used for tracking changes in the error term over time
 
 
 // value used to drive the output current through the peltier device [0,255]
@@ -366,6 +367,7 @@ int rolling_average_controller(float sp_val, float rd_val)
 
 bool hyst_actvtd = false;
 float signal_out = 0;
+  float max_output = 220;
 
 /* Controller based on cumulative error */
 int cumulative_error_compensation(float sp_val, float rd_val)
@@ -377,9 +379,9 @@ int cumulative_error_compensation(float sp_val, float rd_val)
   kp = 20;
   ki = 0.1;
   float hyst_trig = 2;
-  float dilated_hyst = 5;
+  float dilated_hyst = 2.5;
   float tol = 0.1;
-  float max_output = 220;
+
 
 
   // calculate latest error term (is it increasing or decreasing?)
@@ -396,7 +398,16 @@ int cumulative_error_compensation(float sp_val, float rd_val)
   // Conditions for using the proportional gain: outside trigger-band when hyst inactive, or outside dilated-band when hyst active.
   if ( (!hyst_actvtd && outside_hyst) || (hyst_actvtd && outside_dilated_hyst) )
   { 
-    err > 0 ? signal_out = max_output : signal_out = -max_output;
+    //err > 0 ? signal_out = max_output : signal_out = -max_output;
+    if (abs(err) > prev_err)
+    {
+      signal_out += + err*kp;
+    }
+    else
+    {
+      signal_out = signal_out;
+    }
+    
     accumulator = 0;
     hyst_actvtd = false;
   }
@@ -447,3 +458,82 @@ int cumulative_error_compensation(float sp_val, float rd_val)
 }
 
 
+
+
+
+
+float PID_p = 0;
+float PID_i = 0;
+float PID_d = 0;
+
+unsigned long time_prev = 0;
+unsigned long time = 0;
+unsigned long elapsed_time = 0;
+
+float PID_val = 0;
+
+float prev_sp = 0;
+
+/* PID-bsaed controller*/
+int PID_loop(float sp_val, float rd_val)
+{
+
+  kp = 50;    // want this to saturate the PID_val when the err is more than 5C
+  ki = 0.1;   // this should bump-up the PID_val for when the kp term isn't pushing it hard enough towards the SP.
+  kd = 0.5;     // this should address aggressive rates of change in the err term. If close to the SP, want to level-out the rate of change. If far from SP, this shuould be ignored.
+
+
+  //Calculate the error between the SP and the measured value
+  err = sp_val - rd_val;
+
+  // Proportional error based on the distance between the SP and the measured value
+  PID_p = kp * err;
+
+  // Track the accumulation in the error if the error is not improving. 
+  // If the error is improving, start to decay the accumulated values.
+  float tol = 0.25;
+  if (abs(err) > abs(prev_err) || abs(err) > tol)
+  {
+    PID_i += ki*err;
+  }
+
+  //if the SP changed, reset the accumulator (otherwise PID_val will always overshoot target due to previous accumulation).
+  if(sp_val != prev_sp)
+  {
+    PID_i = 0;
+  }
+  
+  PID_i > max_output  ? PID_i = max_output : PID_i = PID_i; //ensure the accumulator doesn't exceed the maximum output values.
+  PID_i < -max_output ? PID_i = -max_output: PID_i = PID_i; 
+
+  // Calculating the time-step between consecutive samples 
+  time_prev = time; // the duration between this line of code and the previous time measurment.
+  time = millis();  // the current time for the latest measurment.
+  elapsed_time = (time - time_prev); 
+
+  // here the hysteresis band is set to 5C
+  if (err > 5)
+  {
+    PID_d = 0;
+  }
+  else
+  {
+    //Calculating correction based on rate of change of error: want to penalize sudden changes in error near the SP.
+    PID_d = (kd*(err - prev_err))/elapsed_time;
+  }
+  
+  //The overall PID values should add up to +/- 1.0, then scale to 255.
+  PID_val = PID_p + PID_i + PID_d;
+
+  //Capturing the "previous" error for comparison with the error on the next control loop iteration.
+  prev_err = err;
+  //Capturing the previous SP (for resetting the accumullator).   
+  prev_sp = sp_val;   
+
+  // throttle the output so it does not exceed ~1A on the PSU (for peltier device @ 6V).
+  PID_val > max_output  ? PID_val = max_output : PID_val = PID_val; 
+  PID_val < -max_output ? PID_val = -max_output: PID_val = PID_val;
+
+  return PID_val;
+
+}
