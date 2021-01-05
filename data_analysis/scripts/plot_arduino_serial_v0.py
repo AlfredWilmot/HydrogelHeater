@@ -18,21 +18,69 @@ references:
 
 import serial
 import serial.tools.list_ports as port_list
-import sys
-import struct
-
 import matplotlib.pyplot as plt
-
+import time
 ## NOTE: Make sure to install TexLive (I'm using Windows) or this will cause the program to crash --> https://tug.org/texlive/windows.html
 # should really check whether the TEX stuff can be seen on the PATH, but I am too lazy to implement that.
 #plt.rc('text', usetex=True) #
 
 
-import numpy as np
-import time
 
 
 
+
+# ------------------------------
+# Arrays for plotting the data coming in from the serial interface with the temperature controller.
+# ------------------------------
+
+# Data shown on the "close-up" view graph
+sp_data_closeUp   = [] 
+msrd_data_closeUp = []
+
+# Data shown on the "global view" graph
+sp_data_global    = []
+msrd_data_global  = []
+
+# Data for analytics
+drv_data = []
+err_data = []
+
+# trim band lines
+upper_tol_band = []
+lower_tol_band = []
+
+# Plotting variables:
+closeUpView_len = 10    # The number of samples shown on the "close-up view" plot.
+globalView_len  = 1000  # The number of samples shown on the "global view" plot.
+
+# ------------------------------
+# Flags/ vars for keeping track of events
+#------------------------------
+trim_count = 0
+trim_len = 5
+trim_done = False
+prev_SP = 0
+
+
+# ------------------------------
+# Variables for keeping track of time.
+# ------------------------------
+settling_time = 0       # tracks how long it took for the system to settle within the tolerance band.
+oscillator_counter = 0  # tracks how frequently the the system leaves/ reenters the tolerance band.
+tol = 0.25              # tolerance around the SP that the system must stay within (i.e. SP +/- 0.25C)  
+        
+           
+'''
+Function for tracking how long it takes for the system to reach and remain within the tolerance band around the setpoint.
+'''
+def check_settling_time():
+    #every time the SP changes, start a timer.
+    #once the SP is stable for 3 seconds, the new SP has been defined by the user.
+    #track how long it takes for the measured value to reach and stay within the tolerance band around the SP.
+    #this will also note how many times the tolerance band was entered/ exited from before the system settled.
+    pass
+    
+    
 '''
 Helper function for controlling the lengths of arrays used for plotting.
 '''  
@@ -50,12 +98,23 @@ def push_to_buffer(buff, buff_len ,val_to_push):
     if buff[0] == 0.0:
         del(buff[0])
 
-
 '''
 This is where the magic happens!
 '''
 def main():
     
+    
+    
+    # ------------------------------
+    # Flags/ vars for keeping track of events
+    #------------------------------
+    global trim_count
+    # global trim_len
+    global trim_done
+    # global prev_SP
+    
+        
+
     # Gathers a list of available comports
     ports = list(port_list.comports())
     
@@ -98,32 +157,6 @@ def main():
     plt.show()
 
     
-    # Arrays for plotting the data coming in from the serial interface with the temperature controller.
-    
-    # Data shown on the "close-up" view graph
-    sp_data_closeUp   = [] 
-    msrd_data_closeUp = []
-
-    # Data shown on the "global view" graph
-    sp_data_global    = []
-    msrd_data_global  = []
-    
-    # Data for analytics
-    drv_data = []
-    err_data = []
-    
-    # Plotting variables:
-    closeUpView_len = 10    # The number of samples shown on the "close-up view" plot.
-    globalView_len  = 1000  # The number of samples shown on the "global view" plot.
-    #view_window_gap = 0.25  # The viewing window gap around the observed values (eg. 0.25 => the window border is 25% wider than the measured vals)
-    
-    # Hysteresis values (manually copied over from Arduino controller code; make sure they match the latest values!)
-    # Draw horizontal lines for these in the "close-up" view (change color to indicate when within outer & err hyst bands)
-    err_hyst            = 0.1
-    outer_hyst          = 1.0
-    dilated_outer_hyst  = 1.5
-    
-    
     
     '''
     Main loop: reads serial data, and plots it.
@@ -146,10 +179,16 @@ def main():
             driving_signal = s.readline()
             driving_signal.decode()
 
+            
+            # Ignoring the first few values 
+            if trim_count < trim_len:
+                trim_count += 1
+            else:
+                trim_done = True
 
             
             #check if a plot is present (if not, user has closed it; so exit the application)
-            if plt.fignum_exists(1):
+            if plt.fignum_exists(1) and trim_done:
 
                  # clear the plot so that only one is rendered at a time.
                 inspct_plt.cla()
@@ -182,15 +221,12 @@ def main():
 
                 
                 # Plot the measured value against the set-point value
-                inspct_plt.plot(sp_data_closeUp, 'r')
+                inspct_plt.plot(sp_data_closeUp, color='orange')
                 inspct_plt.plot(msrd_data_closeUp, 'b')
 
                 
                 # Text to be displayed on the graph
                 inspct_plt.legend(["set-point", "measured temp"])
-                
-                #err = abs(float(target_temp) - float(measured_temp))
-                #plt.text(length*0.9, max_val*0.9, "err: " + "{0:.2f}".format(err) + "C")
                 
                 
                 
@@ -207,10 +243,30 @@ def main():
                                val_to_push=float(measured_temp))               
   
                 global_plt.margins(x=0, y=0.3)
-                global_plt.plot(sp_data_global, 'r')
+                global_plt.plot(sp_data_global, color='orange')
                 global_plt.plot(msrd_data_global, 'b')
                 global_plt.legend(["set-point", "measured temp"])               
                 
+
+
+                '''
+                Adding tolerance bands to the relevant plots
+                '''
+                
+                upper_band = []
+                lower_band = []
+                
+                for sp in sp_data_global:
+                    upper_band.append(sp+tol)
+                    lower_band.append(sp-tol)
+                    
+                    if len(upper_band) == closeUpView_len:
+                        inspct_plt.plot(upper_band, '--g')
+                        inspct_plt.plot(lower_band, '--g')
+                
+                global_plt.plot(upper_band, '--g')
+                global_plt.plot(lower_band, '--g')
+
                 
                 
                 
@@ -224,8 +280,7 @@ def main():
                                buff_len=globalView_len, 
                                val_to_push= err)
                 
-                analyt_plt.margins(x=0,y=0.3)
-                analyt_plt.plot(err_data, color="orange")
+                # calculating the average error across the range of "close-up" values
                 
                 avg_err = 0
                 
@@ -234,18 +289,40 @@ def main():
                 else:  
                     avg_err = sum(err_data[-closeUpView_len:-1])/closeUpView_len
                 
-                analyt_plt.legend(["Avg err over " + str(closeUpView_len) + " samples: " + "{0:.2f}".format(avg_err)])
+                
+                # Plotting analytics
+                
+                analyt_plt.margins(x=0,y=0.3)
+                
+                
+                if abs(err) > tol:
+                    analyt_plt.plot(err_data, color="red")
+                    analyt_plt.legend(["Avg err over " + str(closeUpView_len) + " samples: " + "{0:.2f}".format(avg_err) + "   OUTSIDE TOL >:("])
+                else:
+                    analyt_plt.plot(err_data, color="green")
+                    analyt_plt.legend(["Avg err over " + str(closeUpView_len) + " samples: " + "{0:.2f}".format(avg_err) + "   INSIDE TOL :D"])
+                
+
                 
                 
                 
                 
                 
+                
+
+                
+                
+
+                
+
                 '''
                 Housekeeping after servicing all the plots
                 '''
                 # Give matplot lib some time to render the plot.
                 plt.pause(0.01) 
                 
+            elif not trim_done:
+                print("trimming the first " + str(trim_len) + " values.")
             else:
                 print("user closed plot, exiting.")
                 s.close()
@@ -273,11 +350,12 @@ def main():
         except Exception as e:
              print(str(e))
              
-                       
-        
-        
     
     return 0
+
+
+
+
 
 if __name__ == '__main__':
     main()
