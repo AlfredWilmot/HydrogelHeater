@@ -265,7 +265,7 @@ def main():
                 
                 upper_band = []
                 lower_band = []               
-                
+
                 for sp in sp_data_global:
                     upper_band.append(sp+tol)
                     lower_band.append(sp-tol)
