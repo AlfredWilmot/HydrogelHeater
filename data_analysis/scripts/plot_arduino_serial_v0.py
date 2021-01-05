@@ -263,9 +263,10 @@ def main():
                 inspct_plt.plot(upper_band, '--g')
                 inspct_plt.plot(lower_band, '--g')
                 
+                upper_band = []
+                lower_band = []               
                 
-                
-                for sp in sp_data_global[closeUpView_len:-1]:
+                for sp in sp_data_global:
                     upper_band.append(sp+tol)
                     lower_band.append(sp-tol)
                     
