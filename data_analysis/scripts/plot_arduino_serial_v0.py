@@ -217,7 +217,7 @@ def main():
                                     
                 
                 # TODO: this should reflect the time-step (presently just a counter of the incoming readings)
-                inspct_plt.margins(x=0, y=0.3)
+                inspct_plt.margins(x=0, y=0.5)
 
                 
                 # Plot the measured value against the set-point value
@@ -225,9 +225,7 @@ def main():
                 inspct_plt.plot(msrd_data_closeUp, 'b')
 
                 
-                # Text to be displayed on the graph
-                inspct_plt.legend(["set-point", "measured temp"])
-                
+
                 
                 
                 '''
@@ -242,10 +240,10 @@ def main():
                                buff_len=globalView_len, 
                                val_to_push=float(measured_temp))               
   
-                global_plt.margins(x=0, y=0.3)
+                global_plt.margins(x=0, y=0.5)
                 global_plt.plot(sp_data_global, color='orange')
                 global_plt.plot(msrd_data_global, 'b')
-                global_plt.legend(["set-point", "measured temp"])               
+                               
                 
 
 
@@ -256,19 +254,27 @@ def main():
                 upper_band = []
                 lower_band = []
                 
-                for sp in sp_data_global:
+                
+                for sp in sp_data_closeUp:
+                    upper_band.append(sp+tol)
+                    lower_band.append(sp-tol)
+                
+                
+                inspct_plt.plot(upper_band, '--g')
+                inspct_plt.plot(lower_band, '--g')
+                
+                
+                
+                for sp in sp_data_global[closeUpView_len:-1]:
                     upper_band.append(sp+tol)
                     lower_band.append(sp-tol)
                     
-                    if len(upper_band) == closeUpView_len:
-                        inspct_plt.plot(upper_band, '--g')
-                        inspct_plt.plot(lower_band, '--g')
                 
                 global_plt.plot(upper_band, '--g')
                 global_plt.plot(lower_band, '--g')
 
-                
-                
+                global_plt.legend(["set-point", "measured temp", "tol band (+/-" + str(tol) +"C)"])
+                inspct_plt.legend(["set-point", "measured temp", "tol band (+/-" + str(tol) +"C)"])
                 
                 '''
                 Plotting the "data analytics" view
