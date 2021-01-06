@@ -50,7 +50,7 @@ upper_tol_band = []
 lower_tol_band = []
 
 # Plotting variables:
-closeUpView_len = 10    # The number of samples shown on the "close-up view" plot.
+closeUpView_len = 100   # The number of samples shown on the "close-up view" plot.
 globalView_len  = 1000  # The number of samples shown on the "global view" plot.
 
 # ------------------------------
@@ -65,22 +65,90 @@ prev_SP = 0
 # ------------------------------
 # Variables for keeping track of time.
 # ------------------------------
-settling_time = 0       # tracks how long it took for the system to settle within the tolerance band.
-oscillator_counter = 0  # tracks how frequently the the system leaves/ reenters the tolerance band.
-tol = 0.25              # tolerance around the SP that the system must stay within (i.e. SP +/- 0.25C)  
-        
-           
+settling_latency = 0.0              # tracks how long it took for the system to settle within the tolerance band.
+oscillator_counter = 0              # tracks how frequently the the system leaves/ reenters the tolerance band.
+tol = 0.25                          # tolerance around the SP that the system must stay within (i.e. SP +/- 0.25C)  
+prev_sp = 0.0    
+waiting_sp_change_timeout = False
+sp_change_timeout = 2.0
+start_time = 0.0
+system_is_settled = False
+       
 '''
 Function for tracking how long it takes for the system to reach and remain within the tolerance band around the setpoint.
 '''
-def check_settling_time():
+def check_settling_latency(sp_val, msrd_val):
     #every time the SP changes, start a timer.
-    #once the SP is stable for 3 seconds, the new SP has been defined by the user.
+    #once the SP is stable for 2 seconds, the new SP has been defined by the user.
     #track how long it takes for the measured value to reach and stay within the tolerance band around the SP.
     #this will also note how many times the tolerance band was entered/ exited from before the system settled.
-    pass
     
     
+    err = sp_val - msrd_val
+    
+    # It's ugly, and I shuoldn't need to do this, but fuck me I guess.
+    global settling_latency
+    global oscillator_counter
+    global tol
+    global prev_sp
+    global waiting_sp_change_timeout
+    global sp_change_timeout
+    global start_time
+    global system_is_settled
+    
+    
+    
+    # Did the SP change or is the timeout running?
+    if ( (sp_val != prev_sp) or waiting_sp_change_timeout):
+        
+        # SP just changed, system is not settled within the tol-band anymore.
+        system_is_settled = False
+        oscillator_counter = 0
+        
+        # Initiate the timeout if not done already.
+        if (not waiting_sp_change_timeout):
+            start_time = time.time()
+            waiting_sp_change_timeout = True
+        
+        else:
+            
+            # Update the system settling time tracker.
+            settling_latency = time.time() - start_time
+            
+            # A valid change of the SP has occurred when the timeout has expired.
+            if( settling_latency >= sp_change_timeout):
+                waiting_sp_change_timeout = False
+    
+   
+    # Is the error within the tolerance band?
+    if abs(err) > tol: 
+        
+        # if the system was stable, it a'int anymore! Increment the oscillator counter.
+        if system_is_settled:
+            system_is_settled = False
+            oscillator_counter += 1
+        
+        # update the 
+        settling_latency = time.time() - start_time
+    
+    # The system has settled within the tolerance bands, make note of the settling_latency
+    else:
+        system_is_settled = True
+        
+        
+        
+    
+    
+    # capture the current SP value for future reference.
+    prev_sp = sp_val
+
+
+
+
+
+
+
+
 '''
 Helper function for controlling the lengths of arrays used for plotting.
 '''  
@@ -97,6 +165,12 @@ def push_to_buffer(buff, buff_len ,val_to_push):
     # This is very lazy and probably going to bite me in the arse, but fuck it
     if buff[0] == 0.0:
         del(buff[0])
+
+
+
+
+
+
 
 '''
 This is where the magic happens!
@@ -123,8 +197,11 @@ def main():
     Look through available serial ports and attempt to connect to them sequentially.
     Exits cleanly if unable to find a viable port after exhausting all availablle int hte list
     '''
+    no_ports_available = True
     for p in ports:
-
+        
+        no_ports_available = False
+        
         try:
             print ("Attempting to connect to: " + str(p.device))
             
@@ -142,6 +219,10 @@ def main():
                 #sys.exit()
                 return -1
      
+    if no_ports_available:
+        print("No comports connected, make your sure device is connected properly.")
+        print("Exiting program.")
+        return -1
         
     '''
     Setup the plot stuff 
@@ -168,7 +249,7 @@ def main():
             # The controller set-point defined by the user via the rotary-encoder input.
             target_temp = s.readline()
             target_temp.decode()
-    
+
             
             # The temperature measured by whichever sensor is selected.
             measured_temp = s.readline()
@@ -302,18 +383,26 @@ def main():
                 analyt_plt.margins(x=0,y=0.3)
                 
                 
+                tol_info_txt = ""
+                
                 if abs(err) > tol:
                     analyt_plt.plot(err_data, color="red")
-                    analyt_plt.legend(["Avg err over " + str(closeUpView_len) + " samples: " + "{0:.2f}".format(avg_err) + "   OUTSIDE TOL >:("])
+                    analyt_plt.legend(["Avg err over " + str(closeUpView_len) + " samples: " + "{0:.2f}".format(avg_err)])
+                    tol_info_txt = " >:("
                 else:
                     analyt_plt.plot(err_data, color="green")
-                    analyt_plt.legend(["Avg err over " + str(closeUpView_len) + " samples: " + "{0:.2f}".format(avg_err) + "   INSIDE TOL :D"])
-                
-
-                
-                
+                    analyt_plt.legend(["Avg err over " + str(closeUpView_len) + " samples: " + "{0:.2f}".format(avg_err)])
+                    tol_info_txt = " <:D"
+                    
                 
                 
+                # Tracking how long it takes for the system to settle within the tolerance band.
+                check_settling_latency(float(target_temp), float(measured_temp))
+                
+                my_txt = "Settling latency: " + "{0:.2f}".format(settling_latency) + "s\n" \
+                    + "Oscillation count: " + str(oscillator_counter) + tol_info_txt
+                
+                txt_ax = analyt_plt.text(analyt_plt.get_xlim()[-1]*0.05,analyt_plt.get_ylim()[-1]*0.8, my_txt)
                 
                 
 
