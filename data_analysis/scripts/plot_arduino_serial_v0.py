@@ -68,7 +68,7 @@ prev_SP = 0
 # ------------------------------
 settling_latency = 0.0              # tracks how long it took for the system to settle within the tolerance band.
 oscillator_counter = 0              # tracks how frequently the the system leaves/ reenters the tolerance band.
-tol = 0.25                          # tolerance around the SP that the system must stay within (i.e. SP +/- 0.25C)  
+tol = 0.50                          # tolerance around the SP that the system must stay within (i.e. SP +/- 0.25C)  
 prev_sp = 0.0    
 waiting_sp_change_timeout = False
 sp_change_timeout = 2.0
@@ -78,14 +78,12 @@ system_is_settled = False
 '''
 Function for tracking how long it takes for the system to reach and remain within the tolerance band around the setpoint.
 '''
-def check_settling_latency(sp_val, msrd_val):
+def check_settling_latency(sp_val, err):
     #every time the SP changes, start a timer.
     #once the SP is stable for 2 seconds, the new SP has been defined by the user.
     #track how long it takes for the measured value to reach and stay within the tolerance band around the SP.
     #this will also note how many times the tolerance band was entered/ exited from before the system settled.
     
-    
-    err = sp_val - msrd_val
     
     # It's ugly, and I shuoldn't need to do this, but fuck me I guess.
     global settling_latency
@@ -314,7 +312,7 @@ def main():
                 
                 # set the title of the plot
                 inspct_plt.set_title("Latest " + str(closeUpView_len) + " values")
-                global_plt.set_title("Global-view (raw data)")
+                global_plt.set_title("Global-view")
                 analyt_plt.set_title("Analytics")
                 
 
@@ -355,11 +353,15 @@ def main():
                                val_to_push=float(measured_temp))               
   
                 global_plt.plot(sp_data_global, color='orange')
-                #global_plt.plot(msrd_data_global, 'r.')
-                               
+                
+                # Show the rolling average of the values in the "close-up" window               
                 global_plt.plot(rolling_avg(msrd_data_global, closeUpView_len), 'k')
-
-
+                
+                # Show where the "close-up" window is looking at
+                win_lin = len(sp_data_global) - closeUpView_len
+                if win_lin > 0:
+                    global_plt.axvline(x=win_lin, color="b", linestyle="--")
+                
                 '''
                 Adding tolerance bands to the relevant plots
                 '''
@@ -396,7 +398,7 @@ def main():
                 
                 push_to_buffer(buff=err_data, 
                                buff_len=globalView_len, 
-                               val_to_push= err)
+                               val_to_push= abs(err))
                 
                 # calculating the average error across the range of "close-up" values
                 
@@ -412,29 +414,29 @@ def main():
                 
                 tol_info_txt = ""
                 
-                if abs(err) > tol:
+                if abs(avg_err) > tol:
+                    # Indicate dissatisfaction
                     analyt_plt.plot(err_data, color="red")
-                    analyt_plt.legend(["Avg err over " + str(closeUpView_len) + " samples: " + "{0:.2f}".format(avg_err)])
                     tol_info_txt = " >:("
+                
                 else:
-                    analyt_plt.plot(err_data, color="green")
-                    analyt_plt.legend(["Avg err over " + str(closeUpView_len) + " samples: " + "{0:.2f}".format(avg_err)])
+                    # Indicate goodness
+                    analyt_plt.plot(err_data, color="green") 
                     tol_info_txt = " <:D"
-                    
                 
                 
                 # Tracking how long it takes for the system to settle within the tolerance band.
-                check_settling_latency(float(target_temp), float(measured_temp))
+                check_settling_latency(float(target_temp), avg_err)
+                
+                
+                # Prenset information in legend for easier presentational management
                 
                 my_txt = "Settling latency: " + "{0:.2f}".format(settling_latency) + "s\n" \
                     + "Oscillation count: " + str(oscillator_counter) + tol_info_txt
                 
-                txt_ax = analyt_plt.text(analyt_plt.get_xlim()[-1]*0.05,analyt_plt.get_ylim()[-1]*0.8, my_txt)
-                
-                
-
-                
-                
+                analyt_plt.legend(["Avg err over " + str(closeUpView_len) + " samples: " + "{0:.2f}".format(avg_err) + "\n"\
+                                   + my_txt])
+     
 
                 
 
@@ -449,12 +451,14 @@ def main():
                 
                 inspct_plt.margins(x=0, y=0.8)
                 global_plt.margins(x=0, y=0.8)
-                analyt_plt.margins(x=0, y=0.8)
-
-                global_plt.legend(["set-point",  \
+                analyt_plt.set_ylim([0,max(err_data)*1.8])
+                
+                sp_txt = "set-point: " + "{0:.2f}".format(float(target_temp)) + "C"
+                
+                global_plt.legend([sp_txt, \
                                    "measured temp rolling avg over " + str(closeUpView_len) + " vals"])
                     
-                inspct_plt.legend(["set-point", \
+                inspct_plt.legend([sp_txt, \
                                    "measured temp", \
                                    "rolling avg over " + str(closeUpView_len) + " vals", \
                                    "tol band (+/-" + str(tol) +"C)"])
