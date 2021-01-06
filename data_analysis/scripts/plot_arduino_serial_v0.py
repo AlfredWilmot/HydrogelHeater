@@ -355,7 +355,7 @@ def main():
                                val_to_push=float(measured_temp))               
   
                 global_plt.plot(sp_data_global, color='orange')
-                global_plt.plot(msrd_data_global, 'r.')
+                #global_plt.plot(msrd_data_global, 'r.')
                                
                 global_plt.plot(rolling_avg(msrd_data_global, closeUpView_len), 'k')
 
@@ -379,13 +379,13 @@ def main():
                 upper_band = []
                 lower_band = []               
 
-                for sp in sp_data_global:
-                    upper_band.append(sp+tol)
-                    lower_band.append(sp-tol)
+                # for sp in sp_data_global:
+                #     upper_band.append(sp+tol)
+                #     lower_band.append(sp-tol)
                     
                 
-                global_plt.plot(upper_band, '--g')
-                global_plt.plot(lower_band, '--g')
+                #global_plt.plot(upper_band, '--g')
+                #global_plt.plot(lower_band, '--g')
 
                 
                 '''
@@ -452,9 +452,7 @@ def main():
                 analyt_plt.margins(x=0, y=0.8)
 
                 global_plt.legend(["set-point",  \
-                                   "measured temp", \
-                                    "rolling avg over " + str(closeUpView_len) + " vals", \
-                                    "tol band (+/-" + str(tol) +"C)"])
+                                   "measured temp rolling avg over " + str(closeUpView_len) + " vals"])
                     
                 inspct_plt.legend(["set-point", \
                                    "measured temp", \
