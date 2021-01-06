@@ -354,6 +354,8 @@ def main():
   
                 global_plt.plot(sp_data_global, color='orange')
                 
+                global_plt.plot(msrd_data_global, '.r')
+                
                 # Show the rolling average of the values in the "close-up" window               
                 global_plt.plot(rolling_avg(msrd_data_global, closeUpView_len), 'k')
                 
@@ -425,6 +427,9 @@ def main():
                     tol_info_txt = " <:D"
                 
                 
+                
+                
+                
                 # Tracking how long it takes for the system to settle within the tolerance band.
                 check_settling_latency(float(target_temp), avg_err)
                 
@@ -456,7 +461,8 @@ def main():
                 sp_txt = "set-point: " + "{0:.2f}".format(float(target_temp)) + "C"
                 
                 global_plt.legend([sp_txt, \
-                                   "measured temp rolling avg over " + str(closeUpView_len) + " vals"])
+                                   "measured temp", \
+                                   "rolling avg over " + str(closeUpView_len) + " vals"])
                     
                 inspct_plt.legend([sp_txt, \
                                    "measured temp", \
