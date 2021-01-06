@@ -45,12 +45,13 @@ msrd_data_global  = []
 drv_data = []
 err_data = []
 
+
 # trim band lines
 upper_tol_band = []
 lower_tol_band = []
 
 # Plotting variables:
-closeUpView_len = 100   # The number of samples shown on the "close-up view" plot.
+closeUpView_len = 10   # The number of samples shown on the "close-up view" plot.
 globalView_len  = 1000  # The number of samples shown on the "global view" plot.
 
 # ------------------------------
@@ -145,10 +146,6 @@ def check_settling_latency(sp_val, msrd_val):
 
 
 
-
-
-
-
 '''
 Helper function for controlling the lengths of arrays used for plotting.
 '''  
@@ -166,6 +163,43 @@ def push_to_buffer(buff, buff_len ,val_to_push):
     if buff[0] == 0.0:
         del(buff[0])
 
+
+
+
+
+'''
+Generates an array that is a rolling average of the input array:
+each element is the average of itself and all preceding elements in the array.
+'''
+def rolling_avg(in_array, tail_n_avg=0):
+    
+    rolling_avg_array = []
+    
+    
+    # if averaging over the last n values, 
+    # then make sure that the last n values in the output array are a rolling average of that subset alone.
+    
+    for i in range(len(in_array)):
+        
+        rolling_sum = 0
+        
+        # generate averages in n-sample steps
+        if (tail_n_avg != 0) and (i > tail_n_avg):
+            
+            for j in range(i+1)[-tail_n_avg:]:
+                rolling_sum += in_array[j]
+            
+            rolling_avg_array.append(rolling_sum/tail_n_avg)
+
+        # otherwise just do a normal rolling average across the entire input array
+        else:
+            
+            for j in range(i+1):
+                rolling_sum += in_array[j]
+                
+            rolling_avg_array.append(rolling_sum/(i+1))
+        
+    return rolling_avg_array
 
 
 
@@ -238,6 +272,7 @@ def main():
     plt.show()
 
     
+
     
     '''
     Main loop: reads serial data, and plots it.
@@ -279,7 +314,7 @@ def main():
                 
                 # set the title of the plot
                 inspct_plt.set_title("Latest " + str(closeUpView_len) + " values")
-                global_plt.set_title("Global-view")
+                global_plt.set_title("Global-view (raw data)")
                 analyt_plt.set_title("Analytics")
                 
 
@@ -297,16 +332,14 @@ def main():
                                val_to_push=float(measured_temp))
                                     
                 
-                # TODO: this should reflect the time-step (presently just a counter of the incoming readings)
-                inspct_plt.margins(x=0, y=0.5)
-
-                
                 # Plot the measured value against the set-point value
                 inspct_plt.plot(sp_data_closeUp, color='orange')
-                inspct_plt.plot(msrd_data_closeUp, 'b')
+                inspct_plt.plot(msrd_data_closeUp, 'r.')
+                
+                # Plot the rolling average based on the incoming measurements and the length of the close-up view array.
+                inspct_plt.plot(rolling_avg(msrd_data_closeUp), 'k')
 
                 
-
                 
                 
                 '''
@@ -321,11 +354,10 @@ def main():
                                buff_len=globalView_len, 
                                val_to_push=float(measured_temp))               
   
-                global_plt.margins(x=0, y=0.5)
                 global_plt.plot(sp_data_global, color='orange')
-                global_plt.plot(msrd_data_global, 'b')
+                global_plt.plot(msrd_data_global, 'r.')
                                
-                
+                global_plt.plot(rolling_avg(msrd_data_global, closeUpView_len), 'k')
 
 
                 '''
@@ -355,8 +387,6 @@ def main():
                 global_plt.plot(upper_band, '--g')
                 global_plt.plot(lower_band, '--g')
 
-                global_plt.legend(["set-point", "measured temp", "tol band (+/-" + str(tol) +"C)"])
-                inspct_plt.legend(["set-point", "measured temp", "tol band (+/-" + str(tol) +"C)"])
                 
                 '''
                 Plotting the "data analytics" view
@@ -375,13 +405,10 @@ def main():
                 if len(err_data) < closeUpView_len:
                     avg_err = sum(err_data)/len(err_data)
                 else:  
-                    avg_err = sum(err_data[-closeUpView_len:-1])/closeUpView_len
+                    avg_err = sum(err_data[-closeUpView_len:])/closeUpView_len
                 
                 
                 # Plotting analytics
-                
-                analyt_plt.margins(x=0,y=0.3)
-                
                 
                 tol_info_txt = ""
                 
@@ -414,6 +441,27 @@ def main():
                 '''
                 Housekeeping after servicing all the plots
                 '''
+                analyt_plt.set_ylabel("Temperature [C]")
+                inspct_plt.set_ylabel("Temperature [C]")
+                global_plt.set_ylabel("Temperature [C]")
+                global_plt.set_xlabel("Number of measurements")
+
+                
+                inspct_plt.margins(x=0, y=0.8)
+                global_plt.margins(x=0, y=0.8)
+                analyt_plt.margins(x=0, y=0.8)
+
+                global_plt.legend(["set-point",  \
+                                   "measured temp", \
+                                    "rolling avg over " + str(closeUpView_len) + " vals", \
+                                    "tol band (+/-" + str(tol) +"C)"])
+                    
+                inspct_plt.legend(["set-point", \
+                                   "measured temp", \
+                                   "rolling avg over " + str(closeUpView_len) + " vals", \
+                                   "tol band (+/-" + str(tol) +"C)"])
+
+            
                 # Give matplot lib some time to render the plot.
                 plt.pause(0.01) 
                 
