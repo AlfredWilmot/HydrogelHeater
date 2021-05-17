@@ -1,9 +1,18 @@
 # Home peltier/ coil system
 
+## Use of temperature controller with microscope 
+<img src="https://github.com/AlfredWilmot/HydrogelHeater/blob/home_system/media/hydroglel_heater_and_microscope.png" width="600">
+
+## Close-up of activated temperature-sensitive hydrogel (20x speed)
+<img src="https://github.com/AlfredWilmot/HydrogelHeater/blob/home_system/media/quick_looping_PNIPAM.gif" width="600">
+
+
 ## Notes on Coil-driver
 * [Reverse current/ battery protection circuits(TI)](https://www.ti.com/lit/an/slva139/slva139.pdf)
 * [MOSFET gate driver fundamentals (TI)](https://www.ti.com/lit/ml/slua618a/slua618a.pdf)
 * [Relays vs solid state switches (TI)](https://e2e.ti.com/blogs_/b/behind_the_wheel/archive/2017/07/13/why-are-you-still-driving-automotive-motors-with-relays)
+
+
 
 
 ## Magnets learning resources
