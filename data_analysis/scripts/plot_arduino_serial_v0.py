@@ -313,7 +313,7 @@ def main():
                 # set the title of the plot
                 inspct_plt.set_title("Latest " + str(closeUpView_len) + " values")
                 global_plt.set_title("Global-view")
-                analyt_plt.set_title("Analytics")
+                analyt_plt.set_title("Error")
                 
 
                 '''
