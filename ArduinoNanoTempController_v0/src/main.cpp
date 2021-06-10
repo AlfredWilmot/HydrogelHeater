@@ -24,8 +24,8 @@ Adafruit_MLX90614 IR_sense = Adafruit_MLX90614();
 */
 
 // Allocating the A0 and A7 ADC pins to the NTC thermistor and I-sense monitor, respectively.
-NTC_thermistor my_ntc(Arduino_h::A0);
-I_sensor INA283(Arduino_h::A7, 10);
+//NTC_thermistor my_ntc(Arduino_h::A0);
+//I_sensor INA283(Arduino_h::A7, 10);
 
 // Setup encoder push-button
 EncoderPushButton EC11(2,3,4);
@@ -52,9 +52,12 @@ Adafruit_SSD1306 display(SCREEN_WIDTH, SCREEN_HEIGHT, &Wire, OLED_RESET);
 #define IN_2 7
 #define EN_A 6
 
-// #define IN_3 9
-// #define IN_4 10
-// #define EN_B 11
+// NOTE: switched pins 10 and 9 in code b/c I am too lazy to change the hardware
+#define IN_3 10
+#define IN_4 9
+
+// pin 11 is used for SPI, so just couple PWM output of EN_A pin to EN_B (should do this for the IN pins too)
+//#define EN_B 11
 
 // Setting up SPI-based K-type thermocouple (uses MAX6675 chip)
 K_type_couple MAX6675(MAX6675_CS);
@@ -82,11 +85,14 @@ int prev_state = EC11.get_state();
 void setup()
 {
 
-  // Setup motor-driver pins
+  // setup bottom peltier device
   pinMode(EN_A,OUTPUT);
   pinMode(IN_1,OUTPUT);
   pinMode(IN_2,OUTPUT);
 
+  // setup top peltier device
+  pinMode(IN_3,OUTPUT);
+  pinMode(IN_4,OUTPUT);
 
   // Setup serial comms.
   Serial.begin(9600);
@@ -204,18 +210,24 @@ void loop()
   //move motor CW if encoder val > 0, CCW if < 0, and stop if == 0.
   if (output_signal > 0)
   {
-    digitalWrite(IN_1,HIGH);
+    digitalWrite(IN_1, HIGH);
     digitalWrite(IN_2, LOW);
+    digitalWrite(IN_3, HIGH);
+    digitalWrite(IN_4, LOW);
   }
   else if (output_signal < 0)
   {
-    digitalWrite(IN_1,LOW);
+    digitalWrite(IN_1, LOW);
     digitalWrite(IN_2, HIGH);
+    digitalWrite(IN_3, LOW);
+    digitalWrite(IN_4, HIGH);
   }
   else
   {
-    digitalWrite(IN_1,LOW);
+    digitalWrite(IN_1, LOW);
     digitalWrite(IN_2, LOW);
+    digitalWrite(IN_3, LOW);
+    digitalWrite(IN_4, LOW);
   }
   
 
