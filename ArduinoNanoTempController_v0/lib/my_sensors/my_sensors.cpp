@@ -474,13 +474,14 @@ float PID_val = 0;
 
 float prev_sp = 0;
 
-/* PID-bsaed controller*/
+/* PID-based controller*/
 int PID_loop(float sp_val, float rd_val)
 {
 
   kp = 50;    // want this to saturate the PID_val when the err is more than 5C
   ki = 0.1;   // this should bump-up the PID_val for when the kp term isn't pushing it hard enough towards the SP.
-  kd = 0.5;     // this should address aggressive rates of change in the err term. If close to the SP, want to level-out the rate of change. If far from SP, this shuould be ignored.
+  kd = 0.5;   // this should address aggressive rates of change in the err term. 
+              // ... If close to the SP, want to level-out the rate of change. If far from SP, this shuould be ignored.
 
 
   //Calculate the error between the SP and the measured value
@@ -511,8 +512,8 @@ int PID_loop(float sp_val, float rd_val)
   time = millis();  // the current time for the latest measurment.
   elapsed_time = (time - time_prev); 
 
-  // here the hysteresis band is set to 5C
-  if (err > 5)
+  // Only consider the kd term when sufficiently near the sp (to mitigate overshoot).
+  if (abs(err) > 5)
   {
     PID_d = 0;
   }
