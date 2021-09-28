@@ -6,6 +6,8 @@
 ## Close-up of activated temperature-sensitive hydrogel (20x speed)
 <img src="https://github.com/AlfredWilmot/HydrogelHeater/blob/home_system/media/quick_looping_PNIPAM.gif" width="600">
 
+## Overview of temperature controller hardware
+<img src="https://github.com/AlfredWilmot/HydrogelHeater/blob/home_system/media/temp_controller_overview.png" width="900">
 
 ## Notes on Coil-driver
 * [Reverse current/ battery protection circuits(TI)](https://www.ti.com/lit/an/slva139/slva139.pdf)
